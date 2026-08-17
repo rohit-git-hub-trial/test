@@ -28,8 +28,11 @@ from any device.
    multi-tenant, per your org's policy). Under **Authentication**, enable
    "Allow public client flows" (required for device code). Under **API
    permissions**, add delegated Microsoft Graph scopes:
-   `Mail.Read`, `Mail.ReadWrite`, `Mail.Send`, `offline_access`, `User.Read`.
-   Grant admin consent if your tenant requires it.
+   `Mail.Read`, `Mail.ReadWrite`, `offline_access`, `User.Read`.
+   (`Mail.ReadWrite` covers draft creation; `Mail.Send` is intentionally
+   *not* requested — the agent only ever creates drafts, never sends, so
+   the send scope isn't needed.) Grant admin consent if your tenant
+   requires it.
 
 2. Copy `.env.example` to `.env` and fill in:
    - `AZURE_CLIENT_ID` — the app registration's Application (client) ID.

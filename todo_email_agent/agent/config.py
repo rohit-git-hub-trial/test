@@ -15,7 +15,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 TOKEN_CACHE_PATH = DATA_DIR / "token_cache.json"
 TASKS_PATH = DATA_DIR / "tasks.json"
 
-GRAPH_SCOPES = ["Mail.Read", "Mail.ReadWrite", "Mail.Send", "User.Read"]
+GRAPH_SCOPES = ["Mail.Read", "Mail.ReadWrite", "User.Read"]
 GRAPH_AUTHORITY = f"https://login.microsoftonline.com/{AZURE_TENANT_ID}"
 GRAPH_BASE_URL = "https://graph.microsoft.com/v1.0"
 
