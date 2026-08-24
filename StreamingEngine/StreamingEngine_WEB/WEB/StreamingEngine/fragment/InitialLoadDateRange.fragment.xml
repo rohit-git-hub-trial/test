@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Select Time Range">
+		<f:SimpleForm id="initial-load-form-date-elect-simple" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="From Date Time"/>
+				<DateTimePicker id="initial-load-date-time-from" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" placeholder="Start Date"
+					change="fnDateRangeSimpleFromDateChanged"></DateTimePicker>
+				<Label text="To Date Time"/>
+				<DateTimePicker id="initial-load-date-time-to" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" placeholder="End Date"
+					change="fnDateRangeSimpleToDateChanged"/>
+				 <Label text="{i18n>archiveFlowMaxTimeframePerRequest}"  required="true"/>
+			         <Input  id="historical-upload-max-timeframe-archive"  type="Number" value="30"/>
+				<Label text="Do you want email notification on completion of historical upload?" />
+				<RadioButtonGroup id="rbEmailNotificationInitialLoad" columns="2" select="onInitialLoadEmailNotificationChange">
+					<buttons>
+						<RadioButton text="Yes" selected="true" />
+						<RadioButton text="No" />
+					</buttons>
+				</RadioButtonGroup>
+				<Label text="Email Address" />
+				<Input
+					id="emailInputInitialLoad"
+					value=""
+					visible="true"
+					type="Email"
+				/>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm>
+<VBox alignItems="Center" width="100%">
+				 <Text text="{i18n>tagCatalogInitialLoadWarning}"  width="350px" maxLines="5"  wrapping="true" textDirection="Inherit" visible="true" class="alertMessage"/>
+</VBox>
+		</f:SimpleForm>
+		<buttons>
+			
+		
+
+			<Button id="initial-load-button-save-simple" type="Accept" icon="sap-icon://save" text="Save" press="fnDateRangeSimpleApplyDateRange"/>
+			<Button id="initial-load-button-clear-date-simple" type="Reject" icon="sap-icon://reset" press="fnDateRangeSimpleClearDates" text="Clear Dates"/>
+	<Button id="initial-load-button-close-simple"  icon="sap-icon://sys-cancel" text="Close" press="fnDateRangeSimpleClosePopOver"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

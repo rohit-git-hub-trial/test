@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m"
+                         xmlns:tab="sap.ui.table">
+    <Dialog id="ChangeMessage"
+            icon="sap-icon://icon-change-log"
+            title="{i18n>commentDialogTitle}"
+            contentWidth="80%">
+        <content>
+            <Table id="table-change-messages" width="auto" noDataText="{i18n>commonNoData}" items="{path: '/Row', filters: { path: 'new', operator: 'NE', value1: null } }" showSeparators="All">
+                <columns>
+                    <Column hAlign="Left" width="30%" vAlign="Middle" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>commentFieldName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" width="15%" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>auditLogPreviousValue}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" width="15%" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>auditLogCurrentValue}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" width="40%" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>commentMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>                    
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                       		<Text text="{name}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                            <Text text="{old}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                            <Text text="{new}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                            <Input value="{message}" width="100%" visible="true"/>   
+                         </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

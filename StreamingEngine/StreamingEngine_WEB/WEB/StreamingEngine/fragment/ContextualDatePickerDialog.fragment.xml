@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Select Time Range">
+		<f:SimpleForm>
+			<f:content>
+				<Label text="From Date Time"/>
+				<DateTimePicker id="datetimepicker-from-date" displayFormat="dd/MM/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="Start Date"
+					showCurrentDateButton="true" showCurrentTimeButton="true" change="fnDateTimeChanged"></DateTimePicker>
+				<Label text="To Date Time"/>
+				<DateTimePicker id="datetimepicker-to-date" displayFormat="dd/MM/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="Start Date" 
+					showCurrentDateButton="true" showCurrentTimeButton="true" change="fnDateTimeChanged"></DateTimePicker>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button type="Reject" icon="sap-icon://decline" text="Close" press="fnCloseDateDialog"/>
+			<Button type="Accept" icon="sap-icon://sys-next-page" text="Download Message" press="fnDownloadTransactionOutput" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

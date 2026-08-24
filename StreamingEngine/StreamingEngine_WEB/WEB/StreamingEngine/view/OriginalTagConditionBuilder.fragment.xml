@@ -1,0 +1,73 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Condition Builder" stretch="true">
+		<Table id="table-original-tag-rules" width="auto" mode="SingleSelectMaster" itemPress="fnRowPress" showSeparators="All" growing="true"
+			growingThreshold="20" growingScrollToLoad="true" class="tableStyle">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Button text="Add new rule" type="Default" icon="sap-icon://upload" iconFirst="true" width="auto" enabled="true"
+						visible="true" iconDensityAware="false" press="fnAddNewRule"/>
+					<Button text="Add new group" type="Default" icon="sap-icon://download" iconFirst="true" width="auto" enabled="true"
+						visible="true" iconDensityAware="false" press="fnAddNewGroup"/>
+					<ToolbarSpacer width=""/>
+					<Text id="SelectedTags" text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					<OverflowToolbarButton text="{i18n>commonSort}" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true"
+						visible="true" iconDensityAware="false" press="fnViewSettingsButtonPressed"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+					<header>
+						<Text text="Column" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					</header>
+					<footer/>
+				</Column>
+				<Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+					<header>
+						<Text text="Condition" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					</header>
+					<footer/>
+				</Column>
+				<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+					<header>
+						<Text text="Value" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					</header>
+					<footer/>
+				</Column>
+				<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+					<header>
+						<Text text="Logical Operator" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					</header>
+					<footer/>
+				</Column>
+				<Column hAlign="Left" width="5%" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+					<header>
+						<Text text="Delete" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					</header>
+					<footer/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ComboBox selectedKey="ORIGINALTAG">
+							<core:Item key="ORIGINALTAG" text="ORIGINAL TAG"/>
+						</ComboBox>
+						<ComboBox selectedKey="CONTAINS">
+							<core:Item key="CONTAINS" text="CONTAINS"/>
+						</ComboBox>
+						<Input type="Text"></Input>
+						<ComboBox>
+							<core:Item key="AND" text="AND"/>
+							<core:Item key="OR" text="OR"/>
+						</ComboBox>
+						<Text/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<buttons>
+			<Button id="button-apply-rule" type="Accept" icon="sap-icon://decline" text="ApplyRules" press="fnApplyRules"/>
+			<Button id="button-close" type="Reject" icon="sap-icon://decline" text="Close" press="fnClosePopOver"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>contextualFlowLoggingDetails}">
+		<f:SimpleForm id="flow-logging-form" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="{i18n>contextualFlowFromDateTime}" required="true"/>
+			           <DateTimePicker id="flow-logging-time-from" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="{i18n>contextualFlowEndDate}"
+					change="fnDateRangeToDateChanged" enabled="false"/>
+				<Label text="{i18n>contextualFlowToDateTime}" required="true"/>
+			           <DateTimePicker id="flow-logging-time-to" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="{i18n>contextualFlowEndDate}"
+					change="fnDateRangeToDateChanged"/>
+
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button id="flow-logging-validate" type="Accept" icon="sap-icon://save" text="{i18n>commonSave}"  press="fnSaveFlowLogging"/>
+			<Button id="flow-logging-clear" type="Reject"  icon="sap-icon://reset"  text="{i18n>contextualFlowClearEntries}" press="fnFlowLoggingClearEntries"/>
+			<Button id="flow-logging-close" icon="sap-icon://decline" text="{i18n>commonClose}" press="fnFlowLoggingClose"/>
+			
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

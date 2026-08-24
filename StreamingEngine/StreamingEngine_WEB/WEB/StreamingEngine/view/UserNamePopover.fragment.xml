@@ -1,0 +1,20 @@
+		<core:FragmentDefinition xmlns="sap.m"
+			xmlns:core="sap.ui.core"
+			xmlns:tnt="sap.tnt">
+			<Popover showHeader="false" placement="Bottom" contentWidth="170px">
+				<tnt:NavigationList >
+					<tnt:NavigationListItem text="{i18n>commonProfile}" icon="sap-icon://customer" select="fnNavToProfile"  enabled="{/ProfileVisible}" />
+					<tnt:NavigationListItem text="{i18n>commonHelp}" icon="sap-icon://sys-help" expanded="false" select="fnHelpPress">
+						<tnt:NavigationListItem text="Snowflake " icon="sap-icon://cloud" select="fnDSWPress" />
+						<tnt:NavigationListItem text="IADC Status" icon="sap-icon://order-status" select="fnIADCStatusPress"/>
+						<tnt:NavigationListItem text="{i18n>commonUserManual}" icon="sap-icon://learning-assistant" select="fnUserManualPress"/>
+			   <tnt:NavigationListItem text="{i18n>commonReleasePage}"  select="fnReleasePagePress"/>
+						 <tnt:NavigationListItem text="ServiceNow"  select="fnServiceNowPress"/>
+						 <tnt:NavigationListItem text="Standards Checks"  select="fnStandardChecksPress"/>
+					</tnt:NavigationListItem>
+					<tnt:NavigationListItem text="SE Contributors"  icon = "sap-icon://leads" select="fnSEContributorsPress"  enabled="{/ProfileVisible}" />
+					<tnt:NavigationListItem text="{i18n>commonLogout}" icon="sap-icon://log" select="fnLogout"/>
+				</tnt:NavigationList>
+				<Text text="{i18n>version}: {/Version}"/>
+			</Popover>
+		</core:FragmentDefinition>

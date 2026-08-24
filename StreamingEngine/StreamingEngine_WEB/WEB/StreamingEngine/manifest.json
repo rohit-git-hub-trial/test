@@ -1,0 +1,586 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "StreamingEngine.StreamingEngine",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.2.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.38.11"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "StreamingEngine.StreamingEngine.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "StreamingEngine.StreamingEngine.i18n.i18n"
+				}
+			},
+			"FileFlowInformations": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/FileFlowInformations.json"
+			},
+			"BatchCatalogModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					
+				}
+			},
+			"DataDestinationModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					
+				}
+			},
+			"DestinationTypeModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/destinationType.json"
+			},
+			"HttpMethodeModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/destinationHttpMethod.json"
+			},
+			"AuthMethodModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/destinationAuthMethod.json"
+			},
+			"UsersModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "StreamingEngine.StreamingEngine.view",
+				"controlAggregation": "pages",
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "Launchpad",
+					"pattern": "",
+					"target": [
+						"Launchpad"
+					]
+				},
+				{
+					"name": "TagCatalog",
+					"pattern": "TagCatalog",
+					"target": [
+						"TagCatalog"
+					]
+				},
+				{
+					"name": "BatchCatalog",
+					"pattern": "BatchCatalog/{Refresh}",
+					"target": [
+						"BatchCatalog"
+					]
+				},
+				{
+					"name": "BatchInformation",
+					"pattern": "BatchInformation/{ID_BATCH_CATALOG}",
+					"target": [
+						"BatchInformation"
+					]
+				},
+				{
+					"name": "ManualImport",
+					"pattern": "ManualImport",
+					"target": [
+						"ManualImport"
+					]
+				},
+				{
+					"name": "TagInformation",
+					"pattern": "TagInformation/{ID_TAG},{ID_SOURCE},{ID_PLANT_HIERARCHY},{ID_PLANT},{PLANT},{DS_NAME_ORIGINAL},{DS_NAME_RENAMED},{DS_DESCRIPTION},{ID_UOM},{ID_PCO_DESTINATION},{SOURCE_NAME},{DS_MII_DATA_SERVER_PROCESS},{PLANT_HIERARCHY_ID},{PLANT_HIERARCHY},{FLAG_REALTIME},{FLAG_ARCHIVE},{COLOR_STATUS},{LIMIT_CAPTURE},{LIMIT_VISUALIZATION},{FL_WATCH_DATA_CAPTURE},{FL_WATCH_VISUALIZATION},{FL_SEND_DATA_AFTER_WATCH},{FL_ENERGY}",
+					"target": [
+						"TagInformation"
+					]
+				},
+				{
+					"name": "TagUpload",
+					"pattern": "TagUpload",
+					"target": [
+						"TagUpload"
+					]
+				},
+				{
+					"name": "ReferenceUpdate",
+					"pattern": "ReferenceUpdate",
+					"target": [
+						"ReferenceUpdate"
+					]
+				},
+				{
+					"name": "BatchCatalogUpload",
+					"pattern": "BatchCatalogUpload",
+					"target": [
+						"BatchCatalogUpload"
+					]
+				},
+				{
+					"name": "ManualImportUpload",
+					"pattern": "ManualImportUpload",
+					"target": [
+						"ManualImportUpload"
+					]
+				},
+				{
+					"name": "PlantParameters",
+					"pattern": "PlantParameters/{Refresh}",
+					"target": [
+						"PlantParameters"
+					]
+				},
+				{
+					"name": "PlantInformation",
+					"pattern": "PlantInformation/{MODE},:ID_PLANT:,:DS_NAME:,:QT_MAX_TAGS_PER_JOBS:,:QT_MAX_TAGS_PER_AGENTS:,:QT_RUN_DURATION_IN_MINS:,:QT_FLOW_MAX_FILE_SIZE:,:QT_MAX_QUEUE_RETRY:,:QT_ROWCOUNT_RETRY:,:QT_AUDIT_LOG_RETENTION:,:QT_CONNECTION_TIMEOUT:,:DS_PCO_DESTINATION_NAME:,:QT_WATCH_MAX_DATA_POINT:,:QT_WATCH_EXP_CAPTURE_DAYS:,:QT_WATCH_EXP_VISUAL_DAYS:,:DS_SEMARCHY_LOCATION_ID:,:FL_IS_LOCAL:,:QT_SUCCESS_QUEUE_SIZE:,:QT_HISTORICAL_UPLOAD_MAXIMUM_TAGS:",
+					"target": [
+						"PlantInformation"
+					]
+				},
+				{
+					"name": "DataSources",
+					"pattern": "DataSources/{Refresh}",
+					"target": [
+						"DataSources"
+					]
+				},
+				{
+					"name": "DataSourceInformation",
+					"pattern": "DataSourceInformation/{MODE},:ID_SOURCE:,:ID_PLANT:,:PLANT:,:DS_NAME:,:DS_DESCRIPTION:,:DS_MII_DATA_SERVER_PROCESS:,:DS_MII_DATA_SERVER_CONTEXT:,:DS_MII_DATA_SERVER_FILE:,:DS_PCO_SERVER_URL:,:DS_PCO_AGENT_PREFIX:,:DS_PCO_CREDENTIAL:,:FL_REALTIME:,:FL_ARCHIVE:,:FL_CONTEXTUAL:,:FL_HISTORY:,:FL_ENABLED:;:FL_BATCH_INFO:;:ID_BATCH_SOURCE:;:DS_BATCH_EQUIPMENT_LEVELS:;:DS_MII_DATA_SERVER_C_TYPE:;:DS_MII_DATA_SERVER_P_TYPE:;:DS_KEPWARE_CHANNELS:;:DS_SQL_QUERY:;:FL_FLAT_FILE:;:FL_ENERGY:,:QT_MAX_HISTORICAL_UPLOADS:,:FL_IDOC:",
+					"target": [
+						"DataSourceInformation"
+					]
+				},
+				{
+					"name": "DataDestinations",
+					"pattern": "DataDestinations/{Refresh}",
+					"target": [
+						"DataDestinations"
+					]
+				},
+				{
+					"name": "DataDestinationInformation",
+					"pattern": "DataDestinationInformation/{MODE},:ID_DATA_DESTINATION:,:CD_HISTORICAL_UPLOAD_DEST:",
+					"target": [
+						"DataDestinationInformation"
+					]
+				},
+				{
+					"name": "ContextualFlows",
+					"pattern": "ContextualFlows/{Refresh}",
+					"target": [
+						"ContextualFlows"
+					]
+				},
+				{
+					"name": "ContextualInformation",
+					"pattern": "ContextualInformation/{MODE},:ID_DATA_FLOW:,:ID_SOURCE:,:PLANT:,:SOURCE_NAME:,:FLOW_TYPE:,:DS_NAME:,:DS_DESCRIPTION:,:FL_COMPRESSED:,:DS_SQL_QUERY:,:DS_MII_TRANSACTION:,:FL_ENABLED:,:ID_BATCH_SOURCE:,:ID_DATA_DESTINATION:,:DESTINATION_NAME:,:DESTINATION_ENABLED:",
+					"target": [
+						"ContextualInformation"
+					]
+				},
+				{
+					"name": "ArchiveFlows",
+					"pattern": "ArchiveFlows/{Refresh}",
+					"target": [
+						"ArchiveFlows"
+					]
+				},
+				{
+					"name": "ArchiveInformation",
+					"pattern": "ArchiveInformation/{MODE},:ID_DATA_FLOW:,:ID_SOURCE:,:PLANT:,:SOURCE_NAME:,:FLOW_TYPE:,:DS_NAME:,:DS_DESCRIPTION:,:FL_COMPRESSED:,:FL_ENABLED:,:ID_DATA_DESTINATION:,:DESTINATION_NAME:,:DESTINATION_ENABLED:,:PLANT:,:ID_PLANT:,:FL_DEFAULT:,:DS_DESCRIPTION:",
+					"target": [
+						"ArchiveInformation"
+					]
+				},
+				{
+					"name": "FileFlows",
+					"pattern": "FileFlows/{Refresh}",
+					"target": [
+						"FileFlows"
+					]
+				},
+				{
+					"name": "FileInformation",
+					"pattern": "FileInformation/{MODE},:ID_DATA_FLOW:,:ID_SOURCE:,:PLANT:,:SOURCE_NAME:,:FLOW_TYPE:,:DS_NAME:,:DS_DESCRIPTION:,:CD_PCO_DESTINATION_ID:,:FL_COMPRESSED:,:FL_ENABLED:,:ID_DATA_DESTINATION:,:DESTINATION_NAME:,:DESTINATION_ENABLED:,:FL_SYNCHRONOUS:,:FL_TRANSFORMATION:,:CD_INPUT_FORMAT:,:CD_OUTPUT_FORMAT:,:FL_JSON_FILTERING:,:DS_MII_TRANSACTION:",
+					"target": [
+						"FileInformation"
+					]
+				},
+				{
+					"name": "ExternalFlows",
+					"pattern": "ExternalFlows/{Refresh}",
+					"target": [
+						"ExternalFlows"
+					]
+				},
+				{
+					"name": "ExternalInformation",
+					"pattern": "ExternalInformation/{MODE},:ID_DATA_FLOW:,:ID_SOURCE:,:PLANT:,:SOURCE_NAME:,:FLOW_TYPE:,:DS_NAME:,:DS_DESCRIPTION:,:FL_COMPRESSED:,:FL_ENABLED:,:ID_DATA_DESTINATION:,:DESTINATION_NAME:,:DESTINATION_ENABLED:,:DS_GAS_OPERATOR_CODE:,:DS_REFERENCE_CONDITION:,:DS_POWER_OPERATOR_CODE:,:DS_COUNTRY:,:DS_FREQUENCY_GAS:,:DS_FREQUENCY_POWER:,:ID_QUALISTEO_PROJECT:",
+					"target": [
+						"ExternalInformation"
+					]
+				},
+				{
+					"name": "UsersManagement",
+					"pattern": "UsersManagement/{Refresh}",
+					"target": [
+						"UsersManagement"
+					]
+				},
+				{
+					"name": "UserInformation",
+					"pattern": "UserInformation/{ID_USERNAME}",
+					"target": [
+						"UserInformation"
+					]
+				},
+				{
+					"name": "JobsMonitoring",
+					"pattern": "JobsMonitoring",
+					"target": [
+						"JobsMonitoring"
+					]
+				},
+				{
+					"name": "QueueMonitoring",
+					"pattern": "QueueMonitoring",
+					"target": [
+						"QueueMonitoring"
+					]
+				},
+				{
+					"name": "PcoMonitoring",
+					"pattern": "PcoMonitoring",
+					"target": [
+						"PcoMonitoring"
+					]
+				},
+				{
+   					 "name": "HistoricalUploadStatus",
+ 				   	"pattern": "HistoricalUploadStatus",
+    					"target": [
+        						"HistoricalUploadStatus"
+    					]
+				},
+				{
+					"name": "FlowMonitoring",
+					"pattern": "FlowMonitoring",
+					"target": [
+						"FlowMonitoring"
+					]
+				},
+				{
+					"name": "DigitalApps",
+					"pattern": "DigitalApps",
+					"target": [
+						"DigitalApps"
+					]
+				},
+				{
+					"name": "AuditLog",
+					"pattern": "AuditLog",
+					"target": [
+						"AuditLog"
+					]
+				},
+				{
+					"name": "NoAccess",
+					"pattern": "NoAccess",
+					"target": [
+						"NoAccess"
+					]
+				},
+				{
+					"name": "ProfilePage",
+					"pattern": "ProfilePage",
+					"target": [
+						"ProfilePage"
+					]
+				}
+			],
+			"targets": {
+				"Launchpad": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "Launchpad"
+				},
+				"TagCatalog": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "TagCatalog"
+				},
+				"BatchCatalog": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "BatchCatalog"
+				},
+				"BatchInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "BatchInformation"
+				},
+				"ManualImport": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ManualImport"
+				},
+				"TagInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "TagInformation"
+				},
+				"TagUpload": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "TagUpload"
+				},
+				"BatchCatalogUpload": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "BatchCatalogUpload"
+				},
+				"ManualImportUpload": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ManualImportUpload"
+				},
+				"ReferenceUpdate": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ReferenceUpdate"
+				},
+				"PlantParameters": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "PlantParameters"
+				},
+				"PlantInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "PlantInformation"
+				},
+				"DataSources": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "DataSources"
+				},
+				"DataSourceInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "DataSourceInformation"
+				},
+				"DataDestinations": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "DataDestinations"
+				},
+				"DataDestinationInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "DataDestinationInformation"
+				},
+				"ContextualFlows": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ContextualFlows"
+				},
+				"ContextualInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ContextualInformation"
+				},
+				"RealtimeFlows": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "RealtimeFlows"
+				},
+				"PcoDestination": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "PcoDestination"
+				},
+				"ArchiveFlows": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ArchiveFlows"
+				},
+				"ArchiveInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ArchiveInformation"
+				},
+				"FileFlows": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "FileFlows"
+				},
+				"FileInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "FileInformation"
+				},
+				"ExternalFlows": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ExternalFlows"
+				},
+				"ExternalInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ExternalInformation"
+				},
+				"UsersManagement": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "UsersManagement"
+				},
+				"UserInformation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "UserInformation"
+				},
+				"JobsMonitoring": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "JobsMonitoring"
+				},
+				"QueueMonitoring": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "QueueMonitoring"
+				},
+				"PcoMonitoring": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "PcoMonitoring"
+				},
+				"HistoricalUploadStatus": {
+    					"viewType": "XML",
+    					"transition": "slide",
+    					"clearControlAggregation": false,
+    					"viewName": "HistoricalUploadStatus"
+				},
+				"FlowMonitoring": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "FlowMonitoring"
+				},
+				"DigitalApps": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "DigitalApps"
+				},
+				"AuditLog": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "AuditLog"
+				},
+				"NoAccess": {
+					"viewType": "XML",
+					"transition": "fade",
+					"clearControlAggregation": false,
+					"viewName": "NoAccess"
+				},
+				"ProfilePage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ProfilePage"
+				}
+			}
+		}
+	}
+}

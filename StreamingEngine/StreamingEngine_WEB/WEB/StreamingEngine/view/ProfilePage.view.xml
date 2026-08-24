@@ -1,0 +1,86 @@
+<mvc:View id="view-plant-info" controllerName="StreamingEngine.StreamingEngine.controller.ProfilePage" xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-profile-information" visible="false" showHeader="false" floatingFooter="true">
+				<content>
+					<ObjectHeader id="object-header-profile" icon="sap-icon://customer" iconDensityAware="false" responsive="true" title="" intro=""
+						class="sapUiResponsivePadding--header">
+
+						<ObjectAttribute id="attribute-defaultLanguage" title="{i18n>ProfileDefaultLanguage}" text=""/>
+					</ObjectHeader>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4">
+						<f:content>
+							<core:Title/>
+							<Label text="{i18n>MyProfilePlant}"/>
+							<Text id="text-plant" text=""></Text>
+							<Label text="{i18n>ProfileLanguage}"/>
+							<ComboBox id="combobox-language" placeholder="{i18n>ProfileSelectLanguage}" selectedKey="EN">
+								<items>
+									<core:Item key="en" text="English"/>
+									<core:Item key="fr" text="Français"/>
+									<core:Item key="pt" text="Português"/>
+									<core:Item key="zh" text="中文"/>
+								</items>
+							</ComboBox>
+							<Label text="{i18n>ProfileEmailAddress}"/>
+							<Input id="attribute-email" placeholder="Enter your email" value="" type="Email"/>
+							
+							<Label text="{i18n>AlertNotification}"/>
+							<CheckBox id="checkbox-Queue" text="{i18n>AlertQueue}">
+							</CheckBox>
+							<CheckBox id="checkbox-HistoricalUpload" text="{i18n>AlertHistoricalUpload}">
+							<layoutData>
+									<l:GridData linebreak="true" indentL="4" span="L12 M12 S12" />
+								</layoutData>
+							</CheckBox>
+							<CheckBox id="checkbox-Technical" text="{i18n>AlertTechnicalMonitoring}" select="onTechnicalMonitoringSelect" >
+							<layoutData>
+									<l:GridData linebreak="true" indentL="4" indentM="4" span="L12 M12 S12" />
+								</layoutData>
+							</CheckBox>
+							<Label text="{i18n>commonLabelDataSource}"/>
+							<MultiComboBox id="combobox-data-source"   items="{/Row}" selectionChange="onDataSourceSelectionChange"  visible="{viewModel>/isTechnicalMonitoringSelected}" >
+								<items>
+								 <core:Item key="{ID_SOURCE}" text="{DS_NAME}"/>
+								</items>
+							</MultiComboBox>
+							
+							<core:Title/>
+							<Label text="{i18n>ProfileLoginRoles}"/>
+							<Panel height="250px" class="panelRoles">
+								<content>
+									<SelectList id="list-roles" enabled="false"></SelectList>
+								</content>
+							</Panel>
+							<Label text="{i18n>userManagAssignedDigiApps}"/>
+							<Panel height="200px" class="panelDigitalApps">
+								<content>
+									<SelectList id="list-digital-apps" enabled="false" items="{/Row}">
+										<core:Item key="{ID_DIGITAL_APP}" text="{DS_NAME}"/>
+									</SelectList>
+								</content>
+							</Panel>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+							<ToolbarSpacer width=""/>
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnAddUpdateProfilePage"/>
+							<Button text="{i18n>commonCancel}" type="Reject" icon="sap-icon://sys-cancel" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

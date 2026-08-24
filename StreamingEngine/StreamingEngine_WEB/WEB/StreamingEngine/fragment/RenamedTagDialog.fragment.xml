@@ -1,0 +1,85 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Dialog id="RenamedTagDialog" icon="sap-icon://icon-change-log" title="{i18n>commonLabelRenamedTag}" contentWidth="80%" contentHeight="65%">
+		<content>
+			<FlexBox alignItems="Center" justifyContent="Start" class="sapUiSizeCompact sapUiLargeMarginBeginEnd">
+				<items >
+					<ComboBox id="combobox-domain" placeholder="{i18n>tagInfoDomain}" items="{path: 'Domain>/Row', sorter: {path: 'DS_DOMAIN'}}" maxWidth="95%" width="95%" selectionChange=".mRenamedTagDialog.fnChangeDomain">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+						<items>
+							<core:ListItem key="{Domain>DS_DOMAIN}" text="{Domain>DS_DOMAIN}"/>
+						</items>
+					</ComboBox>
+					<ComboBox placeholder="{i18n>tagInfoHier4Select}" items="{path: 'System>/Row', sorter: {path: 'DS_MAIN_FUNCTION'}}" maxWidth="95%" enabled="{= ${System>/Row}.length > 0}" width="95%" selectionChange=".mRenamedTagDialog.fnChangeSystem">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+						<items>
+							<core:ListItem key="{System>DS_MAIN_FUNCTION}" text="{System>DS_MAIN_FUNCTION}"/>
+						</items>
+					</ComboBox>
+					<ComboBox placeholder="{i18n>tagInfoHier5Select}" items="{path: 'Sub>/Row', sorter: {path: 'DS_SUB'}}" maxWidth="100%" enabled="{= ${Sub>/Row}.length > 0}" width="100%" selectionChange=".mRenamedTagDialog.fnChangeSub">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+						<items>
+							<core:ListItem key="{Sub>DS_SUB}" text="{Sub>DS_SUB}"/>
+						</items>
+					</ComboBox>
+				</items>
+			</FlexBox>
+			<Table id="RenamedTagTable" width="auto" noDataText="{i18n>commonNoData}" mode="SingleSelectMaster" selectionChange=".mRenamedTagDialog.fnSelectionChange" items="{model: 'TagName', path: '/Row', sorter: {path: 'DS_TAGNAME'}}" class="sapUiSizeCompact" showSeparators="All">
+				<columns>
+					<Column hAlign="Left" width="10%" vAlign="Middle" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+						<header>
+							<Text text="{i18n>tagInfoDomain}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</header>
+						<footer/>
+					</Column>
+					<Column hAlign="Left" width="auto" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+						<header>
+							<Text text="{i18n>tagInfoHier4Select}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</header>
+						<footer/>
+					</Column>
+					<Column hAlign="Left" width="30%" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+						<header>
+							<Text text="{i18n>tagInfoDesc}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</header>
+						<footer/>
+					</Column>
+					<Column hAlign="Left" width="auto" vAlign="Middle" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+						<header>
+							<Text text="{i18n>tagInfoUOM}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</header>
+						<footer/>
+					</Column>
+					<Column hAlign="Left" width="auto" vAlign="Middle" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+						<header>
+							<Text text="{i18n>commonLabelRenamedTag}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</header>
+						<footer/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{TagName>DS_DOMAIN}" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<Text text="{TagName>DS_MAIN_FUNCTION}" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<Text text="{TagName>DS_TAG}" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<Text text="{TagName>DS_UOM}" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							<Text text="{TagName>DS_TAGNAME}" textAlign="Begin" textDirection="Inherit" visible="true"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<buttons>
+			<ToggleButton id="togglebutton-set-uom" text="{i18n>tagInfoUOM}" press=".mRenamedTagDialog.fnToggleUoM" icon="sap-icon://border"/>
+			<Button text="{i18n>commonConfirm}" type="Emphasized" press=".mRenamedTagDialog.fnConfirm"/>
+			<Button text="{i18n>commonCancel}" press=".mRenamedTagDialog.fnCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

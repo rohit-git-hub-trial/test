@@ -1,0 +1,219 @@
+<mvc:View id="view-audit-log" controllerName="StreamingEngine.StreamingEngine.controller.AuditLog" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" width="100%">
+	<App>
+		<pages>
+			<Page id="page-audit-log" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }"  floatingFooter="true">
+				<content>
+					<fb:FilterBar id="filterbar-audit-log" reset="onSearch" search="fnSearch" showRestoreButton="false" showClearButton="true"
+						showFilterConfiguration="false" useToolbar="false" class="filterBar">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="A" label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox id="combobox-plant" placeholder="{i18n>commonSelectAPlantPlaceHolder}" items="{/Row}">
+										<items>
+											<core:Item key="{ID_PLANT}" text="{DS_NAME}"/>
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="B" label="{i18n>auditLogDbTable}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-db-table"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="C" label="{i18n>auditLogDbColumn}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-db-column"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="D" label="{i18n>auditLogDbKey}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-db-key"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="E" label="{i18n>auditLogUser}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-user"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="F" label="{i18n>auditLogAction}" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox id="combobox-action" placeholder="Select an Action" selectedKey="%">
+										<items>
+											<core:Item key="%" text="{i18n>commonAll}"/>
+											<core:Item key="INSERT" text="INSERT"/>
+											<core:Item key="UPDATE" text="UPDATE"/>
+											<core:Item key="DELETE" text="DELETE"/>
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="G" label="{i18n>auditLogPreviousValue}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-previous-value"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="H" label="{i18n>auditLogCurrentValue}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-current-value"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupAuditLogFilter" name="I" label="{i18n>auditLogMessage}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-message"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Table id="table-audit-log" sticky= "ColumnHeaders,HeaderToolbar"  width="auto" noDataText="No data" mode="None" items="{/Row}"
+						showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Title text="{i18n>auditLogTableTitle}" level="H4"/>
+								<Title id="title-time" text="{i18n>auditLogDefaultDuration}" level="H4"/>
+								<Button text="{i18n>auditLogExportToExcel}" icon="sap-icon://upload" type="Transparent" press="onDataExport">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</Button>
+								<Button text="{i18n>auditLogExportTags}" icon="sap-icon://upload" type="Transparent" press="onResetTagExport">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</Button>
+							     
+								<ToolbarSpacer/>
+								<Label text="{i18n>auditLogDateRange}"/>
+								<DateTimePicker id="datetime-from"  displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" change="fnFromDateChanged" width="12rem">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</DateTimePicker>
+								<Text text="{i18n>auditLogTO}"/>
+								<DateTimePicker id="datetime-to" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" change="fnToDateChanged" width="12rem">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</DateTimePicker>
+								<Button text="Apply" type="Transparent" press="fnApplyDate">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</Button>
+								<Button text="Clear" type="Transparent" press="fnClearDates">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</Button>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" vAlign="Top" width="5%" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelPlant}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" width="5%" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogAction}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogTable}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogColumn}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogKey}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogPreviousValue}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogCurrentValue}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogMessage}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="Comment" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogUserName}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>auditLogTimeStamp}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" width="3%" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{ID_PLANT}" />
+									<Text text="{DS_ACTION}" />
+									<Text text="{DS_DB_TABLE}" />
+									<Text text="{DS_DB_COLUMN}" />
+									<Text text="{DS_DB_KEY}" />
+									<Text text="{DS_VALUE_OLD}" width="auto" textAlign="Begin" wrapping="true" wrappingType="Hyphenated" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_VALUE_NEW}" width="auto" textAlign="Begin" wrapping="true" wrappingType="Hyphenated" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_MESSAGE}" />
+									<Text text="{DS_COMMENT}" />
+									<Text text="{DS_USERNAME}" />
+									<Text text="{DT_TIMESTAMP}" />
+									<core:Icon src="{ path:'DS_ACTION', formatter: '.formatter.actionIconAuditLog' }" tooltip="{DS_ACTION}" size="20px"
+										color="{ path:'DS_ACTION', formatter: '.formatter.actionColorAuditLog' }" visible="true"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+				<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,213 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+>
+	<Dialog contentWidth="70%" contentHeight="95%" title="{i18n>dsInfoNewDataSource}">
+		<content>
+			<NavContainer id="DataSourceWizardNavContainer">
+				<pages>
+					<Page
+						id="wizardContentPage"
+						showHeader="false">
+						<content>
+							<Wizard id="DataSourceCreationWizard" enableBranching="true"
+								complete="wizardCompletedHandler">
+								<WizardStep
+									id="plantStep"
+									nextStep="dataSourceTypeStep"
+									title="{i18n>commonLabelPlant}"
+									activate="checkPlantStep"
+									complete="completePlantStep"
+									icon="sap-icon://factory">
+									<form:SimpleForm
+										editable="true">
+										<Label text="{i18n>commonLabelPlant}" required="true"></Label>
+										<ComboBox width="70%" items="{Plants>/Row}"
+											selectedKey="{creationModel>/plant}"
+											value="{creationModel>/plantText}"
+											change="checkPlantStep" valueLiveUpdate="true">
+											<items>
+												<c:Item key="{Plants>ID_PLANT}"
+													text="{Plants>DS_NAME}" />
+											</items>
+										</ComboBox>
+									</form:SimpleForm>
+								</WizardStep>
+								<WizardStep
+									id="dataSourceTypeStep"
+									title="{i18n>dsDataSourceType}"
+									subsequentSteps="dataSourceDescriptionStep1, dataSourceDescriptionStep2"
+									activate="checkSourceStep"
+									complete="completeSourceStep"
+									icon="sap-icon://database">
+									<form:SimpleForm
+										editable="true">
+										<Label text="{i18n>dsDataSourceType}" required="true"></Label>
+										<ComboBox id="data-source-type" width="70%"
+											items="{Sources>/Row}"
+											selectedKey="{creationModel>/sourceType}"
+											value="{creationModel>/sourceText}"
+											change="setDifferentDataSourceType" valueLiveUpdate="true">
+											<items>
+												<c:Item key="{Sources>ID_SOURCE_TYPE}"
+													text="{path: 'Sources>ID_SOURCE_TYPE', formatter: '.getSourceTypeText'}" />
+											</items>
+										</ComboBox>
+									</form:SimpleForm>
+								</WizardStep>
+								<WizardStep
+									id="dataSourceDescriptionStep1"
+									title="{i18n>dsDataSourceDescr}"
+									activate="checkDescriptionStep1"
+									nextStep="dataServerConfigStep"
+									icon="sap-icon://hint">
+									<form:SimpleForm
+										editable="true">
+										<Label text="{i18n>dsDataSourceName}" required="true"></Label>
+										<Input width="70%" liveChange="checkDescriptionStep1"
+											valueLiveUpdate="true"
+											value="{creationModel>/sourceName}"></Input>
+										<Label text="{i18n>dsDataSourceDescr}" required="true"></Label>
+										<Input width="70%" liveChange="checkDescriptionStep1"
+											valueLiveUpdate="true"
+											value="{creationModel>/sourceDescription}"></Input>
+									</form:SimpleForm>
+								</WizardStep>
+								<WizardStep
+									id="dataSourceDescriptionStep2"
+									title="{i18n>dsDataSourceDescr}"
+									activate="checkDescriptionStep2"
+									icon="sap-icon://hint">
+									<form:SimpleForm
+										editable="true">
+										<Label text="{i18n>dsDataSourceName}" required="true"></Label>
+										<Input width="70%" liveChange="checkDescriptionStep2"
+											valueLiveUpdate="true"
+											value="{creationModel>/sourceName}"></Input>
+										<Label text="{i18n>dsDataSourceDescr}" required="true"></Label>
+										<Input width="70%" liveChange="checkDescriptionStep2"
+											valueLiveUpdate="true"
+											value="{creationModel>/sourceDescription}"></Input>
+									</form:SimpleForm>
+								</WizardStep>
+								<WizardStep
+									id="dataServerConfigStep"
+									title="{i18n>dsServerConfig}"
+									activate="checkDataServerStep"
+									icon="sap-icon://it-host">
+									<form:SimpleForm editable="true">
+										
+										<Label text="{i18n>dsDataServer}" required="{= ${creationModel>/sourceType} !== 'DS_TYPE_FILE'}"></Label>
+										<FlexBox alignItems="Center" justifyContent="Start"
+											width="70%">
+											<items>
+												
+												<ComboBox items="{DataServers>/Row}"
+													change="fnDataServerChanged"
+													valueLiveUpdate="true"
+													visible="{= ${creationModel>/sourceType} !== 'DS_TYPE_FILE'}"
+													selectedKey="{creationModel>/dataServer}"
+													width="100%">
+													<layoutData>
+														<FlexItemData growFactor="1" />
+													</layoutData>
+													<items>
+														<c:Item key="{DataServers>Name}"
+															text="{DataServers>Name}" />
+													</items>
+												</ComboBox>
+
+												<ComboBox placeholder="Type" width="6rem"
+													change="fnDataServerChanged"
+													valueLiveUpdate="true"
+													visible="{= ${creationModel>/sourceType} !== 'DS_TYPE_FILE'}"
+													selectedKey="{creationModel>/dataServerType}">
+													<items>
+														<c:Item key="PCo" text="PCo" />
+														<c:Item key="SQL" text="SQL" />
+														<c:Item key="Kepware" text="Kepware" />
+														<c:Item key="Other"
+															text="{i18n>commonOther}" />
+													</items>
+												</ComboBox>
+												<Input value="{creationModel>/dataServer}" visible="{= ${creationModel>/sourceType} === 'DS_TYPE_FILE'}">
+													<layoutData>
+														<FlexItemData growFactor="1" />
+													</layoutData>
+												</Input>
+											</items>
+										</FlexBox>
+
+										<Label text="{i18n>dataSourcesKepwareChannels}"
+											visible="{creationModel>/dataServerKepware}" />
+
+										<MultiComboBox id="multicombobox-kepware-channels" visible="{creationModel>/dataServerKepware}"
+											items="{KepChannels>/Row}" busyIndicatorDelay="100" selectedKeys="{creationModel>/kepChannels}"
+											selectionChange="fnKepwareChannelsChange" width="70%">
+											<c:Item key="{KepChannels>Source}" text="{KepChannels>Name}" />
+										</MultiComboBox>
+
+
+										<Label text="{i18n>dsInfoPcoUrl}" required="true"></Label>
+										<Input id="wzd-pco-server-url" width="70%"
+											liveChange="checkDataServerStep"
+											valueLiveUpdate="true" value="{creationModel>/pcoUrl}"></Input>
+										<Label text="{i18n>dsInfoPcoCredential}" required="true"></Label>
+										<ComboBox width="70%" items="{PCoCredentials>/Row}"
+											change="checkDataServerStep" valueLiveUpdate="true"
+											selectedKey="{creationModel>/pcoCredential}">
+											<items>
+												<c:Item key="{PCoCredentials>Name}"
+													text="{PCoCredentials>Name}" />
+											</items>
+										</ComboBox>
+										<Label text="{i18n>dsInfoPcoPrefix}" required="{= ${creationModel>/sourceType} !== 'DS_TYPE_FILE'}"></Label>
+										<Input width="70%" liveChange="checkDataServerStep"
+											valueLiveUpdate="true"
+											value="{creationModel>/pcoPoolPrefix}"
+											visible="{= ${creationModel>/sourceType} === 'DS_TYPE_REALTIME'  || ${creationModel>/sourceType} === 'DS_TYPE_FILE'}"></Input>
+
+									</form:SimpleForm>
+								</WizardStep>
+							<!--	<WizardStep
+									id="tagListStep"
+									title="{i18n>dsTaglist}"
+									validate="checkDestinationStep"
+									icon="sap-icon://list">
+									<form:SimpleForm
+										editable="true">
+										<Label text="{i18n>dataDestination}" required="true"></Label>
+										<ComboBox width="70%" items="{Destinations>/Row}"
+											change="checkDestinationStep" valueLiveUpdate="true"
+											selectedKey="{creationModel>/destination}"
+											value="{creationModel>/destinationText}">
+											<items>
+												<c:Item key="{Destinations>ID_DATA_DESTINATION}"
+													text="{Destinations>DS_NAME}" />
+											</items>
+										</ComboBox>
+									</form:SimpleForm>
+								</WizardStep> -->
+							</Wizard>
+						</content>
+						<footer>
+							<OverflowToolbar>
+								<ToolbarSpacer />
+								<Button text="Cancel" icon="sap-icon://sys-cancel" width="auto"
+									iconDensityAware="false" press="onCloseWizard" />
+							</OverflowToolbar>
+						</footer>
+					</Page>
+
+					<!-- <buttons>
+						<Button text="Save" type="Accept" icon="sap-icon://save" width="auto"
+							iconDensityAware="false" press="onSaveDataSource" />
+						<Button text="Cancel" icon="sap-icon://sys-cancel" width="auto"
+							iconDensityAware="false" press="onCloseWizard" />
+					</buttons> -->
+				</pages>
+			</NavContainer>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

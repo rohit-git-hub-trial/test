@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Select Custom Time Range">
+		<f:SimpleForm id="form-date-elect" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+			singleContainerFullSize="false">
+			<f:content>
+				<core:Title id="title-form-daterange-select"/>
+				<Label text="Duration"/>
+				<Input id="input-duration"/>
+				<Label text="Duration Units"/>
+				<RadioButtonGroup id="radiogroup-duration-units" columns="3" selectedIndex="0">
+					<buttons>
+						<RadioButton id="RB2-1" text="Minute(s)"/>
+						<RadioButton id="RB2-2" text="Hour(s)"/>
+						<RadioButton id="RB2-3" text="Day(s)"/>
+					</buttons>
+				</RadioButtonGroup>
+				<Label text="From Date Time"/>
+				<DateTimePicker id="date-time-from" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" placeholder="Start Date"
+					change="fnFromDateChanged"></DateTimePicker>
+				<Label text="To Date Time"/>
+				<DateTimePicker id="date-time-to" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" placeholder="End Date"
+					change="fnToDateChanged"/>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button id="button-clear-date-from" icon="sap-icon://reset" type="Transparent" press="fnClearDates" text="Clear Dates"/>
+			<Button id="button-close" type="Reject" icon="sap-icon://decline" text="Close" press="fnClosePopOver"/>
+			<Button id="button-save" type="Accept" icon="sap-icon://check-availability" text="Apply" press="fnApplyDateRange"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

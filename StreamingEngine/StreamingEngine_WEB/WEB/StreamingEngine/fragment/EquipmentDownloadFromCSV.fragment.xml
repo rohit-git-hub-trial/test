@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.unified">
+    <Dialog title="{i18n>dataSourceDownloadEquipmentFromCSV}" contentWidth="70%">
+        <content>
+            <HBox alignItems="Center" justifyContent="Center">
+                <items>
+                    <ui:FileUploader id="file-uploader-equipment" change="fnFileChanged" />
+                    <Button text="{i18n>commonConfirm}" type="Accept" press="fnFileConfirm"
+                        enabled="false" class="sapUiSmallMarginBeginEnd" />
+                </items>
+            </HBox>
+            <Table id="table-equipment-from-csv-summary" noDataText="{i18n>commonNoData}"
+                items="{/Row}" showSeparators="All" growing="true" growingThreshold="500" growingScrollToLoad="true">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{i18n>batchCatalogUploadTitleSummary}" level="H2" />
+                        <ToolbarSpacer width="" />
+                        <Button text="{i18n>commonDownloadFailedItems}" type="Default"
+                            icon="sap-icon://message-error" iconFirst="true" width="auto"
+                            enabled="true" visible="true" iconDensityAware="false" 
+                            press="fnDownloadFailedItems" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="ID" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>commonLabelPlant}" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>commonLabelEquipmentPath}" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>commonLabelEquipmentName}" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>commonLabelLevel}" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column width="5%" hAlign="Center" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>batchCatalogConfigStatus}" width="auto" />
+                        </header>
+                        <footer />
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top">
+                        <header>
+                            <Text text="{i18n>batchCatalogUploadMessage}" />
+                        </header>
+                        <footer />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{EQUIPMENT_ID}" />
+                            <Text text="{PLANT}" />
+                            <Text text="{EQUIPMENT_PATH}" />
+                            <Text text="{EQUIPMENT_NAME}" />
+                            <Text text="{EQUIPMENT_LEVEL}" />
+                            <core:Icon
+                                src="{ path:'STATUS', formatter: '.formatter.statusIconBatchCatalogUpload' }"
+                                size="20px"
+                                color="{ path:'STATUS', formatter: '.formatter.statusColorBatchCatalogUpload' }" />
+                            <Text text="{DS_MESSAGE}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,144 @@
+<mvc:View id="view-tag-upload" controllerName="StreamingEngine.StreamingEngine.controller.TagUpload" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" width="100%">
+	<App>
+		<pages>
+			<Page id="page-tag-upload" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+					<f:SimpleForm id="SimpleFormChange354" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="{i18n>tagUploadFileToUpload}"/>
+							<u:FileUploader id="fileUploader" width="300px" sameFilenameAllowed="false" placeholder="{i18n>tagUploadFileUploadPlaceholder}" style="Emphasized"/>
+							<Button text="{i18n>tagUploadFileUploadButton}" press="fnUploadFile" type="Accept" />
+							<Button text="{i18n>tagUploadAbortButton}" press="fnAbortFile" type="Reject"/>
+							<Label/>
+						</f:content>
+					</f:SimpleForm>
+					<Label text="{i18n>tagUploadStatus}"/>
+					<ProgressIndicator id="tag-import-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<Label text="{i18n>tagUploadProcessStatus}"/>
+					<ProgressIndicator id="processing-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<f:SimpleForm id="tag-upload-info" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formTagUpload">
+						<f:content>
+							<core:Title id="title-form-1"/>
+							<Label text="{i18n>tagUploadUploadedTags}"/>
+							<Text id="text-uploaded-tags" text=""/>
+							<Label text="{i18n>tagUploadProcessedTags}"/>
+							<Text id="text-processed-tags" text=""/>
+							<core:Title id="title-form-2"/>
+							<Label text="{i18n>tagUploadPendingTags}"/>
+							<Text id="text-pending-tags" text=""/>
+							<Label text="{i18n>tagUploadFailedTags}"/>
+							<Text id="text-failed-tags" text=""/>
+						</f:content>
+					</f:SimpleForm>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Table id="table-tag-uploaded-data" sticky= "ColumnHeaders,HeaderToolbar" visible="false" width="auto" noDataText="{i18n>commonNoData}" mode="None" items="{/Row}" showSeparators="All"
+						growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>tagUploadTitleSummary}" level="H2"/>
+                                           					<ToolbarSpacer width=""/>
+                                           					<Button text="{i18n>commonDownloadFailedItems}" type="Default" icon="sap-icon://message-error" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="fnDownloadFailedItems" />
+                                           					<Button text="{i18n>commonDownloadMisconfiguredtems}" type="Default" icon="sap-icon://message-information" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="fnDownloadMisconfiguredItems" />
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelPlant}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelDataSource}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelOriginalTag}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="15%"  hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagInfoDesc}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column  width="15%"  hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagCatalogPlantHierarchy}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelRenamedTag}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelRealtime}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelArchive}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagCatalogConfigStatus}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="20%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagUploadMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{DS_PLANT}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_SOURCE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_TAG_ORIGINAL}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_DESCRIPTION}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_PLANT_HIERARCHY}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{DS_TAG_RENAMED}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{FL_REALTIME}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<Text text="{FL_ARCHIVE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+									<core:Icon src="{ path:'DS_STATUS', formatter: '.formatter.statusIconTagUpload' }" size="20px"
+										color="{ path:'DS_STATUS', formatter: '.formatter.statusColorTagUpload' }" visible="true"/>
+									<Text text="{DS_MESSAGE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

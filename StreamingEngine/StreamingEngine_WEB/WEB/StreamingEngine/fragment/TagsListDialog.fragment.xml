@@ -1,0 +1,127 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog
+        id="TagsListDialog"
+        draggable="true"
+        resizable="true"
+        contentWidth="520px"
+        contentHeight="420px"
+        contentPadding="false"
+        showHeader="false">
+
+        <content>
+
+            <!-- Switch bar -->
+                 <!-- Tags list -->
+          <List
+    id="tagsList"
+    mode="{TagsDialog>/listMode}"
+    items="{TagsDialog>/current}"
+    height="260px">
+
+    <!-- Header with proper alignment -->
+    <headerToolbar>
+        <Toolbar>
+            <Title text="Tags List" />
+
+            <ToolbarSpacer />
+
+            <Text
+                text="Mismatch"
+                class="sapUiTinyMarginEnd" />
+
+            <Switch
+                state="{TagsDialog>/showMismatchOnly}"
+                change=".mTagsDialog.onToggleMismatch" />
+        </Toolbar>
+    </headerToolbar>
+
+    <StandardListItem
+        title="{TagsDialog>tag}"
+        wrapping="true" />
+</List>
+
+            <!-- Destination area -->
+<VBox
+    visible="{TagsDialog>/showMismatchOnly}"
+    class="sapUiSmallMarginTop">
+
+    <!-- Destination -->
+    <Label text="Destination" required="true" />
+    <ComboBox
+        id="combobox-destination-tags"
+        width="100%"
+        items="{Dest>/Row}"
+        selectedKey="{TagsDialog>/selectedDestination}"
+        change=".mTagsDialog.onDestinationChange">
+        <items>
+            <core:Item
+                key="{Dest>ID_PCO_DESTINATION}"
+                text="{Dest>DS_DESCRIPTION}" />
+        </items>
+    </ComboBox>
+
+    <!-- Digital App -->
+    <Label
+        text="Digital App"
+        required="true"
+        class="sapUiSmallMarginTop" />
+
+    <ComboBox
+        id="combobox-digital-app-tags"
+        width="100%"
+        items="{DigitalApps>/Row}"
+        selectedKey="{TagsDialog>/selectedDigitalApp}"
+        change=".mTagsDialog.onDigitalAppChange">
+        <items>
+            <core:Item
+                key="{DigitalApps>ID_DIGITAL_APP}"
+                text="{DigitalApps>ID_DIGITAL_APP}" />
+        </items>
+    </ComboBox>
+
+    <!-- Transformation -->
+    <Label
+        text="Transformation"
+        required="true"
+        class="sapUiSmallMarginTop" />
+
+    <ComboBox
+        id="combobox-transformation-tags"
+        width="100%"
+        items="{Transformations>/Row}"
+        selectedKey="{TagsDialog>/selectedTransformation}"
+        enabled="{= !!${TagsDialog>/selectedDigitalApp} }">
+        <items>
+            <core:Item
+                key="{Transformations>ID_TRANSFORMATION}"
+                text="{Transformations>ID_TRANSFORMATION}" />
+        </items>
+    </ComboBox>
+
+</VBox>
+
+        </content>
+
+        <buttons>
+            <Button
+                text="Tag Configuration"
+                type="Accept"
+                visible="{TagsDialog>/showMismatchOnly}"
+                press=".mTagsDialog.onApprove"/>
+
+            <Button
+                text="Reset Tag Configuration"
+                type="Reject"
+                visible="{TagsDialog>/showMismatchOnly}"
+                press=".mTagsDialog.onReject"/>
+
+            <Button
+                text="Cancel"
+                press=".mTagsDialog.onCancel"/>
+        </buttons>
+
+    </Dialog>
+</core:FragmentDefinition>

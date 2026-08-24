@@ -1,0 +1,171 @@
+<mvc:View id="view-jobs-monitoring" controllerName="StreamingEngine.StreamingEngine.controller.JobsMonitoring" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" width="100%">
+	<App>
+		<pages>
+			<Page id="page-jobs-monitoring" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+			<content>
+			<fb:FilterBar id="filterbar-jobs-monitoring" reset="onSearch" search="fnLoadJobsMonitoring" showRestoreButton="false" showClearButton="true" showFilterConfiguration="false" useToolbar="false" class="filterBar">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="GroupDataSourceFilter" name="A" label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+						<fb:control>
+							<ComboBox id="combobox-plant" placeholder="Select a Plant" items="{/Row}" selectionChange="fnLoadJobsMonitoring">
+							     <items>
+							        <core:Item key="{ID_PLANT}" text="{DS_NAME}"/>
+							     </items>
+							</ComboBox>	
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>							
+		    </fb:FilterBar>
+		    <core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML">
+			</core:Fragment>
+		    <Table id="table-jobs-monitoring" sticky= "ColumnHeaders,HeaderToolbar"  width="auto" noDataText="{i18n>commonNoData}" mode="SingleSelectMaster" selectionChange="fnSelectionChanged" items="{/Row}" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+		    	<headerToolbar>
+                    <OverflowToolbar>
+							<Title text="{i18n>jobsMonitoringEnabledJobs}" level="H4"/>
+							<ToolbarSpacer/>
+							<Button id="button-update-end-date" text="{i18n>jobsMonitoringUpdateEndDate}" icon="sap-icon://gantt-bars" iconFirst="true" width="auto" enabled="false" visible="false" iconDensityAware="false" press="fnUpdateEndDate"/>
+							<Button id="button-reload-catchup" text="{i18n>jobsMonitoringReloadCatchup}" icon="sap-icon://workflow-tasks" iconFirst="true" width="auto" enabled="false" visible="false" iconDensityAware="false" press="fnReloadCatchup"/>
+							<Button id="button-last-status" text="{i18n>jobsMonitoringViewLastStatus}" icon="sap-icon://message-information" iconFirst="true" width="auto" enabled="false" visible="true" iconDensityAware="false" press="fnViewLastMessage"/>
+						       <OverflowToolbarButton text="{i18n>commonSort}" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="true"
+									iconDensityAware="false" press="fnViewSettingsButtonPressed"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+    
+                <columns>
+               		 <Column hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="ID" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>commonLabelPlant}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>commonLabelDataSource}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringFlowType}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringFlowName}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringLastRun}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringStartDate}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringEndDate}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringStatus}" width="auto" wrapping="true"  textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column  hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringDuration}" width="auto" wrapping="true"  textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column  hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringTags}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringSize}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringCatchUpDuration}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                            <Text text="{i18n>jobsMonitoringQueue}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </header>
+                        <footer/>
+                    </Column>
+                    <Column hAlign="Right" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                        <header>
+                             <FlexBox alignItems="Start"
+				justifyContent="Center">
+                          <Text text="{i18n>jobsMonitoringBuffered}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                               <core:Icon src="sap-icon://message-information"  class="sapUiTinyMarginBeginEnd" visible="true"  tooltip="{i18n>jobsMonitoringPopover}" size="0.9rem" enabled="true"  width="auto"  />
+                            </FlexBox>
+                        </header>
+                        <footer/>
+                    </Column>
+
+                            
+
+                    
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{ROW_ID}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{DS_NAME}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{SOURCE_NAME}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{ID_FLOW_TYPE}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{FLOW_NAME}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{DT_LAST_RUN_EXECUTION}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{DT_LAST_RUN_START}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{DT_LAST_RUN_END}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <core:Icon tooltip="{JOB_STATUS_LABEL}" src="{ path:'FL_STATUS_JOB', formatter: '.formatter.statusJobsMonitoringIcon' }" size="20px" color="{ path:'FL_STATUS_JOB', formatter: '.formatter.statusJobsMonitoring' }" visible="true"/>
+                            <Text text="{QT_LAST_RUN_DURATION}" ><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{QT_TAG_COUNT}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{QT_LAST_RUN_SIZE}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <Text text="{QT_CATCHUP_DURATION_MINS}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                            <core:Icon src="{ path:'FL_STATUS_QUEUE', formatter: '.formatter.statusJobsMonitoringIcon' }" size="20px" color="{ path:'FL_STATUS_QUEUE', formatter: '.formatter.statusJobsMonitoring' }" visible="true"/>
+                            <Text text="{QT_QUEUED_TOTAL}"><customData><core:CustomData key="rowStatus" value="{FL_STATUS_JOB}" writeToDom="true" /></customData></Text>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+		</content>
+		<headerContent>
+            <Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+        </headerContent>
+	<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+        </Page>
+        </pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.unified"  xmlns:tab="sap.ui.table" xmlns:f="sap.ui.layout.form">
+    <Dialog title="{i18n>dataSourcesDownloadTagsbyFolders}" contentWidth="70%">
+<f:SimpleForm id="OPCUA-form" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>   
+    <tab:TreeTable id="table-Folderlist"
+                           rows="{/Row}"
+                           selectionMode="MultiToggle"
+                           enableSelectAll="false"
+                           ariaLabelledBy="title"
+                           busyIndicatorDelay="100"
+                           busyIndicatorSize="Large"
+                           toggleOpenState="onToggleOpenState"
+                           rowSelectionChange="onTableSelectionChange">
+                <tab:extension>
+                    <OverflowToolbar design="Info" height="auto" style="Clear">
+                        <Title id="title"
+                               text="Folders"/>
+<ToolbarSpacer width=""/>
+		<Button id="Show-Selected-Folders" text="{=${oModelSelectedFolders>/}.length}" icon="sap-icon://cart-full" press=" fnShowSelectedFolders"/>
+		
+
+                    </OverflowToolbar>
+                </tab:extension>
+                <tab:columns>
+                    <tab:Column width="auto">
+                        <Label text="Name"/>
+                        <tab:template>
+                            <Text text="{Name}"
+                                  wrapping="false"/>
+                        </tab:template>
+                    </tab:Column>
+                </tab:columns>
+            </tab:TreeTable>       
+</f:content>
+		</f:SimpleForm>
+<buttons>
+			<Button id="Download-tags" type="Accept" icon="sap-icon://download" text="{i18n>commonSave}"  press="fnDownloadgroups"/>
+			<Button id="Download-close" icon="sap-icon://decline" text="{i18n>commonClose}" press="fnDownloadClose"/>	
+		</buttons>
+    </Dialog>
+</core:FragmentDefinition>

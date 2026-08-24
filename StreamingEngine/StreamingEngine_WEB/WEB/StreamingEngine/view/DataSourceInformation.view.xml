@@ -1,0 +1,540 @@
+<mvc:View id="view-data-source-info"
+	controllerName="StreamingEngine.StreamingEngine.controller.DataSourceInformation"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-data-source-information" visible="false" showHeader="false"
+				floatingFooter="true">
+				<content>
+					<ObjectHeader id="object-header-data-source-info" intro="" title=""
+						icon="sap-icon://database" class="ObjHeaderStyle">
+						<statuses>
+							<ObjectStatus id="header-plant-name" title="{i18n>commonLabelPlant}"
+								text="" state="None" icon="sap-icon://factory" />
+						</statuses>
+						<attributes></attributes>
+					</ObjectHeader>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog"
+						type="XML"></core:Fragment>
+					<f:SimpleForm id="data-source-information-form" minWidth="1024"
+						maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2"
+						columnsM="2" class="editableForm formTagUpload">
+						<f:content>
+							<core:Title id="title-source-form-general"
+								text="{i18n>dataSourceParamsGroupGeneral}" level="H3"
+								icon="sap-icon://action-settings" />
+							<Label text="{i18n>commonLabelPlant}" id="label-plant" required="true" />
+							<ComboBox id="combobox-plant" placeholder="Select a Plant"
+								items="{/Row}">
+								<items>
+									<core:Item key="{ID_PLANT}" text="{DS_NAME}" />
+								</items>
+							</ComboBox>
+							<Label text="{i18n>dsInfoSourceId}" />
+							<Input id="input-source-id" value="" />
+							<Label text="{i18n>dataSourcesEnabled}" />
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-enabled" state="true"
+										customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_ENABLED">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-enabled"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/FlatFile} ===true}"
+								text="{i18n>dsInfoAllowFlatFile}" />
+							<FlexBox visible="{= ${/bVariables/FlatFile} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-flat-file"
+										visible="{= ${/bVariables/FlatFile} ===true}" state="true"
+										change="fnFlatFileEnabled" customTextOn="Yes"
+										customTextOff="No" app:columnName="FL_FLAT_FILE">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-flat-file"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/External} ===true}"
+								text="{i18n>dsInfoAllowEngie}" />
+							<FlexBox visible="{= ${/bVariables/External} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-engie" state="true"
+										visible="{= ${/bVariables/External} ===true}"
+										change="fnEngieEnabled" customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_ENERGY">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-engie"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/Idoc} ===true}"
+								text="{i18n>dsInfoAllowIdoc}" />
+							<FlexBox visible="{= ${/bVariables/Idoc} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-idoc" state="true"
+										visible="{= ${/bVariables/Idoc} ===true}"
+										change="fnIdocEnabled" customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_IDOC">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-idoc"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dsInfoDataSourcename}" id="label-data-source-name"
+								required="true" />
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-data-source-name" value=""
+										app:columnName="DS_NAME">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-data-source-name"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label
+								visible="{=(${/bVariables/RealTime} === true || ${/bVariables/Archive} === true)}"
+								id="label-dataserver-process" required="true"
+								text="{i18n>dataSourcesDataServerProcess}" />
+							<FlexBox
+								visible="{=(${/bVariables/RealTime} === true || ${/bVariables/Archive} === true)}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<ComboBox id="combobox-dataserver-process"
+										placeholder="Select a Data Server" items="{/Row}"
+										app:columnName="DS_MII_DATA_SERVER_PROCESS" width="100%"
+										maxWidth="100%" selectionChange="fnServerProcessChanged">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<items>
+											<core:Item key="{Name}" text="{Name}" />
+										</items>
+									</ComboBox>
+									<ComboBox id="combobox-dataserver-process-type"
+										placeholder="Type" width="6rem"
+										selectionChange="fnServerProcessChanged">
+										<items>
+											<core:Item key="Kepware" text="Kepware" />
+											<core:Item key="Other" text="Other" />
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-data-server-process"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/Contextual} ===true}" required="true"
+								text="{i18n>dataSourcesDataServerContextual}" />
+							<FlexBox visible="{= ${/bVariables/Contextual} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<ComboBox id="combobox-dataserver-contextual"
+										placeholder="Select a Data Server" items="{/Row}"
+										app:columnName="DS_MII_DATA_SERVER_CONTEXT" width="100%"
+										maxWidth="100%">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<items>
+											<core:Item key="{Name}" text="{Name}" />
+										</items>
+									</ComboBox>
+									<ComboBox id="combobox-dataserver-contextual-type"
+										placeholder="Type" width="6rem">
+										<items>
+											<core:Item key="PCo" text="PCo" />
+											<core:Item key="SQL" text="SQL" />
+										</items>
+									</ComboBox>
+									<Button visible="false"
+										id="button-restore-data-server-contextual"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/FlatFile} ===true}"
+								text="{i18n>dataSourcesDataServerFile}"/>
+							<FlexBox visible="{= ${/bVariables/FlatFile} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-file-path" app:columnName="DS_MII_DATA_SERVER_FILE">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-data-server-file"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dataSourcesDesc}" id="label-description"
+								required="true" />
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-description" value=""
+										app:columnName="DS_DESCRIPTION">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-description"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dataSourceMaximumHistoricalUploads}"
+								id="Max-Historicaluplaods"
+								visible="{=${/bVariables/Contextual} === true}"
+								required="true" />
+							<FlexBox alignItems="Center" justifyContent="Start"
+								visible="{=${/bVariables/Contextual} === true}">
+								<items>
+									<Input id="input-MaxHistoricalUploads" value=""
+										app:columnName="QT_MAX_HISTORICAL_UPLOADS">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-Maxuploads"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+
+							<core:Title />
+							<Label text="{i18n>dsInfoPcoUrl}" id="label-pco-server-url"
+								required="true" />
+							<FlexBox visible="{= (${/bVariables/External} ===false &amp;&amp; ${/bVariables/Idoc} ===false)}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-pco-server-url" value=""
+										app:columnName="DS_PCO_SERVER_URL">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-pco-server-url"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dsInfoPcoCredential}" id="label-pco-credential"
+								required="true" />
+							<FlexBox visible="{= (${/bVariables/External} ===false &amp;&amp; ${/bVariables/Idoc} ===false)}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<ComboBox id="combobox-pco-credential" items="{/Row}"
+										app:columnName="DS_PCO_CREDENTIAL" width="100%"
+										maxWidth="100%">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<items>
+											<core:Item key="{Name}" text="{Name}" />
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-pco-credential"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label id="label-pco-prefix" text="{i18n>dsInfoPcoPrefix}" />
+							<FlexBox
+								visible="{=(${/bVariables/RealTime} === true || ${/bVariables/FlatFile} === true || ${/bVariables/Archive} === true)}"
+								alignItems="center" justifyContent="start">
+								<items>
+									<Input id="input-pco-prefix" value=""
+										app:columnName="DS_PCO_AGENT_PREFIX">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-pco-prefix"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/Archive} ===true}"
+								text="{i18n>dsInfoHistoricalDataAvailable}" />
+							<FlexBox visible="{= ${/bVariables/Archive} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-history" state="true"
+										customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_HISTORY">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-history"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dsInfoAllowRealtime}" />
+							<FlexBox
+								visible="{= (${/bVariables/RealTime} ===true || ${/bVariables/Archive} === true)}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-realtime" change="fnRealTimeChanged"
+										state="true" customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_REALTIME">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-realtime"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>dsInfoAllowArchive}"
+								visible="{= ${/bVariables/Archive} ===true}" />
+							<FlexBox alignItems="Center"
+								visible="{= ${/bVariables/Archive} ===true}" justifyContent="Start">
+								<items>
+									<Switch id="switch-archive"
+										visible="{= ${/bVariables/Archive} ===true}" state="true"
+										customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}" app:columnName="FL_ARCHIVE">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-archive"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/Contextual} ===true}"
+								text="{i18n>dsInfoAllowContextual}" />
+							<FlexBox visible="{= ${/bVariables/Contextual} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-contextual"
+										visible="{= ${/bVariables/Contextual} ===true}" state="true"
+										customTextOn="{i18n>commonYes}"
+										customTextOff="{i18n>commonNo}"
+										app:columnName="FL_CONTEXTUAL">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-contextual"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title id="title-source-form-batch"
+								text="{i18n>dataSourceParamsGroupBatch}" level="H3"
+								icon="sap-icon://activity-items" />
+							<!--<Label
+							text="{i18n>dataSourceEnableBatchCatalog}" visible="{=
+							${/bVariables/Contextual} ===true}" />
+							<FlexBox alignItems="Center" justifyContent="Start" visible="{= ${/bVariables/Contextual} ===true}"
+							>
+								<items>
+									<Switch id="switch-batch-information-enabled" state="false" customTextOn="{i18n>commonYes}"
+							customTextOff="{i18n>commonNo}" app:columnName="FL_BATCH_INFO"
+							visible="{= ${/bVariables/Contextual} ===true}"
+							change="fnBatchInformationSwitched" >
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="{= ${/bVariables/Contextual} ===true}" id="button-restore-batch-enabled"
+							icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+							tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox> -->
+							<Label text="{i18n>dataSourceBatchSourceSystem}"
+								id="label-batch-source-system"
+								visible="{= ${/bVariables/Contextual} ===true}" />
+							<FlexBox visible="{= ${/bVariables/Contextual} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<ComboBox id="combobox-batch-source-system"
+										placeholder="Select a Source System"
+										app:columnName="ID_BATCH_SOURCE" items="{/Row}"
+										enabled="false" width="100%" maxWidth="100%"
+										selectionChange="fnSourceSystemChanged">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<items>
+											<core:Item key="{ID_BATCH_SOURCE}" text="{DS_NAME}" />
+										</items>
+									</ComboBox>
+									<Button visible="{= ${/bVariables/Contextual} ===true}"
+										id="button-restore-batch-source" icon="sap-icon://past"
+										type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="{= ${/bVariables/Contextual} ===true}"
+								text="{i18n>dataSourceBatchEquipmentLevelList}"
+								id="label-batch-source-equipment-level" />
+							<FlexBox visible="{= ${/bVariables/Contextual} ===true}"
+								alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-batch-source-equipment-level" value=""
+										textAlign="Begin" enabled="false"
+										app:columnName="DS_BATCH_EQUIPMENT_LEVELS"
+										visible="{= ${/bVariables/Contextual} ===true}">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+									<Button visible="false"
+										id="button-restore-batch-equipment-level"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowInfoSqlQuery}" id="label-sql-query"
+								visible="{= ${/bVariables/Contextual} ===true}" />
+							<FlexBox visible="{= ${/bVariables/Contextual} ===true}"
+								alignItems="Start" justifyContent="Start">
+								<items>
+									<TextArea id="input-text-area-sql-query" value="" growing="true"
+										growingMaxLines="20" rows="10" width="100%"
+										app:columnName="DS_SQL_QUERY" visible="false">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</TextArea>
+									<Button visible="false" id="button-restore-sql_query"
+										icon="sap-icon://past" type="Transparent"
+										press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="" />
+							<Button visible="{= ${/bVariables/Contextual} ===true}"
+								id="button-sql-query" text="{i18n>flowInfoTestSql}" type="Accept"
+								icon="sap-icon://table-view" iconFirst="true" enabled="true"
+								iconDensityAware="false"
+								press="fnOpenSqlTest" />
+							<Label text="" />
+							<Button visible="false" id="button-csv-equipment"
+								text="{i18n>dataSourcesDownloadBatchCatalog}"
+								icon="sap-icon://synchronize" iconFirst="true" enabled="true"
+								iconDensityAware="false"
+								press="fnDownloadEquipment" />
+							<core:Title />
+							<core:Title id="title-source-form-realtime"
+								text="{i18n>dsRealtimeInformation}" level="H3"
+								icon="sap-icon://feed" />
+							<Label text="{i18n>RealtimeTabPcoAgents}" />
+							<List
+								id="table-pco-agents-data_source"
+								headerText="{i18n>RealtimeAgentName}"
+								items="{/Row}"
+								visible="{= ${/bVariables/RealTime} === true}">
+								<StandardListItem
+									title="{DS_NAME}" />
+							</List>
+							<!-- <Table id="table-pco-agents-data_source1"
+								sticky="ColumnHeaders,HeaderToolbar"
+								width="50%"
+								noDataText="{i18n>commonNoData}" items="{/Row}"
+								growing="true"
+								growingThreshold="20"
+								growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title text="{i18n>RealtimeTabPcoAgents}" />
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+										demandPopin="false" popinDisplay="Inline"
+										mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>RealtimeAgentName}" width="auto"
+												wrapping="true" textAlign="Begin"
+												textDirection="Inherit" visible="true" />
+										</header>
+										<footer />
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem press="fnRowPress">
+										<cells>
+											<Text text="{DS_NAME}" class="textHighlight" />
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table> -->
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+							<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }"
+								visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress" />
+							<ToolbarSpacer width="" />
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save"
+								iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnSaveDSInformation" />
+							<Button id="button-delete" text="{i18n>commonDelete}" type="Reject"
+								icon="sap-icon://delete" iconFirst="true" width="auto"
+								enabled="true" visible="false"
+								iconDensityAware="false" press="fnDeleteDS" />
+							<Button text="{i18n>commonCancel}" icon="sap-icon://sys-cancel"
+								iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack" />
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true"
+						densityAware="false" />
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

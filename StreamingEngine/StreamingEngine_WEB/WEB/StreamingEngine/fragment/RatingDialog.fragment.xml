@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+    <Dialog title="{i18n>commonFeedBackTitle}" contentWidth="60%" contentHeight="350px">
+       <content>
+        <FlexBox alignItems="Center" justifyContent="Center" class="sapUiSmallMargin">
+            <items>
+                <RatingIndicator maxValue="5" value="{Rating>/ratingValue}" iconSize="50px" width="400px"></RatingIndicator>
+            </items>
+        </FlexBox>
+        <TextArea value="{Rating>/comment}" rows="5" placeholder="{i18n>commonLeaveFeedback}" class="sapUiSmallMargin" width="95%"/>
+        <form:SimpleForm editable="true">
+            <Label text="{i18n>commonMakeFeedback}" />
+            <Switch state="{Rating>/anonymous}"  change="onChangeAnonymous" />
+            <Label text="{i18n>commonActionExpectedOnFeedback}" />
+            <Switch state="{Rating>/action}" />
+        </form:SimpleForm>
+        <Label text="{i18n>commonFeedbackYourName}" visible="{Rating>/visibleName}" class="sapUiSmallMarginBeginEnd"/>
+        <Input value="{Rating>/name}" visible="{Rating>/visibleName}" class="sapUiSmallMargin" width="95%"/>
+        </content>     
+        <buttons>
+            <Button id="ratingSubmitBtn" text="{i18n>commonFeedbackSubmit}" press="onSendFeedback" />
+            <Button id="ratingCloseBtn" text="{i18n>commonClose}" press="onCloseFeedBackDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

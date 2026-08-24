@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+		<Dialog
+		title="{i18n>tagCatalogInitialLoadSummary}" >
+	<Table id="initial-load-report" noDataText="{i18n>commonNoData}" title="{i18n>tagCatalogInitialLoadSummary}"  items="{/Row}">
+		<ColumnListItem>
+			<cells>
+									<Text text="{DS_SOURCE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<Text text="{DS_TAG_NAME}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<core:Icon src="{ path:'DS_STATUS', formatter: '.formatter.statusIconInitialLoad' }" size="20px" color="{ path:'DS_STATUS', formatter: '.formatter.statusColorInitialLoad' }" visible="true"/>
+									<Text text="{DS_MESSAGE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+							<Column width="20%" hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelDataSource}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="30%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelRenamedTag}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="10%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagCatalogInitialLoadTagIdStatus}" width="auto" maxLines="1" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="30%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagCatalogInitialLoadTagMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+
+		</columns>
+	</Table>	
+ 	<buttons>
+				<Button
+					id="initial-load-close"
+					type="Reject"
+					icon="sap-icon://decline"
+					text="{i18n>commonClose}" press="fnCloseInitialLoadPopUp" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

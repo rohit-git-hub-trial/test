@@ -1,0 +1,20 @@
+{
+    "Row": [
+        {
+            "CD_INPUT_FORMAT": "CSV",
+            "CD_OUTPUT_FORMAT": "XML"
+        },
+        {
+            "CD_INPUT_FORMAT": "JSON",
+            "CD_OUTPUT_FORMAT": "XML"
+        },
+        {
+            "CD_INPUT_FORMAT": "IDOC",
+            "CD_OUTPUT_FORMAT": "CSV"
+        },
+        {
+            "CD_INPUT_FORMAT": "_CSV",
+            "CD_OUTPUT_FORMAT": "W_S"
+        }
+    ]
+}

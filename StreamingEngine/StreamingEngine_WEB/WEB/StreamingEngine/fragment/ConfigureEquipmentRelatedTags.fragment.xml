@@ -1,0 +1,85 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+>
+	<Dialog contentWidth="80%" contentHeight="100%" title="{i18n>batchCatalogRelatedTags}">
+		<content>
+			<Page id="page-related-tags" showHeader="false">
+				<content>
+					<fb:FilterBar id="filterbar-related-tags" reset="onSearch" search="onSearch"
+						showRestoreButton="false" showClearButton="false"
+						showFilterConfiguration="false" useToolbar="false" class="filterBar">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="GroupDataSourceFilter" name="A"
+								label="{i18n>commonLabelDataSource}" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox id="combobox-dataSource-relatedTags" placeholder="" items="{DataSources>/Row}" change="onSearch">
+										<items>
+											<c:Item key="{DataSources>ID_SOURCE}" text="{DataSources>DS_NAME}" />
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupDataSourceFilter" name="B"
+								label="{i18n>commonLabelOriginalTag}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-tag-original" type="Text" 
+										change="onSearch" />
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+					<Table id="table-add-relatedTags" width="auto" noDataText="{i18n>commonNoData}"
+						mode="MultiSelect"  items="{/}" growingScrollToLoad="true" updateStarted="fnGrowingStarted"
+						showSeparators="All" growing="true" growingThreshold="20" selectionChange="onTagSelectionChange"
+						 class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<OverflowToolbar>
+								<ToolbarSpacer/>
+								<Button type="Default" text="{= ${SelectedTags>/}.length}" press="fnShowSelectedTags"  icon="sap-icon://cart" iconFirst="true"></Button>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop" width="30%"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesDS}" width="auto" wrapping="true"
+										textAlign="Begin" textDirection="Inherit" visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelOriginalTag}" width="auto" wrapping="true"
+										textAlign="Begin" textDirection="Inherit" visible="true" />
+								</header>
+								<footer />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem selected="{TAG_SELECTED}">
+								<cells>
+									<Text text="{SOURCE_NAME}" width="auto" textAlign="Begin"
+										textDirection="Inherit" visible="true" />
+									<Text text="{TAG_ORIGINAL}" width="auto" textAlign="Begin"
+										textDirection="Inherit" visible="true" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+							<ToolbarSpacer/>
+					<Button text="{i18n>batchDownloadConfigFile}" enabled="{= ${SelectedTags>/}.length > 0 ? true : false}" type="Accept" icon="sap-icon://download" press="fnExportConfigurationToExcel"/> 		
+					<Button icon="sap-icon://decline" text="{i18n>commonClose}"  press="onCloseRelatedTagsDialog" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

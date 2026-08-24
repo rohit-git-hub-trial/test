@@ -1,0 +1,141 @@
+<mvc:View id="view-user-info"
+    controllerName="StreamingEngine.StreamingEngine.controller.UserInformation"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+    <ObjectPageLayout id="page-user-information" visible="false" headerContentPinnable="true"
+        showFooter="true">
+        <headerTitle>
+            <ObjectPageHeader isObjectIconAlwaysVisible="true"
+                objectTitle="{DS_FULLNAME}" objectSubtitle="">
+            </ObjectPageHeader>
+        </headerTitle>
+
+        <headerContent>
+            <layout:VerticalLayout>
+                <m:ObjectStatus title="{i18n>commonUsername}" text="{ID_USERNAME}" />
+                <m:ObjectStatus title="{i18n>ProfileEmailAddress}" text="{DS_EMAIL}" />
+            </layout:VerticalLayout>
+        </headerContent>
+
+        <sections>
+            <!--	<ObjectPageSection id="userInfoSection" showTitle="false">
+				<subSections>
+					<ObjectPageSubSection id="userInfo"
+						title="{i18n>userManagUserInformation}">
+						<blocks>
+							<layout:VerticalLayout>
+								<f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+									labelSpanL="4" labelSpanM="4">
+									<f:content>
+										<core:Title />
+										<Label text="{i18n>userManagFullName}" />
+										<Text text="{DS_FULLNAME}"></Text>
+										<Label text="{i18n>commonUsername}" />
+										<Text text="{ID_USERNAME}"></Text>
+										<Label text="{i18n>ProfileEmailAddress}" />
+										<Text text="{DS_EMAIL}"></Text>
+										<Label text="{i18n>userManagSEPlant}" />
+										<Text text="{DS_SE_PLANT}"></Text>
+										<Label text="{i18n>ProfileDefaultLanguage}" />
+										<Text text="{DS_LANGUAGE}"></Text>
+									</f:content>
+								</f:SimpleForm>
+							</layout:VerticalLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection> -->
+
+            <ObjectPageSection id="digitalAppsSection" showTitle="false">
+                <subSections>
+                    <ObjectPageSubSection id="digApps" title="{i18n>launchPadDigitalApps}">
+                        <actions>
+                            <m:Button
+                                id="assign-digi-apps-btn"
+                                text="{i18n>userManagAssignDigiApps}"
+                                type="Accept"
+                                press="fnAssignDigitalApp"
+                                icon="sap-icon://add"
+                            />
+                        </actions>
+                        <blocks>
+                            <m:Table id="table-digital-apps" sticky="ColumnHeaders,HeaderToolbar"
+                                width="auto"
+                                noDataText="{i18n>digitalAppNoData}"
+                                items="{AssignedDigitalApps>/Row}">
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar>
+                                        <m:Title text="{i18n>userManagAssignedDigiApps}" />
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+                                <m:columns>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>userManagDigiAppId}"
+                                                width="auto" maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>userManagDigiAppName}"
+                                                width="auto" maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                    <m:Column hAlign="Right" vAlign="Top" minScreenWidth="Desktop"
+                                        popinDisplay="Inline" width="10%">
+                                        <m:header>
+                                            <m:Text text="" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{AssignedDigitalApps>ID_DIGITAL_APP}"
+                                                width="auto" />
+                                            <m:Text text="{AssignedDigitalApps>DS_NAME}"
+                                                width="auto" />
+                                            <core:Icon src="sap-icon://delete" color="Default" press="fnConfirmDeleteDigitalApp"
+                                                tooltip="{i18n>userManagRemoveDigAppAssign}" hoverColor="Negative" />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+            <m:Toolbar>
+                <m:content>
+                    <m:Button icon="sap-icon://message-popup" text="{= ${message>/}.length }"
+                        visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress" />
+                    <m:ToolbarSpacer />
+                    <!-- <m:Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save"
+                        iconFirst="true" width="auto" enabled="true" visible="true"
+                        iconDensityAware="false" press="fnSaveUserInformation" /> -->
+                  <!--  <m:Button id="button-delete" text="{i18n>userManagDeleteUser}" type="Reject"
+                        icon="sap-icon://delete" iconFirst="true" width="auto"
+                        enabled="true"
+                        iconDensityAware="false" press="fnConfirmDeleteUser" /> -->
+                    <m:Button text="{i18n>commonCancel}" icon="sap-icon://sys-cancel"
+                        iconFirst="true" width="auto" enabled="true" visible="true"
+                        iconDensityAware="false" press="fnNavigateBack" />
+                </m:content>
+            </m:Toolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

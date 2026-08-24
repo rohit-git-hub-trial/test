@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		title="{i18n>jobsMonitoringSort}"
+		confirm="fnConfirmSettings">
+		<sortItems>
+			<ViewSettingsItem text="ID" key="ROW_ID" selected="true" />
+			<ViewSettingsItem text="{i18n>commonLabelPlant}" key="DS_NAME" />
+			<ViewSettingsItem text="{i18n>commonLabelDataSource}" key="SOURCE_NAME" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringFlowType}" key="ID_FLOW_TYPE" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringFlowName}" key="FLOW_NAME" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringLastRun}" key="DT_LAST_RUN_EXECUTION" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringStartDate}" key="DT_LAST_RUN_START" />
+		           <ViewSettingsItem text="{i18n>jobsMonitoringEndDate}" key="DT_LAST_RUN_END" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringStatus}" key="JOB_STATUS_LABEL" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringDuration}" key="QT_LAST_RUN_DURATION" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringTags}" key="QT_TAG_COUNT" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringSize}" key="QT_LAST_RUN_SIZE" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringCatchUpDuration}" key="QT_CATCHUP_DURATION_MINS" />
+		          <ViewSettingsItem text="{i18n>jobsMonitoringQueue}" key="FL_STATUS_QUEUE" />
+		          <ViewSettingsItem text="{i18n>jobsMonitoringBuffered}" key="QT_QUEUED_TOTAL" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" >
+     <MessagePopover items="{message>/}" initiallyExpanded="true" afterClose=".onAfterClosepopover">
+                    <headerButton>
+                        <Button tooltip="{i18n>commonClearMsgs}" press=".onClearPress" icon="sap-icon://reset"/>
+                    </headerButton> 
+                    <MessageItem type="{message>type}" title="{message>message}" subtitle="{message>additionalText}" description="{message>description}" app:idNotif="{message>technicalDetails}" />
+      </MessagePopover>
+</core:FragmentDefinition>

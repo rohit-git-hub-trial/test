@@ -1,0 +1,150 @@
+<mvc:View id="view-historical-upload-status" controllerName="StreamingEngine.StreamingEngine.controller.HistoricalUploadStatus" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" width="100%">
+	<App>
+		<pages>
+			<Page id="page-historical-upload-status" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+					<fb:FilterBar id="filterbar-historical-upload-status" reset="onSearch" search="onSearch" showRestoreButton="false" showClearButton="true" showFilterConfiguration="false" useToolbar="false" class="filterBar">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="GroupHistoricalUploadStatusFilter" name="A" label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox id="combobox-plant" placeholder="{i18n>commonSelectAPlantPlaceHolder}" items="{/Row}" selectionFinish="fnPlantSelected">
+										<items>
+											<core:Item key="{ID_PLANT}" text="{DS_NAME}"/>
+										</items>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupHistoricalUploadStatusFilter" name="B" label="{i18n>commonLabelDataSource}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox id="combobox-data-source" placeholder="{i18n>historicalUploadStatusSelectDataSource}" items="{/Row}" selectionFinish="fnLoadHistoricalUploadStatus">
+										<items>
+											<core:Item key="{ID_SOURCE}" text="{DS_NAME}"/>
+										</items>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupHistoricalUploadStatusFilter" name="C" label="{i18n>historicalUploadStatusRequestStatus}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox id="combobox-status" placeholder="{i18n>historicalUploadStatusSelectStatus}" items="{/Row}" selectionFinish="fnLoadHistoricalUploadStatus">
+										<items>
+											<core:Item key="{ID_STATUS}" text="{DS_DESCRIPTION}"/>
+										</items>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupHistoricalUploadStatusFilter" name="D" label="{i18n>flowType}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox id="combobox-flow-type" placeholder="{i18n>historicalUploadStatusSelectFlowType}" items="{/Row}" selectionFinish="fnLoadHistoricalUploadStatus">
+										<items>
+											<core:Item key="{ID_FLOW_TYPE}" text="{DS_DESCRIPTION}"/>
+										</items>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML">
+					</core:Fragment>
+					<HBox id="hbox-historical-upload-status" width="100%">
+						<VBox id="vbox-table-historical-upload-status" width="100%">
+							<Table id="table-historical-upload-status" sticky="ColumnHeaders,HeaderToolbar" width="auto" noDataText="{i18n>commonNoData}"
+    mode="SingleSelectLeft" selectionChange="fnRowSelectionChanged"
+    items="{/Row}" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true"
+    class="sapUiResponsiveMargin tableStyle" updateStarted="fnGrowingStarted">
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title text="{i18n>historicalUploadStatusRequests} ({= ${/Row}.length})" level="H4"/>
+										<ToolbarSpacer/>
+										<Button id="button-toggle-detail-panel" icon="{= ${RequestDetailView>/Open} ? 'sap-icon://open-command-field' : 'sap-icon://navigation-right-arrow' }"
+											type="Transparent" tooltip="{i18n>historicalUploadStatusRequestDetails}" press="fnToggleDetailPanel"/>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column hAlign="Left" width="8%" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>commonLabelPlant}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" width="10%" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>commonLabelDataSource}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" width="12%" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusRequestTimestamp}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" width="10%" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusRequestor}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" width="10%" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusRequestStatus}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" width="12%" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusStatusTimestamp}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusComment}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+									<Column hAlign="Center" width="8%" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+										<header>
+											<Text text="{i18n>historicalUploadStatusRequestDetails}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</header>
+										<footer/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{PLANT}"/>
+											<Text text="{DATA_SOURCE}"/>
+											<Text text="{REQUEST_TIMESTAMP}"/>
+											<Text text="{REQUESTOR}"/>
+											<HBox>
+												<core:Icon src="{ path:'REQ_STATUS', formatter: '.formatter.statusIconUploadRequest' }" size="16px"
+													color="{ path:'REQ_STATUS', formatter: '.formatter.statusColorUploadRequest' }" class="sapUiTinyMarginEnd"/>
+												<Text text="{REQ_STATUS_DESC}"/>
+											</HBox>
+											<Text text="{STATUS_TIMESTAMP}"/>
+											<Text text="{COMMENT}" maxLines="1"/>
+											<Link text="{i18n>historicalUploadStatusView}" press="fnViewRequestDetails"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</VBox>
+						<core:Fragment fragmentName="StreamingEngine.StreamingEngine.fragment.RequestDetailsPanel" type="XML">
+						</core:Fragment>
+					</HBox>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+				<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+							<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress"/>
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,157 @@
+<mvc:View id="view-digital-apps" controllerName="StreamingEngine.StreamingEngine.controller.DigitalApps" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"
+	width="100%"> 
+	<App>
+		<pages>
+			<Page id="page-digital-apps" visible="false" showHeader="false"  floatingFooter="true" >
+				<content>
+					<Panel width="auto" class="sapUiNoContentPadding">
+						<OverflowToolbar>
+							<Label text="{i18n>digitalAppsLabel}"/>
+							<Text id="title-selected-digital-app" text="" class="customBoldText"/>
+							<Link id="link-change-digital-app" text="[{i18n>digitalAppsChange}]" press="fnOpenDigitalAppsSelection"/>
+						</OverflowToolbar>
+					</Panel>
+					<Panel width="auto" headerText="{i18n>digitalAppsTagSelection}" class="sapUiNoContentPadding">
+						<fb:FilterBar id="filterbar-digital-apps" reset="onReset" header="{i18n>digitalAppsTagSelection}" search="onSearch" showRestoreButton="false"
+							showClearButton="false" showFilterConfiguration="false" useToolbar="false" showGoOnFB="false">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem groupName="GroupTagFilter" name="A" label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+									<fb:control>
+										<ComboBox id="combobox-plant" placeholder="Select a Plant" required="true" items="{/Row}" selectionChange="fnPlantSelected">
+											<items>
+												<core:Item key="{ID_PLANT}" text="{DS_NAME}"/>
+											</items>
+										</ComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="GroupTagFilter" name="B" label="{i18n>commonLabelDataSource}" visibleInFilterBar="true">
+									<fb:control>
+										<ComboBox id="combobox-data-source" placeholder="Select a data source" required="true" items="{/Row}" selectionChange="fnLoadDigitalApps">
+											<items>
+												<core:Item key="{ID_SOURCE}" text="{DS_NAME}"/>
+											</items>
+										</ComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="GroupTagFilter" name="C" label="{i18n>commonLabelOriginalTag}" visibleInFilterBar="true">
+									<fb:control>
+										<Input id="input-original-tag" change="fnLoadDigitalApps"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="GroupTagFilter" name="D" label="{i18n>commonLabelRenamedTag}" visibleInFilterBar="true">
+									<fb:control>
+										<Input id="input-renamed-tag" change="fnLoadDigitalApps"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="GroupTagFilter" name="E" label="{i18n>digitalAppsAssigned}" visibleInFilterBar="true">
+									<fb:control>
+										<ComboBox id="combobox-assigned" required="true" selectedKey="%" selectionChange="fnLoadDigitalApps">
+											<items>
+												<core:Item key="%" text="{i18n>commonAll}"/>
+												<core:Item key="1" text="{i18n>commonYes}"/>
+												<core:Item key="0" text="{i18n>commonNo}"/>
+											</items>
+										</ComboBox>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</Panel>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Table id="table-digital-apps" sticky= "ColumnHeaders,HeaderToolbar"  width="auto" noDataText="{i18n>commonNoData}" mode="MultiSelect" items="{/Row}" showSeparators="All" growing="true"
+						growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle" selectionChange="fnSelectionChanged" updateStarted="fnGrowingStarted">
+						<headerToolbar>
+							<OverflowToolbar>
+								<ToolbarSpacer/>
+								<OverflowToolbarButton text="{i18n>commonSort}" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="true"
+									iconDensityAware="false" press="fnViewSettingsButtonPressed"/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="7%" hAlign="Begin" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelPlant}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="8%" hAlign="Begin" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelDataSource}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="28%" hAlign="Begin" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelOriginalTag}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="20%" hAlign="Begin" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>tagCatalogPlantHierarchy}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="16%" hAlign="Begin" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelRenamedTag}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="8%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>digitalAppsTransformation}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="8%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>digitalAppsAssigned}" width="auto" wrapping="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{PLANT}"/>
+									<Text text="{SOURCE_NAME}"/>
+									<Text text="{DS_NAME_ORIGINAL}"/>
+									<Text text="{PLANT_HIERARCHY}"/>
+									<Text text="{DS_NAME_RENAMED}"/>
+									<Text text="{ID_TRANSFORMATION}"/>
+									<core:Icon src="sap-icon://collections-management" size="20px" visible="true" color="{COLOR_STATUS}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Toolbar id="toolbar-footer">
+						<content>
+					                    <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+							<ComboBox id="combobox-transformation" items="{/Row}" placeholder="{i18n>digitalAppsSelectATransformation}" width="22rem" visible="false">
+								<items>
+									<core:Item key="{ID_TRANSFORMATION}" text="{ID_TRANSFORMATION} - {DS_NAME}"/>
+								</items>
+							</ComboBox>
+							<Button text="{i18n>digitalAppsAssignTags}" id="button-assign-tags" type="Accept" icon="sap-icon://sys-add" iconFirst="true" width="auto" enabled="true"
+								visible="false" iconDensityAware="false" press="fnAssignTags"/>
+							<Button text="{i18n>digitalAppsRemoveTags}" id="button-remove-tags" type="Reject" icon="sap-icon://sys-minus" iconFirst="true" width="auto" enabled="true"
+								visible="false" iconDensityAware="false" press="fnRemoveTags"/>
+							<Button text="{i18n>digitalAppsClearSelection}" id="button-clear-selection" type="Reject" icon="sap-icon://refresh" iconFirst="true" width="auto"
+								enabled="true" visible="false" iconDensityAware="false" press="fnClearSelection"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+				
+
+			</Page>
+
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,23 @@
+ <core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		title="{i18n>queueMonitoringSort}"
+		confirm="fnConfirmSettings">
+		<sortItems>
+			<ViewSettingsItem text="{i18n>commonLabelPlant}" key="DS_NAME" selected="true" />
+			<ViewSettingsItem text="{i18n>commonLabelDataSource}" key="SOURCE_NAME" />
+			<ViewSettingsItem text="{i18n>flowType}" key="ID_FLOW_TYPE" />
+			<ViewSettingsItem text="{i18n>flowName}" key="FLOW_DESC" />
+			<ViewSettingsItem text="{i18n>queueMonitoringCreationDate}" key="DT_CREATED" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringStartDate}" key="DT_RUN_START" />
+			<ViewSettingsItem text="{i18n>jobsMonitoringEndDate}" key="DT_RUN_END" />
+		           <ViewSettingsItem text="{i18n>queueMonitoringStatus}" key="ID_STATUS" />
+			<ViewSettingsItem text="{i18n>queueMonitoringDescription}" key="DS_DESCRIPTION" />
+			<ViewSettingsItem text="{i18n>queueMonitoringRetries}" key="QT_RETRY" />
+			<ViewSettingsItem text="{i18n>queueMonitoringSize}" key="MESSAGE_SIZE" />
+			<ViewSettingsItem text="{i18n>queueMonitoringLastRetry}" key="DT_LAST_ERROR" />
+			<ViewSettingsItem text="{i18n>queueMonitoringErrorMessage}" key="DS_LAST_ERROR" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

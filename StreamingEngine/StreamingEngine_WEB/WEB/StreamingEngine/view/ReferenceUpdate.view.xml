@@ -1,0 +1,46 @@
+<mvc:View id="view-Reference-upload" controllerName="StreamingEngine.StreamingEngine.controller.ReferenceUpdate" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" width="100%">
+	<App>
+		<pages>
+			<Page id="page-Reference-upload" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+	<FlexBox
+					height="100px"
+					alignItems="Center"
+					justifyContent="Center">
+					<items>
+					<Label text="Table to Update"/>
+								<ComboBox id ="Combobox-TableType" class="sapUiSmallMargin" change="OnChangeTableType">
+								<core:Item key="UoM" text="{i18n>ReferenceUpdateUoM}" />
+								<core:Item key="TagNames" text="{i18n>ReferenceUpdateTagNames}" />
+							</ComboBox>
+					</items>
+				</FlexBox>
+                <f:SimpleForm id="SimpleFormChange354" visible="{FieldsVisibility>/FileUploader}" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="{i18n>tagUploadFileToUpload}"/>
+							<u:FileUploader id="fileUploader" width="300px" sameFilenameAllowed="false" placeholder="{i18n>tagUploadFileUploadPlaceholder}" style="Emphasized"/>
+							<Button text="{i18n>tagUploadFileUploadButton}" press="fnUploadFile" type="Accept" />
+							<Button text="Download Template" press="fnDownloadTemplate"/>
+							<Label/>
+						</f:content>
+					</f:SimpleForm>	
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

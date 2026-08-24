@@ -1,0 +1,294 @@
+<mvc:View id="view-Data-Sources"
+	controllerName="StreamingEngine.StreamingEngine.controller.DataSources"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" width="100%">
+	<App>
+		<pages>
+			<Page id="page-data-sources" visible="false" showHeader="false"
+				showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+					<fb:FilterBar id="filterbar-data-sources" reset="onSearch" search="onSearch"
+						showRestoreButton="false" showClearButton="true"
+						showFilterConfiguration="false" useToolbar="false" class="filterBar">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="GroupDataSourceFilter" name="A"
+								label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox id="combobox-plant" placeholder="Select a Plant"
+										required="true" items="{/Row}" selectionChange="onSearch">
+										<items>
+											<core:Item key="{ID_PLANT}" text="{DS_NAME}" />
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="GroupDataSourceFilter" name="B"
+								label="{i18n>commonLabelDataSource}" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="input-data-source" type="Text" width="100px"
+										change="onSearch" />
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+					<MessageStrip id="messagestrip-download-catalog" visible="false"
+						text="{i18n>commonBackgroundProcessMessage}"
+						type="Success" showIcon="true" showCloseButton="true"
+						class="sapUiTinyMargin"></MessageStrip>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog"
+						type="XML"></core:Fragment>
+					<Table id="table-datasources" sticky="ColumnHeaders,HeaderToolbar" width="auto"
+						noDataText="{i18n>commonNoData}" mode="SingleSelectLeft"
+						selectionChange="fnSelectionChanged" items="{/Row}"
+						showSeparators="All" growing="true" growingThreshold="20"
+						growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Button text="{i18n>dataSourcesAddNewDS}" type="Default"
+									press="fnAddNewWizard" icon="sap-icon://add" iconFirst="true"></Button>
+										<MenuButton id="button-tags" text="{i18n>dataSourceDownloadtags}" icon="sap-icon://download"  visible="true" enabled="false">
+											<menu>
+												<Menu>
+													<items>
+											<MenuItem text="{i18n>dataSourceDownloadAlltags}" icon="sap-icon://multiselect-all" press="fnDownloadTagCatalog"/>	
+											<MenuItem text="{i18n>dataSourceDownloadbyFolder}" icon="sap-icon://open-folder" press="fnDisplayFolders" />
+											<MenuItem text="{i18n>dataSourceDownloadByFilter}" icon="sap-icon://filter-fields" press="fnDownloadByFilter" />
+					</items>
+				</Menu>
+			</menu>
+		</MenuButton>
+							
+								<Button id="button-download-batch"
+									text="{i18n>dataSourcesDownloadBatchCatalog}"
+									icon="sap-icon://synchronize" iconFirst="true" width="auto"
+									enabled="false"
+									visible="true" iconDensityAware="false"
+									press="fnDownloadBatchCatalog" />
+								<Button id="button-synchronize-pco-agent"
+									text="{i18n>dataSourcesSynchronizePCoAgents}"
+									icon="sap-icon://synchronize" iconFirst="true" width="auto"
+									enabled="false"
+									visible="true" iconDensityAware="false"
+									press="fnSynchronizePCoAgents" />
+								<Button id="button-synchronize-pco-destination"
+									text="{i18n>dataSourcesSynchronizePCoDestinations}"
+									icon="sap-icon://synchronize" iconFirst="true" width="auto"
+									enabled="false"
+									visible="true" iconDensityAware="false"
+									press="fnSynchronizePCoDestinations" />
+								<Button id="button-restart-data-server"
+									text="{i18n>dataSourcesRestartPCoConnection}"
+									icon="sap-icon://restart" iconFirst="true" width="auto"
+									enabled="false"
+									visible="true" iconDensityAware="false"
+									press="fnRestartDataServer" />
+                             
+
+								<ToolbarSpacer />
+								<OverflowToolbarButton text="{i18n>commonSort}" type="Transparent"
+									icon="sap-icon://sort" iconFirst="true" width="auto"
+									enabled="true" visible="true"
+									iconDensityAware="false" press="fnViewSettingsButtonPressed" />
+
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="7%" hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelPlant}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesDS}" width="auto" wrapping="true"
+										textAlign="Begin" textDirection="Inherit" visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesDesc}" width="auto" wrapping="true"
+										textAlign="Begin" textDirection="Inherit" visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesDataServerProcess}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesDataServerContextual}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Right" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesAgents}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Right" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesTags}" width="auto" wrapping="true"
+										textAlign="Begin" textDirection="Inherit" visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Right" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesBatchEquip}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="9%" hAlign="Right" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcsLastTagListSync}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesRealtime}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesArchive}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesContext}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesFlatFile}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesEngie}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesIdoc}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							<Column width="5%" hAlign="Center" vAlign="Top" minScreenWidth="Tablet"
+								demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>dataSourcesEnabled}" width="auto"
+										wrapping="true" textAlign="Begin" textDirection="Inherit"
+										visible="true" />
+								</header>
+								<footer />
+							</Column>
+							
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press="fnRowPress">
+								<cells>
+									<Text text="{PLANT}" />
+									<Text text="{DS_NAME}" class="textHighlight" />
+									<Text text="{DS_DESCRIPTION}" />
+									<Text text="{DS_MII_DATA_SERVER_PROCESS}" />
+									<Text text="{DS_MII_DATA_SERVER_CONTEXT}" />
+									<Text text="{AGENT_COUNT}" />
+									<Text text="{TAG_COUNT}" />
+									<Text text="{BATCH_COUNT}" />
+									<Text text="{DT_TAG_LIST_LAST_SYNC}" />
+									<core:Icon src="sap-icon://opportunity" size="20px"
+										color="{=${FL_REALTIME}==='1'?'green':'red'}"
+										visible="{=${FL_REALTIME}==='1'}" />
+									<core:Icon src="sap-icon://upload-to-cloud" size="20px"
+										color="{=${FL_ARCHIVE}==='1'?'green':'red'}"
+										visible="{=${FL_ARCHIVE}==='1'}" />
+									<core:Icon src="sap-icon://tree" size="20px"
+										color="{=${FL_CONTEXTUAL}==='1'?'green':'red'}"
+										visible="{=${FL_CONTEXTUAL}==='1'}" />
+									<core:Icon src="sap-icon://document-text" size="20px"
+										color="{=${FL_FLAT_FILE}==='1'?'green':'red'}"
+										visible="{=${FL_FLAT_FILE}==='1'}" />
+									<core:Icon src="sap-icon://mileage" size="20px"
+										color="{=${FL_ENERGY}==='1'?'green':'red'}"
+										visible="{=${FL_ENERGY}==='1'}" />
+									<core:Icon src="sap-icon://accounting-document-verification" size="20px" 
+										color="{=${FL_IDOC}==='1'?'green':'red'}"									
+										 visible="{=${FL_IDOC}==='1'}" />
+										<!--visible="false" />  -->
+									<core:Icon src="sap-icon://circle-task-2" size="20px"
+										color="{=${FL_ENABLED}==='1'?'green':'red'}" visible="true" />
+									
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true"
+						densityAware="false" />
+				</headerContent>
+				<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+							<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }"
+								visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

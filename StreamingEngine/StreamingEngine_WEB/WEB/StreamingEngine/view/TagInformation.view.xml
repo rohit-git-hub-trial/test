@@ -1,0 +1,303 @@
+<mvc:View id="view-tag-info" controllerName="StreamingEngine.StreamingEngine.controller.TagInformation" xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:commons="sap.suite.ui.commons" xmlns:viz="sap.viz.ui5.controls" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-tag-information" visible="false" showHeader="false" floatingFooter="true">
+				<content>
+		 <MessageStrip
+			         id="msg-strip-tag-edit"
+				text=""
+				type="Warning"
+				showIcon="true"
+				width="60%"
+				visible="{= !${AppModel>/Edit}}"
+				class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop">
+			</MessageStrip>
+					<ObjectHeader id="tag-info-object-header" intro="" title="" icon="sap-icon://tag" class="ObjHeaderStyle">
+						<statuses>
+							<ObjectStatus id="tag-info-hierarchy" title="{i18n>tagInfoHierarchy}" text="" state="None" icon="sap-icon://factory"/>
+							<ObjectStatus id="tag-info-status" class="statusIcon" title="{i18n>tagCatalogConfigStatus}" state="Error" icon="sap-icon://circle-task-2"/>
+						</statuses>
+						<attributes>
+							<ObjectAttribute id="attribute-datasource" text=""/>
+							<ObjectAttribute id="attribute-renamed-tag" text=""/>
+							<ObjectAttribute text=""/>
+						</attributes>
+					</ObjectHeader>
+		     
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<l:Splitter class="sapUiSizeCompact" height="auto">
+						<f:SimpleForm id="tag-information-form" width="100%" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+							labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" columnsXL="2" class="editableForm formTagUpload">
+							<f:layoutData>
+								<l:SplitterLayoutData size="50%" resizable="false"/>
+							</f:layoutData>
+							<f:content>
+								<core:Title/>
+								<Label text="{i18n>tagInfoTagId}"/>
+								<Input id="input-tag-id" value="" editable="false"/>
+								<Label text="{i18n>tagInfoOriginalTagName}"/>
+								<Input id="input-original-tag-name" value="" editable="false"/>
+								<Label text="{i18n>tagInfoDesc}"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<Input id="input-description" value="" app:columnName="DS_DESCRIPTION" editable="{AppModel>/Edit}" placeholder="Choose description" showValueHelp="true" tooltip="{i18n>TagDescriptionFetch}"  valueHelpRequest="onOpenValueHelp">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+										</Input>
+										<Button id="button-restore-description" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}" enabled="{AppModel>/Edit}"></Button>
+									</items>
+								</FlexBox>
+								<Label text="{i18n>tagInfoUOM}" required="true"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<ComboBox id="combobox-uom" editable="{AppModel>/Edit}" placeholder="{i18n>tagInfoUOMSelect}" items="{/Row}" app:columnName="ID_UOM" maxWidth="100%" width="100%">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:Item key="{ID_UOM}" text="{DS_NAME}"/>
+											</items>
+										</ComboBox>
+										<Button id="button-restore-uom" enabled="{AppModel>/Edit}" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+									</items>
+								</FlexBox>
+
+
+								<Label text="{i18n>tagCatalogPlantHierarchy}"  required="true"/>
+								<FlexBox alignItems="Center" justifyContent="Start" class="sapUiSizeCompact">
+									<items >
+										<ComboBox id="combo-hierarchy-1"  editable="{AppModel>/Edit}" showSecondaryValues="true" placeholder="{i18n>tagInfoHier1Select}" items="{/Row}" app:columnName="ID_PLANT_HIERARCHY" maxWidth="95%" width="95%"  selectionChange="changeHier_1">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:ListItem key="{ID}" text="{NAME}" additionalText="{DESCRIPTION}"/>
+											</items>
+										</ComboBox>
+
+										<ComboBox id="combo-hierarchy-2" editable="{AppModel>/Edit}" showSecondaryValues="true" placeholder="{i18n>tagInfoHier2Select}" items="{/Row}" app:columnName="ID_PLANT_HIERARCHY" maxWidth="95%" width="95%" selectionChange="changeHier_2">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:ListItem key="{ID}" text="{NAME}" additionalText="{DESCRIPTION}"/>
+											</items>
+										</ComboBox>
+
+										<ComboBox id="combo-hierarchy-3" editable="{AppModel>/Edit}" showSecondaryValues="true" placeholder="{i18n>tagInfoHier3Select}" items="{/Row}" app:columnName="ID_PLANT_HIERARCHY" maxWidth="95%" width="95%" selectionChange="changeHier_3">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:ListItem key="{ID}" text="{NAME}" additionalText="{DESCRIPTION}"/>
+											</items>
+										</ComboBox>
+
+										<ComboBox id="combo-hierarchy-4" editable="{AppModel>/Edit}"  showSecondaryValues="true" placeholder="{i18n>tagInfoHier4Select}" items="{/Row}" app:columnName="ID_PLANT_HIERARCHY" maxWidth="95%" width="95%" selectionChange="changeHier_4">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:ListItem key="{ID}" text="{NAME}" additionalText="{DESCRIPTION}"/>
+											</items>
+										</ComboBox>
+
+										<ComboBox id="combo-hierarchy-5"  editable="{AppModel>/Edit}" showSecondaryValues="true" placeholder="{i18n>tagInfoHier5Select}" items="{/Row}" app:columnName="ID_PLANT_HIERARCHY" maxWidth="100%" width="100%">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:ListItem key="{ID}" text="{NAME}" additionalText="{DESCRIPTION}"/>
+											</items>
+										</ComboBox>
+
+										<Button id="button-restore-combo-hierarchy" enabled="{AppModel>/Edit}" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+											tooltip="{i18n>commonRestore}"></Button>
+									</items>
+								</FlexBox>
+
+								<Label text="{i18n>commonLabelRenamedTag}"  required="true"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<Input id="input-renamed-tag-1" editable="{AppModel>/Edit}"  maxLength="3" value="" app:columnName="DS_NAME_RENAMED" width="96%" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".fnRenamedTagDialog">
+											<layoutData>
+												<FlexItemData baseSize="25%"/>
+												<l:GridData span="L2 M2 S2"/>
+											</layoutData>
+										</Input>
+										<Input id="input-renamed-tag-2" editable="{AppModel>/Edit}"  maxLength="3" value="" width="96%" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".fnRenamedTagDialog">
+											<layoutData>
+												<FlexItemData baseSize="25%"/>
+												<l:GridData span="L2 M2 S2"/>
+											</layoutData>
+										</Input>
+										<Input id="input-renamed-tag-3" editable="{AppModel>/Edit}"  maxLength="3" value="" width="96%" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".fnRenamedTagDialog">
+											<layoutData>
+												<FlexItemData baseSize="25%"/>
+												<l:GridData span="L2 M2 S2"/>
+											</layoutData>
+										</Input>
+										<Input id="input-renamed-tag-4" editable="{AppModel>/Edit}"  maxLength="3" value="" width="100%" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".fnRenamedTagDialog">
+											<layoutData>
+												<FlexItemData baseSize="25%"/>
+												<l:GridData span="L2 M2 S2"/>
+											</layoutData>
+										</Input>
+										<Button id="button-restore-renamed-tag" enabled="{AppModel>/Edit}" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+									</items>
+								</FlexBox>
+								<Label text="{i18n>tagInfoLastValue}"/>
+								<Input id="tag-last-value" value="" editable="false"></Input>
+								<Label text="{i18n>commonLabelRealtime}"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<Switch id="switch-realtime"   state="true" customTextOn="Yes" customTextOff="No" change="fnRealtimeSwitched" app:columnName="FLAG_REALTIME">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+										</Switch>
+									</items>
+								</FlexBox>
+								<Label text="{i18n>tagInfoDestination}"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<ComboBox id="combobox-destination" editable="{AppModel>/Edit}" enabled="false" items="{/Row}" maxWidth="100%" width="100%">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+											<items>
+												<core:Item text="{DS_DESCRIPTION}" key="{ID_PCO_DESTINATION}"/>
+											</items>
+										</ComboBox>
+										<Button visible="false" enabled="{AppModel>/Edit}" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+									</items>
+								</FlexBox>
+								<Label text="{i18n>commonLabelArchive}"/>
+								<FlexBox alignItems="Center" justifyContent="Start">
+									<items>
+										<Switch id="switch-archive" state="true" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" app:columnName="FLAG_ARCHIVE">
+											<layoutData>
+												<FlexItemData growFactor="1"/>
+											</layoutData>
+										</Switch>
+									</items>
+								</FlexBox>
+							</f:content>
+						</f:SimpleForm>
+						<Panel id="panel-chart" width="auto" height="auto" class="panelChartContainerMaster">
+							<layoutData>
+								<l:SplitterLayoutData size="50%" resizable="false"/>
+							</layoutData>
+							<content>
+								<f:SimpleForm width="100%" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" columnsXL="2" class="editableForm">
+									<f:layoutData>
+										<l:SplitterLayoutData size="50%" resizable="false" />
+									</f:layoutData>
+									<f:content>
+										<Label text="{i18n>tagInfoWatchLabel}" />
+										<Switch id="switch-watch" state="false" customTextOn="Yes" customTextOff="No" change="fnWatchStateChanged" app:columnName="FLAG_REALTIME">
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+										</Switch>
+										<Label text="{i18n>UploadWatchData}"  />
+										<Switch id="switch-stream-data"  state="false" customTextOn="Yes" customTextOff="No" change="fnStreamStateChanged"/>
+										<Label />
+										<MessageStrip id="message-chart-on" type="Information" showIcon="true"></MessageStrip>
+									</f:content>
+								</f:SimpleForm>
+								<!--<f:SimpleForm id="tag-info-watch-form" width="100%" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+									labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" columnsXL="2" class="editableForm formTagUpload">
+									<f:content>
+										<core:Title/>
+										
+										<FlexBox alignItems="Center" justifyContent="Start">
+											<items>
+												
+											</items>
+										</FlexBox>
+									</f:content>
+								</f:SimpleForm>-->
+								<Panel id="panel-chart-container" width="auto" height="440px" visible="false" class="panelChartContainer">
+									<content>
+										<commons:ChartContainer id="chartContainer" class="classChartTagWatch" showFullScreen="true" showPersonalization="false"
+											autoAdjustHeight="true" showLegend="false" personalizationPress="attachPersonalizationPress">
+											<commons:content>
+												<commons:ChartContainerContent icon="sap-icon://line-chart" title="Reports">
+													<commons:content>
+														<viz:VizFrame id="idVizFrame" width="100%" height="100%" selectData="fnChartSelected"/>
+													</commons:content>
+												</commons:ChartContainerContent>
+											</commons:content>
+											<commons:customIcons>
+												<core:Icon id="icon-refresh" src="sap-icon://refresh" tooltip="Refresh" press="fnRefreshChart" width="2em"></core:Icon>
+												<core:Icon id="icon-export" src="sap-icon://excel-attachment" tooltip="Export csv" press="fnExportCSV" width="2em"></core:Icon>
+											</commons:customIcons>
+											<commons:toolbar>
+												<OverflowToolbar id="appToolbar">
+													<core:Icon id="icon-rollback" src="sap-icon://arrow-left" tooltip="Previous Filter" press="fnRollBackFilters" width="2em" enabled="{AppModel>/Edit}">
+														<core:layoutData><OverflowToolbarLayoutData priority="NeverOverflow"/></core:layoutData>
+													</core:Icon>
+													<ComboBox id="combobox-timerange" enabled="{AppModel>/Edit}" placeholder="Select a time range" selectionChange="fnQuickLoadReport" selectedKey="15-M">
+														<layoutData><OverflowToolbarLayoutData priority="NeverOverflow"/></layoutData>
+														<items>
+															<core:Item key="5-M" text="Last 5 Minutes"/>
+															<core:Item key="15-M" text="Last 15 Minutes"/>
+															<core:Item key="30-M" text="Last 30 Minutes"/>
+															<core:Item key="1-H" text="Last 1 Hour"/>
+															<core:Item key="6-H" text="Last 6 Hours"/>
+															<core:Item key="12-H" text="Last 12 Hours"/>
+															<core:Item key="24-H" text="Last 24 Hours"/>
+														</items>
+													</ComboBox>
+													<Button text="Advanced Date Range" icon="sap-icon://arrow-down" iconFirst="false" press="fnDateRangePopUp" enabled="{AppModel>/Edit}">
+														<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+													</Button>
+													<!--<DateTimePicker id="date-time-from" enabled="false" placeholder="Start Date" change="handleChangeFromDate" width="12rem"/>
+								<DateTimePicker id="date-time-to" enabled="false" placeholder="End Date" change="handleChangeFromDate" width="12rem"/>-->
+													<CheckBox id="checkbox-auto-refresh" text="Enable Auto refresh" selected="false" select="fnAutoRefreshFunction" enabled="{AppModel>/Edit}">
+														<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+													</CheckBox>
+									          <CheckBox id="checkbox-auto-refresh2" text="Stream after watch" selected="false" select="fnAutossRefreshFunction" enabled="{AppModel>/Edit}">
+														<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+													</CheckBox>
+													<ToolbarSpacer/>
+													<commons:ChartContainerToolbarPlaceholder>
+														<commons:layoutData><OverflowToolbarLayoutData priority="NeverOverflow"/></commons:layoutData>
+													</commons:ChartContainerToolbarPlaceholder>
+												</OverflowToolbar>
+											</commons:toolbar>
+										</commons:ChartContainer>
+										
+									</content>
+								</Panel>
+							</content>
+						</Panel>
+					</l:Splitter>
+										
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+						     <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+							<ToolbarSpacer width=""/>
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save" iconFirst="true" width="auto"  visible="true"  enabled="{AppModel>/Edit}"
+								iconDensityAware="false" press="fnSaveTagInformation"/>
+						        <Button id="tagInfo-RestBtn" text="{i18n>tagInfoResetConfig}"  type="Reject" icon="sap-icon://reset" iconFirst="true" width="auto"  enabled="{AppModel>/Edit}" visible="true"
+								iconDensityAware="false" press="fnResetTagConfiguration" />
+							<Button text="{i18n>commonCancel}"  icon="sap-icon://sys-cancel" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

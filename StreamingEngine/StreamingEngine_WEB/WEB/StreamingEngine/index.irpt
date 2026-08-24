@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>StreamingEngine</title>
+		<link rel="icon" type="image/png" href="images/Sanofi_Favicon.png" />
+		<script id="sap-ui-bootstrap"
+			src="/sapui5-1.71/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-resourceroots='{"StreamingEngine.StreamingEngine": "./"}'
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-xx-componentPreload="off"
+			data-sap-ui-libs="sap.m" 
+			data-sap-ui-preload="async">
+		</script>
+
+		<!-- callCache prevent -->
+		<script src="./cacheControl/preventCache.js"></script>
+		<!-- End User Settings Code -->
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "StreamingEngine.StreamingEngine"
+					}),
+					appWidthLimited:false
+				}).placeAt("content");
+			});
+		</script>
+
+
+		<!-- Start User Settings Code -->
+		<script type="text/javascript">
+			var oQuery = "StreamingEngine/UserProfile/Query/UserSettingsXacuteQuery";
+			var bRequireChangeComment = false;
+			$.ajax({
+				type: "POST",
+				url: "/XMII/Illuminator?QueryTemplate="+oQuery +"&Content-Type=text/xml",
+				dataType: "xml"
+			}).done(function(xml) {
+				$(xml).find("Rowsets").each(function(){
+					var FatalError = $(this).find("FatalError").text();
+					if(FatalError != "") console.log(FatalError);
+				});
+				$(xml).find("Row").each(function(){
+					var UserLanguage = $(this).find("UserLanguage").text();			
+					var CurrentLanguage = sap.ui.getCore().getConfiguration().getLanguage();
+					if(UserLanguage!="" && UserLanguage!="---" && CurrentLanguage!=UserLanguage) {
+						sap.ui.getCore().getConfiguration().setLanguage(UserLanguage);
+					}
+					bRequireChangeComment = Boolean($(this).find("RequireChangeComment").text());
+				});
+			}).fail(function(jqXHR, textStatus, msg) { 
+				console.log("User Settings, Connection Error");
+			});
+		</script>
+		<!-- End User Settings Code -->
+
+	</head>
+	<body class="sapUiBody" id="content">
+		<input type="hidden" id="firstName" name="custId" value="{FirstName}">
+		<input type="hidden" id="lastName" name="custId" value="{LastName}">
+		<input type="hidden" id="SE_Plant" name="custId" value="{SE_Plant}">
+		<input type="hidden" id="input-username" name="custId" value="{IllumLoginName}">
+		<input type="hidden" id="input-roles" name="custId" value="{IllumLoginRoles}">
+	</body>
+</html>

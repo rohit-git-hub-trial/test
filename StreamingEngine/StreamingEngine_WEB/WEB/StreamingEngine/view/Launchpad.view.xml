@@ -1,0 +1,301 @@
+<mvc:View controllerName="StreamingEngine.StreamingEngine.controller.Launchpad" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m">
+	<App>
+
+		<pages>
+
+			<Page id="page-launchpad" title="Streaming Engine" showHeader="false">
+				<content>
+					<MessageStrip visible="false" id="message-no-access" text="{i18n>commonNoAccess}" type="Error" showIcon="true"
+						customIcon="sap-icon://private" class="sapUiMediumMarginBottom"></MessageStrip>
+<MessageStrip
+    text="{i18n>launchPadMessage}"
+    type="Warning"
+    customIcon="sap-icon://message-information"
+    showIcon="true"
+    showCloseButton="true"
+    visible="false"
+    class="sapUiMediumMarginBottom">
+</MessageStrip>
+
+		
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Panel id="panel-admin" expandable="true" expanded="true" headerText="{i18n>launchPadAdmin}" width="auto" class="sapUiResponsiveMargin" visible="false">
+						<content>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadPlantParameters}" press="onClickPlantParameters">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadPlants}">
+										<content>
+											<NumericContent id="numeric-plant" value="0" icon="sap-icon://factory" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						      
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadDataSources}" press="onClickDataSources">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledSources}">
+										<content>
+											<NumericContent id="numeric-data-source" value="0" icon="sap-icon://database" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+
+ 							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadDataDestinations}" press="onClickDataDestinations">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadAvailableDestination}">
+										<content>
+											<NumericContent id="numeric-data-destination" value="0" icon="sap-icon://map-2" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						        
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadArichiveFlows}" press="onClickArchiveFlows">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledFlows}">
+										<content>
+											<NumericContent id="numeric-archive-flows" value="0" icon="sap-icon://enter-more" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadContextualFlows}" press="onClickContextualFlows">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledFlows}">
+										<content>
+											<NumericContent id="numeric-contextual-flows" value="0" icon="sap-icon://step" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadFileFlows}" press="onClickFileFlows">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledFlows}">
+										<content>
+											<NumericContent id="numeric-file-flows" value="0" icon="sap-icon://document-text" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadExternalFlows}" press="onClickExternalFlows">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledFlows}">
+										<content>
+											<NumericContent id="numeric-external-flows" value="0" icon="sap-icon://action" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+								<GenericTile id="tile-historical-upload-status" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadHistoricalUploadStatus}" press="onClickHistoricalUploadStatus">
+    <tileContent>
+        <TileContent unit="{i18n>launchPadRequestsPending}">
+            <content>
+                <NumericContent id="numeric-historical-upload-status" value="0" icon="sap-icon://history" valueColor="Good"/>
+            </content>
+        </TileContent>
+    </tileContent>
+</GenericTile>
+						</content>
+					</Panel>
+
+
+					<Panel id="panel-bso" expandable="true" expanded="true" headerText="{i18n>commonTitleUsersManagement}" width="auto" class="sapUiResponsiveMargin" visible="true">
+      						 	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>commonTitleUsersManagement}" press="onClickUsersManagement">
+        								<tileContent>
+            									<TileContent unit="{i18n>launchPadUsers}">
+               									<content>
+                    									<NumericContent id="numeric-users-management" value="0" icon="sap-icon://user-settings" valueColor="Good"/>
+                									</content>
+            									</TileContent>
+        								</tileContent>
+    							</GenericTile>
+					</Panel>
+
+					<Panel id="panel-configuration" expandable="true" expanded="true" headerText="{i18n>launchPadConfiguration}" width="auto" class="sapUiResponsiveMargin" visible="false">
+						<content>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadTagCatalog}" press="onClickTagCatalog">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledTags}">
+										<content>
+											<NumericContent id="numeric-tags" value="0" icon="sap-icon://tags" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadDigitalApps}" press="onClickDigitalApps">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadAssignedTags}">
+										<content>
+											<NumericContent id="numeric-digital-apps" value="0" icon="sap-icon://card" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadBatchCatalog}" press="onClickBatchCatalog">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadEnabledBatchEquipment}">
+										<content>
+											<NumericContent id="numeric-batch-equipment" value="0" icon="sap-icon://activity-items" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadManualImport}" press="onClickManualImport">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadRunningManualImport}">
+										<content>
+											<NumericContent id="numeric-manual-import" value="0" icon="sap-icon://excel-attachment" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+   									 header="{i18n>commonTitleReferenceUpdate}" 
+									 visible ="false"
+    										press="onClickReferenceUpdate">
+
+  															  <tileContent>
+     															  <TileContent>
+           																		 <content>
+              														 <HBox justifyContent="End">
+              														      <ImageContent id="numeric-Reference-Update" src="sap-icon://excel-attachment"/>
+              															  </HBox>
+            															</content>
+      															  </TileContent>
+   								 </tileContent>
+							</GenericTile>
+						</content>
+					</Panel>
+					<Panel id="panel-monitoring" expandable="true" expanded="true" headerText="{i18n>launchPadMonitoring}" width="auto" class="sapUiResponsiveMargin" visible="false">
+						<content>
+							<GenericTile id="tile-jobs" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadJobsMonitoring}"
+								press="onClickJobsMonitoring">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadFailedJobs}">
+										<content>
+											<NumericContent id="numeric-jobs" value="0" icon="sap-icon://time-account" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile id="tile-queue" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadQueueMonitoring}"
+								press="onClickQueueMonitoring">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadBufferedMsgs}">
+										<content>
+											<NumericContent id="numeric-queue" value="0" icon="sap-icon://open-command-field" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile id="tile-pco-monitor" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadPcoMonitoring}"
+								press="onClickPcoMonitoring">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadFailedAgents}">
+										<content>
+											<NumericContent id="numeric-pco-monitor" value="0" icon="sap-icon://dimension" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadAuditLog}" press="onClickAuditLog">
+								<tileContent>
+									<TileContent unit="{i18n>launchPadRecentChanges}">
+										<content>
+											<NumericContent id="numeric-audit-log" value="0" icon="sap-icon://activities" valueColor="Good"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadApplicationLog}" press="onClickApplicationLog">
+								<tileContent>
+								<TileContent unit="{i18n>launchPadRecentChanges}">
+									<content>
+									<NumericContent id="numeric-appllication-log" value="0" icon="sap-icon://activity-2" valueColor="Good"/>
+									</content>
+								</TileContent>
+								</tileContent>
+							</GenericTile>
+						</content>
+					</Panel>
+					<Panel id="panel-sap-mii" expandable="true" expanded="false" headerText="{i18n>launchPadSAPMII}" width="auto" class="sapUiResponsiveMargin" visible="false">
+						<content>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadTransactionManager}"
+								press="onClickTransactionManager">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://manager-insight"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadScheduledJobs}"
+								press="onClickScheduledJobs">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://future"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadLogViewer}"
+								press="onClickLogViewer">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://survey"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadCustomAttributeMapping}"
+								press="onClickCustomAttributeMapping">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://user-settings"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadDataServers}"
+								press="onClickDataServers">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://disconnected"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadConnectionStatus}"
+								press="onClickConnectionStatus">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://order-status"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>launchPadSharedMemory}"
+								press="onClickSharedMemory">
+								<tileContent>
+									<TileContent>
+										<content>
+												<ImageContent src="sap-icon://developer-settings"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						</content>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

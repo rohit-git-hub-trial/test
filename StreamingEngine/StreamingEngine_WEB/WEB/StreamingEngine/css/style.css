@@ -1,0 +1,191 @@
+/* Enter your custom styles here */
+.pagestyle{
+}
+div.tableStyle{
+	margin: 0px ! IMPORTANT;
+}
+
+.tableStyle .sapMText{
+	
+	font-size: 0.75rem ! IMPORTANT;
+}
+
+.tableStyle th .sapMText{
+	
+	font-weight: bold;
+}
+
+.panelDigitalApps .sapMPanelContent{
+	height:100% ! IMPORTANT;
+	border: 1px solid #e2e2e2;
+}
+
+
+.panelRoles .sapMPanelContent{
+	height:90% ! IMPORTANT;
+	border: 1px solid #e2e2e2;
+}
+
+
+.panelChartContainer .sapMPanelContent{
+	height:100% ! IMPORTANT;
+}
+
+.panelChartContainerMaster .sapMPanelContent{
+	height:100% ! IMPORTANT;
+	border-bottom: 0px ! IMPORTANT;
+}
+.customBoldText{
+	font-weight: bold;
+}
+
+.watchToolbar{
+	border-bottom-width: 0px ! IMPORTANT;
+}
+
+.tableStyle .sapMText.textHighlight{
+	font-weight: bolder;
+}
+
+.filterBar .sapUiCompFilterBarToolbar{
+	height:0px;
+}
+
+div.filterBar.sapUiCompFilterBar {
+	padding-top:0px ! IMPORTANT;
+	
+}
+
+.tableStyle .sapMObjectNumberText{
+	
+	font-size: 0.75rem ! IMPORTANT;
+}
+
+.sapMObjStatusWarning.statusIcon>.sapMObjStatusIcon>.sapUiIcon {
+	font-size:1.3rem;
+}
+
+.sapMObjStatusError.statusIcon>.sapMObjStatusIcon>.sapUiIcon {
+	font-size:1.3rem;
+} 
+
+.sapMObjStatusSuccess.statusIcon>.sapMObjStatusIcon>.sapUiIcon {
+	font-size:1.3rem;
+} 
+
+
+
+.formTagUpload .sapUiRespGrid {
+	padding-top:0rem;
+	padding-bottom:0rem;
+}
+
+#__xmlview1--title-plant-form-1{
+	height:0rem ! IMPORTANT;
+} 
+
+#__xmlview1--title-plant-form-2{
+	height:0rem ! IMPORTANT;
+} 
+
+.formPlantInfo .sapUiRespGrid {
+	padding-top:0rem;
+	padding-bottom:0rem;
+}
+
+#title-form-download-agent{
+	height:0rem;
+}
+
+#title-form-daterange-select{
+	height:0rem;
+}
+
+#title-reset-queue{
+	height:0rem;
+}
+
+.ObjHeaderStyle .sapMOHTitle span{
+	line-height:3rem;
+}
+
+.sapMText[data-hiddenRecord="1"] {
+	color:#CCCCCC;
+	font-style: italic;
+}
+
+.sapMText[data-labelColor="watch"] {
+	color:#0000CC;
+}
+
+.sapMText[data-labelColor="load"] {
+	color:#FF4500;
+}
+
+.sapMText[data-rowStatus="L"] {
+	color:#FF4500;
+}
+
+.sapMText[data-rowStatus="I"] {
+	color:darkorange;
+}
+
+.sapMText[data-labelColor="Upload"] {
+	color:darkorange;
+}
+.sapMText[data-labelColor="VLog"] {
+	color:blue;
+	font-weight: bold;
+}
+
+
+#__xmlview1--list-roles {
+	background-color: #fafafa;
+}
+
+#__xmlview1--list-digital-apps {
+	background-color: #fafafa;
+}
+
+.alertMessage {
+	color:#CC0000;
+}
+
+.importantColorRed {
+	color:#CC0000;
+	font-weight: bolder;
+}
+
+.ObjectIdentifierPadding {
+    padding: 13px 0 0 13px !important;
+}
+
+.importantColorRedFont .sapMBtnContent {
+    color: red !important;
+}
+
+
+.sapMListTblRow.seOrangeRow .sapMText,
+.sapMListTblRow.seOrangeRow .sapMObjStatusText,
+.sapMListTblRow.seOrangeRow .sapMObjIdentifierTitle,
+.sapMListTblRow.seOrangeRow .sapMObjIdentifierText {
+  color: #E9730C !important;  /* tweak if you prefer another orange */
+}
+/ Makes tag text full-width, readable and neatly wrapped /
+.tagTextClass {
+  font-size: 14px;
+  line-height: 20px;
+  width: 100%;
+}
+
+/ (Optional) add a little vertical breathing room for each row /
+.sapMList .sapMCLI {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/ (Optional) very small tweak to align checkbox + text baseline /
+.sapMList .sapMChkBx {
+  margin-top: 2px;
+ / adjust 0–3px to your theme if needed /
+}

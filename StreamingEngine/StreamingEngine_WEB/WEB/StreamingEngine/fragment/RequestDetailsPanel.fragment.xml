@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout">
+	<Panel id="panel-request-details" width="24rem" class="sapUiResponsiveMargin panelRequestDetails" visible="{RequestDetailView>/Open}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="{i18n>historicalUploadStatusRequestDetails}" level="H4"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://decline" type="Transparent" tooltip="{i18n>commonClose}" press="fnCloseRequestDetails"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<layout:HorizontalLayout allowWrapping="true">
+			<f:SimpleForm id="form-request-details" editable="false" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12"
+				labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+				columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" class="sapUiSmallMarginEnd">
+				<f:content>
+					<Label text="{i18n>commonLabelDataSource}"/>
+					<Text text="{RequestDetailView>/DATA_SOURCE}"/>
+					<Label text="{i18n>flowType}"/>
+					<Text text="{RequestDetailView>/FLOW_TYPE_DESC}"/>
+					<Label text="{i18n>historicalUploadStatusStartDate}"/>
+					<Text text="{RequestDetailView>/START_DATETIME}"/>
+					<Label text="{i18n>historicalUploadStatusEndDate}"/>
+					<Text text="{RequestDetailView>/END_DATETIME}"/>
+					<Label text="{i18n>historicalUploadStatusNumberOfTags}"/>
+					<Text text="{RequestDetailView>/NUM_TAGS}"/>
+				</f:content>
+			</f:SimpleForm>
+			<f:SimpleForm id="form-request-details-additional" editable="false" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12"
+				labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+				columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+				<f:content>
+					<core:Title text="{i18n>historicalUploadStatusAdditionalInformation}"/>
+					<Label text="{i18n>historicalUploadStatusRequestedBy}"/>
+					<Text text="{RequestDetailView>/REQUESTOR}"/>
+					<Label text="{i18n>historicalUploadStatusRequestTimestamp}"/>
+					<Text text="{RequestDetailView>/REQUEST_TIMESTAMP}"/>
+					<Label text="{i18n>historicalUploadStatusComment}"/>
+					<Text text="{RequestDetailView>/COMMENT}"/>
+				</f:content>
+			</f:SimpleForm>
+		</layout:HorizontalLayout>
+		<OverflowToolbar class="sapUiSmallMarginTop">
+			<ToolbarSpacer/>
+			<Button id="button-approve-request" text="{i18n>historicalUploadStatusApprove}" type="Accept" icon="sap-icon://accept"
+				iconFirst="true" width="auto" visible="{RequestDetailView>/CanAct}"
+				enabled="{= ${RequestDetailView>/REQ_STATUS} === 'PE' || ${RequestDetailView>/REQ_STATUS} === 'OH' }" press="fnApproveRequest"/>
+			<Button id="button-reject-request" text="{i18n>historicalUploadStatusReject}" type="Reject" icon="sap-icon://decline"
+				iconFirst="true" width="auto" visible="{RequestDetailView>/CanAct}"
+				enabled="{= ${RequestDetailView>/REQ_STATUS} === 'PE' || ${RequestDetailView>/REQ_STATUS} === 'OH' }" press="fnRejectRequest"/>
+			<Button id="button-defer-request" text="{i18n>historicalUploadStatusDefer}" type="Default" icon="sap-icon://pause"
+				iconFirst="true" width="auto" visible="{RequestDetailView>/CanAct}"
+				enabled="{= ${RequestDetailView>/REQ_STATUS} === 'PE' }" press="fnDeferRequest"/>
+		</OverflowToolbar>
+	</Panel>
+</core:FragmentDefinition>

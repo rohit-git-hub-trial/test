@@ -1,0 +1,239 @@
+<mvc:View id="view-file-information" controllerName="StreamingEngine.StreamingEngine.controller.FileInformation"
+	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-file-information" visible="false" showHeader="false" floatingFooter="true">
+				<content>
+					<ObjectHeader id="object-header-file-info" intro="" title="" icon="sap-icon://enter-more" class="ObjHeaderStyle">
+						<statuses>
+							<ObjectStatus id="header-plant-name" title="{i18n>commonLabelPlant}" text="" state="None" icon="sap-icon://factory"/>
+							<ObjectStatus id="header-data-source" text="" title="{i18n>commonLabelDataSource}" state="None" icon="sap-icon://database"/>
+						</statuses>
+						<attributes></attributes>
+					</ObjectHeader>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<f:SimpleForm id="file-information-form" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+						labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formTagUpload">
+						<f:content>
+							<core:Title/>
+							<Label text="{i18n>flowID}"/>
+							<Input id="input-flow-id" value="" enabled="false"/>
+							<Label text="{i18n>flowDS}" required="true"/>
+							<ComboBox id="combobox-data-source" placeholder="Select a Data Source" items="{/Row}" selectionChange="onDataSourceChanged">
+								<items>
+									<core:Item key="{ID_SOURCE}" text="{DS_NAME}"/>
+								</items>
+							</ComboBox>
+							<Label text="{i18n>flowInfoName}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-data-flow-name" value="" app:columnName="DS_NAME">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-flow-name" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowDesc}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-description" value="" app:columnName="DS_DESCRIPTION">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-description" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>PCo Destination ID}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" visible="{= (${visibility>/sDataSourceType} === 'File') &amp;&amp; (${visibility>/sSynchronousMode} === '1')}">
+								<items>
+									<Input id="input-pco-destination-id" value="" app:columnName="CD_PCO_DESTINATION_ID">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-pco-destination-id" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title/>
+							<Label text="{i18n>dataDestination}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<ComboBox id="combobox-datadestination" placeholder="{i18n>dataDestinationsSelect}" items="{/Row}" app:columnName="ID_DATA_DESTINATION" width="100%" maxWidth="100%" change="onChangeDestination" >
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+											<core:Item key="{ID_DATA_DESTINATION}" text="{DS_NAME}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-datadestination" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="" visible="fase"/>  
+							<ObjectStatus id="objectStatus-ff-dd-disabled" icon="sap-icon://message-warning" inverted="false" state="Warning"  text="{i18n>dataDestinationsDisabled}"  visible="fase"/>
+							<Label text="{i18n>fileFlowSynchType}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" visible="{=${visibility>/sDataSourceType} === 'File'}">
+								<items>
+									<ComboBox id="combobox-synch-type" placeholder="{i18n>flowSynchTypeSelect}" app:columnName="FL_SYNCHRONOUS" width="100%" maxWidth="100%" selectionChange="onSyncTypeChange">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+											<core:Item key="1" text="{i18n>fileFlowSynchTypeRealTime}"/>
+											<core:Item key="0" text="{i18n>fileFlowSynchTypePeriodic}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-synch-type" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowCompressed}"/>
+							<FlexBox alignItems="Center" justifyContent="Start" visible="{=${visibility>/sDataSourceType} === 'File'}">
+								<items>
+									<Switch id="switch-compressed" state="false" customTextOn="Yes" customTextOff="No" app:columnName="FL_COMPRESSED">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-compressed" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowEnabled}"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-enabled" state="false" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" app:columnName="FL_ENABLED">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-enabled" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>fileFormatTransformation}"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-transformation" state="false" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" app:columnName="FL_TRANSFORMATION" change="fnOnSwitchFileTransformation">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-transformation" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label id="label-fileInputFormat" text="{i18n>fileInputFormat}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-fileInputFormat">
+								<items>
+									<ComboBox id="combobox-fileInputFormat" placeholder="{i18n>fileInputFormatSelect}" items="{path: '/Row', filters: [{path: 'CD_INPUT_FORMAT', operator: 'NotStartsWith', value1: '_'}]}" app:columnName="CD_INPUT_FORMAT" width="100%" maxWidth="100%" change="fnOnChangeInputFormat">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+											<core:Item key="{CD_INPUT_FORMAT}" text="{CD_INPUT_FORMAT}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-fileInputFormat" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label id="label-fileOutputFormat" text="{i18n>fileOutputFormat}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-fileOutputFormat">
+								<items>
+									<ComboBox id="combobox-fileOutputFormat" placeholder="{i18n>fileOutputFormatSelect}" items="{/Row}" app:columnName="CD_OUTPUT_FORMAT" width="100%" maxWidth="100%" change="fnOnChangeOutputFormat">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+											<core:Item key="{CD_OUTPUT_FORMAT}" text="{path: 'CD_OUTPUT_FORMAT', formatter: '.fnGetOutput'}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-fileOutputFormat" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowWSTransformationAlgorithm}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-mii-transaction">
+								<items>
+									<ComboBox id="combobox-mii-transaction" placeholder="Select an MII transaction" items="{/Row}" app:columnName="DS_MII_TRANSACTION" width="100%" maxWidth="100%">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+											<core:Item key="{FullPath}" text="{Name}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-mii-transaction" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="false" text=""/>
+							<Button visible="false" id="button-flow-param-map" text="{i18n>FlowParamMapTitle}" type="Default" icon="sap-icon://share" press="fnOpenFlowParamMap"/>
+							<Label visible="false" id="label-fileFilter" text="{i18n>fileFilter}"/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-fileFilter" >
+								<items>
+									<Switch visible="false" id="switch-fileFilter" state="false" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" change="fnOnSwitchFileFilter" app:columnName="FL_JSON_FILTERING">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-filter" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="" visible="false"/>
+							<ObjectStatus id="objectStatus-dd-Importjson" icon="sap-icon://message-information" inverted="false" state="None"  text="{i18n>MessageImportJson}"  visible="true"/>
+							<Label visible="false" id="label-Templatejsonfile" text="{i18n>TemplateJson}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-fileFilterUpload">
+								<items>
+									<u:FileUploader value="" visible="false" id="fileFilter-FileUploader" placeholder="{i18n>LoadJson}" change="fnFileChanged" class="sapUiSmallMarginEnd" widht="100%"/>
+									<Button visible="false" id="button-file-filter-upload" type="Accept" icon="sap-icon://upload" text="{i18n>ImportJson}" class="sapUiSmallMarginEnd" press="fnOnclickUpload"/>
+									<Button visible="false" id="button-restore-uploader" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label visible="false" text=""/>
+							<FlexBox alignItems="Start" justifyContent="Start" id="flexbox-templatee">
+								<items>
+									<ObjectStatus id="objectStatus-dd-msgsuccess" icon="sap-icon://message-success" inverted="false" state="Success"  text="{i18n>validJson}"  visible="true"/>
+								</items>
+							</FlexBox>
+							<Label visible="false" text=""/>
+							<FlexBox alignItems="Center" justifyContent="Start" id="flexbox-template">
+								<items>
+									<Button visible="true" id="button-Download-template" text="{i18n>ExportTemplate}" icon="sap-icon://download" class="sapUiSmallMarginEnd" press="fnOnDownloadTemplate"/>
+									<Button visible="true" id="button-Change-template" text="{i18n>ImportTemplate}" icon="sap-icon://write-new-document" class="sapUiSmallMarginEnd" press="fnOnclickReplaceTemplate"/>
+							</items>
+							</FlexBox>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+						<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+							<ToolbarSpacer width=""/>
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnSaveFileFlow"/>
+							<Button id="button-delete" text="{i18n>commonDelete}" type="Reject" icon="sap-icon://delete" iconFirst="true" width="auto" enabled="true" visible="false"
+								iconDensityAware="false" press="fnDeleteFileFlow"/>
+							<Button text="{i18n>commonCancel}"  icon="sap-icon://sys-cancel" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

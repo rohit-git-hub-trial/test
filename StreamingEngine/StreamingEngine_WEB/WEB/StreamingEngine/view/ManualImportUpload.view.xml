@@ -1,0 +1,100 @@
+<mvc:View id="view-manual-import-upload" controllerName="StreamingEngine.StreamingEngine.controller.ManualImportUpload" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" width="100%">
+	<App>
+		<pages>
+			<Page id="manual-import-page-record-upload" visible="false" showHeader="false" showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+					<f:SimpleForm id="manual-import-SimpleForm" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="{i18n>manualImportUploadFileToUpload}"/>
+							<u:FileUploader id="manual-import-fileUploader" width="300px" sameFilenameAllowed="false" placeholder="{i18n>manualImportUploadFileUploadPlaceholder}" style="Emphasized"/>
+							<Button text="{i18n>manualImportUploadFileUploadButton}" press="fnUploadFile" type="Accept" />
+							<Button text="{i18n>manualImportUploadAbortButton}" press="fnAbortFile" type="Reject"/>
+							<Label/>
+						</f:content>
+					</f:SimpleForm>
+
+					<f:SimpleForm id="manual-import-upload-info_1" maxContainerCols="1" editable="false" layout="ResponsiveGridLayout" labelSpanL="0"
+						labelSpanM="0" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1" >
+						<f:content>
+							<Text text="{i18n>manualImportImportantMessage}" textAlign="End" class="importantColorRed" />
+						</f:content>
+					</f:SimpleForm>
+
+					<Label text="{i18n>manualImportUploadStatus}"/>
+					<ProgressIndicator id="manual-import-import-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<Label text="{i18n>manualImportUploadProcessStatus}"/>
+					<ProgressIndicator id="manual-import-processing-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<f:SimpleForm id="manual-import-upload-info_2" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formManualImportUpload">
+						<f:content>
+							<core:Title id="manual-import-title-form-1"/>
+							<Label text="{i18n>manualImportUploadUploadedRecord}"/>
+							<Text id="manual-import-text-uploaded-record" text=""/>
+							<Label text="{i18n>manualImportUploadProcessedRecord}"/>
+							<Text id="manual-import-text-processed-record" text=""/>
+							<core:Title id="manual-import-title-form-2"/>
+							<Label text="{i18n>manualImportUploadPendingRecord}"/>
+							<Text id="manual-import-text-pending-record" text=""/>
+							<Label text="{i18n>manualImportUploadFailedRecord}"/>
+							<Text id="manual-import-text-failed-record" text=""/>
+						</f:content>
+					</f:SimpleForm>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Table id="manual-import-table-record-uploaded-data" visible="false" width="auto" noDataText="{i18n>commonNoData}" mode="None" items="{/Row}" showSeparators="All"
+						growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>manualImportUploadTitleSummary}" level="H2"/>
+                                           					<ToolbarSpacer width=""/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="30%"  hAlign="Begin" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>manualImportUploadTagName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="10%"  hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>manualImportUploadConfigStatus}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="60%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>manualImportUploadMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{DS_TAG}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<core:Icon src="{ path:'DS_STATUS', formatter: '.formatter.statusIconManualImportUpload' }" size="20px" color="{ path:'DS_STATUS', formatter: '.formatter.statusColorManualImportUpload' }" visible="true"/>
+									<Text text="{DS_MESSAGE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			          <footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

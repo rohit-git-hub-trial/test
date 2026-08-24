@@ -1,0 +1,214 @@
+<core:View xmlns:core="sap.ui.core"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    controllerName="StreamingEngine.StreamingEngine.controller.BatchInformation">
+<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+    <ObjectPageLayout id="page-batch-information" visible="false"  showFooter="{= ${message>/}.length > 0 }" >
+        <headerTitle>
+            <ObjectPageHeader
+                objectTitle="{EQUIPMENT_NAME}" objectSubtitle="{EQUIPMENT_PATH}">
+            </ObjectPageHeader>
+        </headerTitle>
+
+        <headerContent>
+          <layout:VerticalLayout>
+                <m:Label text="{i18n>MyProfilePlant}: {PLANT}" />
+                <m:Label text="{i18n>commonLabelDataSource}: {SOURCE}" />
+            </layout:VerticalLayout> 
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection id="equiMappingSection">
+                <subSections>
+                    <ObjectPageSubSection id="equiMapping"
+                        title="{i18n>batchCatalogEquipmentMapping}">
+                        <actions>
+                            <m:Button
+                                text="{i18n>batchCatalogMap}"
+                                type="Accept"
+                                press="fnEquipmentMappingSave"
+                                icon="sap-icon://accept"
+                            />
+                            <m:Button
+                                text="{i18n>batchCatalogRemove}"
+                                type="Reject"
+                                press="fnEquipmentMappingDelete"
+                                icon="sap-icon://decline"
+                            />
+                        </actions>
+                        <blocks>
+                            <layout:VerticalLayout>
+                                <m:Label text="{i18n>batchCatalogPlantHierarchy}:" />
+                                <m:FlexBox alignItems="Center">
+                                    <m:items>
+
+                                        <m:ComboBox id="batch-combo-hierarchy-1"
+                                            showSecondaryValues="true"
+                                            placeholder="{i18n>tagInfoHier1Select}"
+                                            items="{Level1>/Row}" maxWidth="95%" width="95%"
+                                            selectionChange="changeHier_1">
+                                            <m:layoutData>
+                                                <m:FlexItemData growFactor="1" />
+                                            </m:layoutData>
+                                            <m:items>
+                                                <core:ListItem key="{Level1>ID}"
+                                                    text="{Level1>NAME}"
+                                                    additionalText="{Level1>DESCRIPTION}" />
+                                            </m:items>
+                                        </m:ComboBox>
+
+                                        <m:ComboBox id="batch-combo-hierarchy-2"
+                                            showSecondaryValues="true"
+                                            placeholder="{i18n>tagInfoHier2Select}"
+                                            items="{Level2>/Row}" maxWidth="95%" width="95%"
+                                            selectionChange="changeHier_2">
+                                            <m:layoutData>
+                                                <m:FlexItemData growFactor="1" />
+                                            </m:layoutData>
+                                            <m:items>
+                                                <core:ListItem key="{Level2>ID}"
+                                                    text="{Level2>NAME}"
+                                                    additionalText="{Level2>DESCRIPTION}" />
+                                            </m:items>
+                                        </m:ComboBox>
+
+                                        <m:ComboBox id="batch-combo-hierarchy-3"
+                                            showSecondaryValues="true"
+                                            placeholder="{i18n>tagInfoHier3Select}"
+                                            items="{Level3>/Row}" maxWidth="95%" width="95%"
+                                            selectionChange="changeHier_3">
+                                            <m:layoutData>
+                                                <m:FlexItemData growFactor="1" />
+                                            </m:layoutData>
+                                            <m:items>
+                                                <core:ListItem key="{Level3>ID}"
+                                                    text="{Level3>NAME}"
+                                                    additionalText="{Level3>DESCRIPTION}" />
+                                            </m:items>
+                                        </m:ComboBox>
+
+                                        <m:ComboBox id="batch-combo-hierarchy-4"
+                                            showSecondaryValues="true"
+                                            placeholder="{i18n>tagInfoHier4Select}"
+                                            items="{Level4>/Row}" maxWidth="95%" width="95%"
+                                            selectionChange="changeHier_4">
+                                            <m:layoutData>
+                                                <m:FlexItemData growFactor="1" />
+                                            </m:layoutData>
+                                            <m:items>
+                                                <core:ListItem key="{Level4>ID}"
+                                                    text="{Level4>NAME}"
+                                                    additionalText="{Level4>DESCRIPTION}" />
+                                            </m:items>
+                                        </m:ComboBox>
+
+                                        <m:ComboBox id="batch-combo-hierarchy-5"
+                                            showSecondaryValues="true"
+                                            placeholder="{i18n>tagInfoHier5Select}"
+                                            items="{Level5>/Row}" maxWidth="100%" width="100%"
+                                            selectionChange="changeHier_5">
+                                            <m:layoutData>
+                                                <m:FlexItemData growFactor="1" />
+                                            </m:layoutData>
+                                            <m:items>
+                                                <core:ListItem key="{Level5>ID}"
+                                                    text="{Level5>NAME}"
+                                                    additionalText="{Level5>DESCRIPTION}" />
+                                            </m:items>
+                                        </m:ComboBox>
+
+                                    </m:items>
+                                </m:FlexBox>
+                            </layout:VerticalLayout>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection id="equipMappingSection">
+                <subSections>
+                    <ObjectPageSubSection id="equipMapping" title="{i18n>batchCatalogRelatedTags}">
+                        <actions>
+                            <m:Button
+id="add-tags-btn"
+enabled="{= ${ID_PLANT_HIERARCHY} !== 'NA' }"
+                                text="{i18n>batchCatalogAddTags}"
+                                type="Accept"
+                                press="fnAddTags"
+                                icon="sap-icon://add"
+                            />
+                        </actions>
+                        <blocks>
+                            <m:Table id="table-related-tags" sticky= "ColumnHeaders,HeaderToolbar"  width="auto"
+                                noDataText="{i18n>commonNoData}" items="{RelatedTags>/Row}"
+                            >
+<m:headerToolbar>
+							<m:OverflowToolbar>
+<m:Title text="{i18n>dataSourcesTags} ({= ${RelatedTags>/Row}.length})" />
+<m:ToolbarSpacer/>
+								<m:OverflowToolbarButton text="{i18n>commonSort}" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="true"
+									iconDensityAware="false" press="fnViewSettingsButtonPressed"/>
+							</m:OverflowToolbar>
+						</m:headerToolbar>
+                                <m:columns>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>batchCatalogTagSourceName}"
+                                                width="auto" maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>batchCatalogTagDescription}"
+                                                width="auto" maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>batchCatalogTagUoM}" width="auto"
+                                                maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                    <m:Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <m:header>
+                                            <m:Text text="{i18n>batchCatalogTagLoc}" width="auto"
+                                                maxLines="1" wrapping="false" />
+                                        </m:header>
+                                        <m:footer />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{RelatedTags>SOURCE_NAME}" width="auto" />
+                                            <m:Text text="{RelatedTags>TAG_DESCRIPTION}"
+                                                width="auto" />
+                                            <m:Text text="{RelatedTags>TAG_UOM}" width="auto" />
+                                            <m:Text text="{RelatedTags>PLANT_HIERARCHY}"
+                                                width="auto" />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+					<m:Toolbar visible="{= ${message>/}.length > 0 }">
+						<m:content>
+								<m:Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</m:content>
+					</m:Toolbar>
+				</footer>
+    </ObjectPageLayout>
+</core:View>

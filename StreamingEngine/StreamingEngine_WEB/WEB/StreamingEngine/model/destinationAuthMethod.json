@@ -1,0 +1,20 @@
+{
+                "Row": [
+                    {
+                        "CD_AUTHENTICATION_METHOD": "DD_AUTH_NONE"
+                    },
+                    {
+                        "CD_AUTHENTICATION_METHOD": "DD_AUTH_SSH"
+                    },
+                   {
+                        "CD_AUTHENTICATION_METHOD": "DD_AUTH_API_KEY"
+                    },
+                    {
+                        "CD_AUTHENTICATION_METHOD": "DD_AUTH_TOKEN"
+                    },
+                    {
+                         "CD_AUTHENTICATION_METHOD": "DD_AUTH_USERNAME"
+                    }
+
+                ]
+ }

@@ -1,0 +1,37 @@
+<mvc:View controllerName="StreamingEngine.StreamingEngine.controller.App" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m">
+	<Toolbar id="fixed-toolbar" enabled="{/ToolBarEnabled}">
+		<Button icon="sap-icon://home" visible="{/HomeVisible}" type="Transparent" press="fnNavigateHome" tooltip="{i18n>commonTooltipHome}">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Button icon="sap-icon://nav-back" visible="{/HomeVisible}" type="Transparent" tooltip="{i18n>commonTooltipNavBack}" press="fnNavigateBack">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Image src="images/sanofi_logo_22.png" width="auto" height="30.5px" visible="true" densityAware="false"/>
+		<Image src="images/Sanofi_Pco_Logo.png" width="auto" height="30.5px" visible="true" densityAware="false"/>
+		<ToolbarSpacer/>
+		<Title text="{/Title}" level="H2" titleStyle="H2">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="Disappear"/>
+			</layoutData>
+		</Title>
+		<ToolbarSpacer/>
+		<Button tooltip="{i18n>commonLeaveFeedback}" id="button-rating1" type="Transparent" press=".fnOpenRatingDialog" icon="images/glisten.png"  iconFirst="true">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Button text="" id="button-name" type="Transparent" press="fnUserNamePress" icon="sap-icon://person-placeholder" iconFirst="true">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</Toolbar>
+	<App id="idAppControl" height="calc(100% - 3rem)">
+
+	</App>
+</mvc:View>

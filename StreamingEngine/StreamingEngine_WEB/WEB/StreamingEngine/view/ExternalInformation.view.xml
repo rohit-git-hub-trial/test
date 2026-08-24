@@ -1,0 +1,509 @@
+<mvc:View id="view-external-information"
+    controllerName="StreamingEngine.StreamingEngine.controller.ExternalInformation"
+    xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <App>
+        <pages>
+            <Page id="page-external-information" visible="false" showHeader="false"
+                floatingFooter="true">
+                <content>
+                    <ObjectHeader id="object-header-external-info" intro="" title=""
+                        icon="sap-icon://action" class="ObjHeaderStyle">
+                        <statuses>
+                            <ObjectStatus id="header-plant-name" title="{i18n>commonLabelPlant}"
+                                text="" state="None" icon="sap-icon://factory" />
+                            <ObjectStatus id="header-data-source" text=""
+                                title="{i18n>commonLabelDataSource}" state="None"
+                                icon="sap-icon://database" />
+                        </statuses>
+                        <attributes></attributes>
+                    </ObjectHeader>
+                    <core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog"
+                        type="XML"></core:Fragment>
+                    <f:SimpleForm id="external-information-form" minWidth="1024"
+                        maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+                        labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2"
+                        columnsM="2" class="editableForm formTagUpload">
+                        <f:content>
+                            <!-- ************** General Information Section Part 1 **************  -->
+                            <core:Title id="ext-general-section"
+                                text="{i18n>dataSourceParamsGroupGeneral}"
+                                icon="sap-icon://action-settings" />
+                            <Label text="{i18n>flowID}" />
+                            <Input id="input-flow-id" value="" editable="false" />
+                            <Label text="{i18n>flowDS}" required="true" />
+                            <ComboBox id="combobox-data-source" change="onChangeSource"  placeholder="Select a Data Source"
+                                items="{/Row}">
+                                <items>
+                                    <core:Item key="{ID_SOURCE}" text="{DS_NAME}" />
+                                </items>
+                            </ComboBox>
+                            <Label text="{i18n>flowInfoName}" required="true" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <Input id="input-data-flow-name" value=""
+                                        app:columnName="DS_NAME">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-flow-name"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <Label text="{i18n>flowDesc}" required="true" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <Input id="input-description" value=""
+                                        app:columnName="DS_DESCRIPTION">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-description"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+
+                            <Label text="{i18n>externalFlowType}" required="true" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <ComboBox id="combobox-flow-type"
+                                        placeholder="{i18n>externalFlowTypeMsg}"
+                                        change="onChangeFlowType" width="100%" maxWidth="100%">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                        <items>
+                                            <core:Item key="ENERGY" text="WattsOn - Engie" />
+                                            <core:Item key="QUALISTEO" text="Qualisteo" />
+                                        </items>
+                                    </ComboBox>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-flow-type"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                                </FlexBox>
+                            <Label text="{i18n>externalFlowProjectName}" required="true" />
+                            <FlexBox alignItems="Center" justifyContent="Start"
+                                visible="{FieldsVisibility>/QualisteoProjects}">
+                                <items>
+                                    <ComboBox id="combobox-ProjectId" app:columnName="ID_QUALISTEO_PROJECT" items="{/projectsList}"
+                                        width="100%" maxWidth="100%">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                        <items>
+                                            <core:Item key="{id}" text="{name}"/>
+                                        </items>
+                                    </ComboBox>
+                                    <Button visible="{FieldsVisibility>/EditMode}"
+                                        id="button-restore-ProjectId" icon="sap-icon://past"
+                                        type="Transparent" press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <!-- ************** General Information Section Part 2 **************  -->
+                            <core:Title />
+                            <Label text="{i18n>dataDestination}" required="true" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <ComboBox id="combobox-datadestination"
+                                        placeholder="{i18n>dataDestinationsSelect}" items="{/Row}"
+                                        app:columnName="ID_DATA_DESTINATION" width="100%"
+                                        maxWidth="100%" change="onChangeDestination">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                        <items>
+                                            <core:Item key="{ID_DATA_DESTINATION}" text="{DS_NAME}" />
+                                        </items>
+                                    </ComboBox>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-datadestination"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <Label text="" visible="false" />
+
+                            <ObjectStatus id="objectStatus-dd-disabled"
+                                icon="sap-icon://message-warning" inverted="false" state="Warning"
+                                text="{i18n>dataDestinationsDisabled}" visible="fase" />
+
+                            <Label text="{i18n>flowCompressed}" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <Switch id="switch-compressed" state="false"
+                                        customTextOn="{i18n>commonYes}"
+                                        customTextOff="{i18n>commonNo}"
+                                        app:columnName="FL_COMPRESSED">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Switch>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-compressed"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <Label text="{i18n>flowEnabled}" />
+                            <FlexBox alignItems="Center" justifyContent="Start">
+                                <items>
+                                    <Switch id="switch-enabled" state="false"
+                                        customTextOn="{i18n>commonYes}"
+                                        customTextOff="{i18n>commonNo}" app:columnName="FL_ENABLED">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Switch>
+                                    <Button visible="{FieldsVisibility>/EditMode}" id="button-restore-enabled"
+                                        icon="sap-icon://past" type="Transparent"
+                                        press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+
+                            <!-- ************** Gas Information Section **************  -->
+                            <core:Title id="ext-gas-section" text="" icon="" />
+                            <Label text="{i18n>externalFlowStreamGasData}"
+                                visible="{FieldsVisibility>/GasSwitchVisible}" />
+                            <Switch id="switch-stream-gas"
+                                state="{FieldsVisibility>/GasParamsVisible}" customTextOn="Yes"
+                                customTextOff="No" visible="{FieldsVisibility>/GasSwitchVisible}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Switch>
+
+                            <Label text="{i18n>externalFlowGasSupplierName}"
+                                visible="{FieldsVisibility>/GasParamsVisible}"
+                                required="{FieldsVisibility>/GasParamsVisible}" />
+                            <FlexBox alignItems="Center" justifyContent="Start"
+                                visible="{FieldsVisibility>/GasParamsVisible}">
+                                <items>
+                                    <Input id="input-gas-operator-code" value=""
+                                        showValueHelp="true" valueHelpRequest="onValueHelpRequested"
+                                        app:columnName="DS_GAS_OPERATOR_CODE">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button visible="{FieldsVisibility>/EditMode}"
+                                        id="button-restore-gas-operator-code" icon="sap-icon://past"
+                                        type="Transparent" press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                        <Label visible="{FieldsVisibility>/GasParamsVisible}" text="{i18n>externalFlowGasMeteringPoint}" required="{FieldsVisibility>/GasParamsVisible}"/>
+
+
+<FlexBox visible="{FieldsVisibility>/GasParamsVisible}" justifyContent="Start" alignItems="Center">
+
+
+<items>
+
+
+<MultiInput id="input-gas-code" value="" app:columnName="DS_GAS_CODE" valueHelpRequest="onValueHelpRequested" tokenChange="_onTokenChange" showValueHelp="true" enableMultiLineMode="true">
+
+
+<layoutData>
+
+<FlexItemData growFactor="1"/>
+
+</layoutData>
+
+</MultiInput>
+
+<Button id="button-restore-gas-code" visible="{FieldsVisibility>/EditMode}" icon="sap-icon://past" type="Transparent" tooltip="{i18n>commonRestore}" press="fnOpenRestorePopup"/>
+
+</items>
+
+</FlexBox>
+<Label visible="{FieldsVisibility>/GasParamsVisible}" text="{i18n>externalFlowRefCond}"/>
+
+
+<FlexBox visible="{FieldsVisibility>/GasParamsVisible}" justifyContent="Start" alignItems="Center">
+
+
+<items>
+
+
+<ComboBox id="combobox-refCondition" app:columnName="DS_REFERENCE_CONDITION" maxWidth="100%" width="100%">
+
+
+<layoutData>
+
+<FlexItemData growFactor="1"/>
+
+</layoutData>
+
+
+<items>
+
+<core:Item text="FR_METERING (default)" key="FR_METERING"/>
+
+<core:Item text="IT_METERING" key="IT_METERING"/>
+
+</items>
+
+</ComboBox>
+
+<Button id="button-restore-refCondition" visible="{FieldsVisibility>/EditMode}" icon="sap-icon://past" type="Transparent" tooltip="{i18n>commonRestore}" press="fnOpenRestorePopup"/>
+
+</items>
+
+</FlexBox>
+                                <Label text="Gas Parameters"
+                                visible="{FieldsVisibility>/GasSwitchVisible}" />
+                                <FlexBox alignItems="Center" justifyContent="Start"
+                                    visible="{= ${FieldsVisibility>/GasParamsVisible}}">
+                                    <items>
+                                        <Table id="table-gas-tags"
+                                            sticky="ColumnHeaders,HeaderToolbar" width="auto"
+                                            noDataText="{i18n>commonNoData}" 
+                                            showSeparators="All"
+                                            items="{/GasTags}">
+                                            <headerToolbar></headerToolbar>
+                                            <columns>
+                                                 <Column width="30%">
+                                                    <header>
+                                                        <Text text="{i18n>externalFlowGasMeteringPoint}" />
+                                                    </header>
+                                                </Column>
+                                                
+                                                <Column>
+                                                    <header>
+                                                        <Text text="{i18n>manualImportUploadTagName}" />
+                                                    </header>
+                                                </Column>
+                                                <Column>
+                                                    <header>
+                                                        <Text text="Frequency" />
+                                                    </header>
+                                                </Column>
+                                                 <Column>
+                                                    <header>
+                                                        <Text text="Unit" />
+                                                    </header>
+                                                </Column>
+                                                <Column>
+                                                    <header>
+                                                        <Text text="Country" />
+                                                    </header>
+                                                </Column>
+                                                <Column>
+                                                    <header>
+                                                        <Text text="" />
+                                                    </header>
+                                                </Column>
+                                            </columns>
+                                            <items>
+        <ColumnListItem>
+            <cells>
+
+                <!-- Metering Point -->
+                <Text text="{MeteringPoint}" />
+
+                <!-- Tag Name -->
+                <Text text="{TagName}" />
+
+                <!-- Frequency ComboBox -->
+                <ComboBox
+                    selectedKey="{DS_FREQUENCY}"
+                    valueState="{GasMeters>FREQUENCY_State}"
+                    width="100%">
+                  
+                </ComboBox>
+
+                <!-- Unit ComboBox -->
+                <ComboBox
+                    selectedKey="{DS_UNIT}"
+                    valueState="{GasMeters>UNIT_State}"
+                    width="100%">
+                   
+                </ComboBox>
+                 <ComboBox
+                    selectedKey="{DS_COUNTRY}"
+                    valueState="{GasMeters>Country_State}"
+                    width="100%">
+                    
+                </ComboBox>
+
+            </cells>
+        </ColumnListItem>
+    </items>
+                                        </Table>
+                                    </items>
+                                </FlexBox>
+                            
+
+                            <!-- ************** power Information Section  **************  -->
+                            <core:Title id="ext-power-section" text="" icon="" />
+                            <Label text="{i18n>externalFlowStreamPowerData}"
+                                visible="{FieldsVisibility>/PowerSwitchVisible}" />
+                            <Switch id="switch-stream-power"
+                                state="{FieldsVisibility>/PowerParamsVisible}" customTextOn="Yes"
+                                customTextOff="No" visible="{FieldsVisibility>/PowerSwitchVisible}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Switch>
+
+                            <Label text="{i18n>externalFlowPowerSupplierName}"
+                                visible="{FieldsVisibility>/PowerParamsVisible}"
+                                required="{FieldsVisibility>/PowerParamsVisible}" />
+                            <FlexBox alignItems="Center" justifyContent="Start"
+                                visible="{FieldsVisibility>/PowerParamsVisible}">
+                                <items>
+                                    <Input id="input-pwr-operator-code" value=""
+                                        showValueHelp="true" valueHelpRequest="onValueHelpRequested"
+                                        app:columnName="DS_POWER_OPERATOR_CODE">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button visible="{FieldsVisibility>/EditMode}"
+                                        id="button-restore-pwr-operator-code" icon="sap-icon://past"
+                                        type="Transparent" press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <Label text="{i18n>externalFlowPowerMeteringPoint}"
+                                visible="{FieldsVisibility>/PowerParamsVisible}"
+                                required="{FieldsVisibility>/PowerParamsVisible}" />
+                            <FlexBox alignItems="Center" justifyContent="Start"
+                                visible="{FieldsVisibility>/PowerParamsVisible}">
+                                <items>
+                                    <MultiInput id="input-pwr-code" value=""
+                                        enableMultiLineMode="true" showValueHelp="true"
+                                        valueHelpRequest="onValueHelpRequested" tokenChange="_onTokenChange"
+                                        app:columnName="DS_POWER_CODE">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </MultiInput>
+                                    <Button visible="{FieldsVisibility>/EditMode}"
+                                        id="button-restore-pwr-code" icon="sap-icon://past"
+                                        type="Transparent" press="fnOpenRestorePopup"
+                                        tooltip="{i18n>commonRestore}"></Button>
+                                </items>
+                            </FlexBox>
+                            <Label id="label-power-tags" text="{i18n>batchCatalogRelatedTags}"
+                                visible="{= ${FieldsVisibility>/PowerParamsVisible} }" />
+                            <FlexBox alignItems="Center" justifyContent="Start"
+                                visible="{= ${FieldsVisibility>/PowerParamsVisible}}">
+                                <items>
+                                    <Table id="table-power-tags"
+                                    sticky="ColumnHeaders,HeaderToolbar" width="auto"
+                                    noDataText="{i18n>commonNoData}" 
+                                    showSeparators="All">
+                                    <headerToolbar></headerToolbar>
+                                    <columns>
+                                        <Column width="30%">
+                                            <header>
+                                                <Text text="{i18n>externalFlowPowerMeteringPoint}" />
+                                            </header>
+                                        </Column>
+                                        <Column>
+                                            <header>
+                                                <Text text="{i18n>manualImportUploadTagName}" />
+                                            </header>
+                                        </Column>
+                                         <Column>
+                                                    <header>
+                                                        <Text text="Frequency" />
+                                                    </header>
+                                                </Column>
+                                                 <Column>
+                                                    <header>
+                                                        <Text text="Unit" />
+                                                    </header>
+                                                </Column>
+                                                <Column>
+                                                    <header>
+                                                        <Text text="Country" />
+                                                    </header>
+                                                </Column>
+                                                <Column>
+                                                    <header>
+                                                        <Text text="" />
+                                                    </header>
+                                                </Column>
+                                    </columns>
+                                    <items>
+                                                           
+        <ColumnListItem>
+            <cells>
+
+                <!-- Metering Point -->
+                <Text text="{MeteringPoint}" />
+
+                <!-- Tag Name -->
+                <Text text="{TagName}" />
+
+                <!-- Frequency ComboBox -->
+                <ComboBox
+                    selectedKey="{DS_FREQUENCY}"
+                    valueState="{PowerMeters>FREQUENCY_State}"
+                    width="100%">
+                    
+                </ComboBox>
+
+                <!-- Unit ComboBox -->
+                <ComboBox
+                    selectedKey="{DS_UNIT}"
+                    valueState="{PowerMeters>UNIT_State}"
+                    width="100%">
+                    
+                </ComboBox>
+                 <ComboBox
+                    selectedKey="{DS_COUNTRY}"
+                    valueState="{PowerMeters>Country_State}"
+                    width="100%">
+                   
+                </ComboBox>
+               
+            </cells>
+        </ColumnListItem>
+        </items>
+                                </Table>
+                                </items>
+                            </FlexBox>
+                        </f:content>
+                    </f:SimpleForm>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <content>
+                            <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }"
+                                visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress" />
+                            <ToolbarSpacer width="" />
+                            <Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save"
+                                iconFirst="true" width="auto" enabled="true" visible="true"
+                                iconDensityAware="false" press="fnSaveExternalFlow" />
+                            <Button id="button-delete" text="{i18n>commonDelete}" type="Reject"
+                                icon="sap-icon://delete" iconFirst="true" width="auto"
+                                enabled="true" visible="false"
+                                iconDensityAware="false" press="fnDeleteExternalFlow" />
+                            <Button text="{i18n>commonCancel}" icon="sap-icon://sys-cancel"
+                                iconFirst="true" width="auto" enabled="true" visible="true"
+                                iconDensityAware="false" press="fnNavigateBack" />
+                        </content>
+                    </Toolbar>
+                </footer>
+                <headerContent>
+                    <Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true"
+                        densityAware="false" />
+                </headerContent>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

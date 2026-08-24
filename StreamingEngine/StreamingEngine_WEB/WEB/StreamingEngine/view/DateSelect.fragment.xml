@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Select Custom Date Time">
+		<f:SimpleForm id="form-date-elect" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+			singleContainerFullSize="false">
+			<f:content>
+
+				<DateTimePicker id="date-time" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" placeholder="Date Time"
+					change="fnDateChanged"></DateTimePicker>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button id="ds-button-save" type="Accept" icon="sap-icon://save" text="Apply" press="fnApplyDate"/>	
+			<Button id="ds-button-clear-date-from" type="Reject" icon="sap-icon://reset" press="fnClearDates" text="Clear Dates"/>	
+			<Button id="ds-button-close"  icon="sap-icon://sys-cancel"  text="Close" press="fnClosePopOver"/>
+				
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

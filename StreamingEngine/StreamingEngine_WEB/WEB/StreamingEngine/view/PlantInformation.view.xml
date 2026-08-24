@@ -1,0 +1,326 @@
+<mvc:View id="view-plant-info" controllerName="StreamingEngine.StreamingEngine.controller.PlantInformation" xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-plant-information" visible="false" showHeader="false" floatingFooter="true">
+				<content>
+					<ObjectHeader id="object-header-plant-info" intro="" title="" icon="sap-icon://factory" class="ObjHeaderStyle">
+						<statuses></statuses>
+						<attributes></attributes>
+					</ObjectHeader>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<f:SimpleForm id="plant-information-form" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formPlantInfo">
+						<f:content>
+							<core:Title id="title-plant-form-general" text="{i18n>plantParamsGroupGeneral}" level="H3" icon="sap-icon://action-settings"/>
+							<Label text="{i18n>plantParamsPlantID}" required="true"/>
+							<Input id="input-plant-id" value="" enabled="false" maxLength="4"/>
+							<Label text="{i18n>plantInfoPlantName}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-plant-description" value="" app:columnName="DS_NAME">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-plant-name" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title id="title-plant-form-queue" text="{i18n>plantParamsGroupQueueRetry}" level="H3" icon="sap-icon://open-command-field"/>
+							<Label text="{i18n>plantParamsMaxQueueRetry}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-query-retry" 
+                                value="{QT_MAX_QUEUE_RETRY}" 
+                                enabled="true" app:columnName="QT_MAX_QUEUE_RETRY" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					<rules>
+						<MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					</rules>
+                   
+				</MaskInput>
+									<Button visible="false" id="button-restore-max-query-retry" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoMaxQueueRowCountRetry}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-queue-rowcount-retry" 
+                                value="{QT_ROWCOUNT_RETRY}" 
+                                enabled="true" app:columnName="QT_ROWCOUNT_RETRY" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-queue-rowcount-retry" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title id="title-plant-form-agents" text="{i18n>plantParamsGroupAgents}" level="H3" icon="sap-icon://feed"/>
+							<Label text="{i18n>plantInfoMaxTagsPerAgent}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999"  placeholderSymbol=" " id="input-max-tags-per-agent" 
+                                value="{QT_MAX_TAGS_PER_AGENTS}" 
+                                enabled="true" app:columnName="QT_MAX_TAGS_PER_AGENTS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-tags-per-agent" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title id="title-plant-form-catalogs" text="{i18n>plantParamsGroupPlantHierarchy}" level="H3" icon="sap-icon://tag"/>
+							<Label text="{i18n>plantInfoConnectionToSPB}" visible="false"  required="true"/>
+							<Switch id="switch-connection-to-spb" app:columnName="FL_IS_LOCAL" visible="false"/>
+							<Label text="{i18n>plantInfoSemarchyLocationId}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input 
+										id="input-semarchy-location-id" 
+										value="" 
+										showSuggestion="true"
+										valueHelpRequest=".fnHierarchyDialog"
+										app:columnName="DS_SEMARCHY_LOCATION_ID"
+										suggestionRows="{path: '/Row'}">
+										<suggestionColumns>
+														<Column width="30%">
+																		<Label text="{i18n>plantInfoLocationSiteID}"/>
+														</Column>
+														<Column width="30%">
+																		<Label text="{i18n>plantInfoLocationShortLabel}"/>
+														</Column>
+														<Column width="40%">
+																		<Label text="{i18n>plantInfoLocationDescription}"/>
+														</Column>
+										</suggestionColumns>
+										<suggestionRows>
+														<ColumnListItem>
+																		<cells>
+																						<Label text="{ID_PLANT_HIERARCHY}" />
+																						<Label text="{DS_NAME}" />
+																						<Label text="{DS_DESCRIPTION}" />
+																		</cells>
+														</ColumnListItem>
+										</suggestionRows>
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-semarchy-location-id" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							
+							
+							
+							
+							<core:Title id="title-plant-form-jobs" text="{i18n>plantParamsGroupJobs}" level="H3" icon="sap-icon://time-account"/>
+							<Label text="{i18n>plantInfoJobDuration}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-job-duration" 
+                                value="{QT_RUN_DURATION_IN_MINS}" 
+                                enabled="true" app:columnName="QT_RUN_DURATION_IN_MINS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-job-duration" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoMaxTagsPerJob}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                     <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-tags-per-job" 
+                                value="{QT_MAX_TAGS_PER_JOBS}" 
+                                enabled="true" app:columnName="QT_MAX_TAGS_PER_JOBS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-tags-per-job" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantParamsFlowTimeout}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                     <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-connection-timeout" 
+                                value="{QT_FLOW_TIMEOUT}" 
+                                enabled="true" app:columnName="QT_FLOW_TIMEOUT" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-connection-timeout" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoSuccessQueueSize}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                     <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-success-queue-size" 
+                                value="{QT_SUCCESS_QUEUE_SIZE}" 
+                                enabled="true" app:columnName="QT_SUCCESS_QUEUE_SIZE" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-success-queue-size" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoHistoricalUploadMaximumTags}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                     <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-Historical-Max-Tags" 
+                                value="{QT_HISTORICAL_UPLOAD_MAX_TAGS}" 
+                                enabled="true" app:columnName="QT_HISTORICAL_UPLOAD_MAX_TAGS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-Historical-Max-Tags" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							
+							<core:Title id="title-plant-form-watch" icon="sap-icon://fob-watch" text="{i18n>plantInfoWatchFeatureTitle}" level="H3"/>
+							<Label text="{i18n>plantInfoWatchPCoDestinations}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-watch-pco-dest-name" value="" app:columnName="DS_PCO_DESTINATION_NAME">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-watch-pco-dest" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoMaxWatchDataCapturePoints}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-watch-data-capture-points" 
+                                value="{QT_WATCH_MAX_DATA_POINT}" 
+                                enabled="true" app:columnName="QT_WATCH_MAX_DATA_POINT" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-watch-data-capture-pts" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoMaxWatchDataCaptureDays}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-watch-data-capture-days" 
+                                value="{QT_WATCH_EXP_CAPTURE_DAYS}" 
+                                enabled="true" app:columnName="QT_WATCH_EXP_CAPTURE_DAYS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-watch-data-capture-days" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>plantInfoMaxWatchDataVizDays}"  required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+                                    <MaskInput mask="99999999999999" placeholderSymbol=" " id="input-max-watch-data-viz-days" 
+                                value="{QT_WATCH_EXP_VISUAL_DAYS}" 
+                                enabled="true" app:columnName="QT_WATCH_EXP_VISUAL_DAYS" width="100%"
+                             >
+                              <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+					                <rules>
+						            <MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					             </rules>
+                   
+				                </MaskInput>
+									<Button visible="false" id="button-restore-max-watch-data-viz-days" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+						       <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+							<ToolbarSpacer width=""/>
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnSavePlantInformation"/>
+							<Button id="button-delete" text="{i18n>commonDelete}" type="Reject" icon="sap-icon://delete" iconFirst="true" width="auto" enabled="true"
+								visible="false" iconDensityAware="false" press="fnDeletePlant"/>
+							<Button text="{i18n>commonCancel}"  icon="sap-icon://sys-cancel" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

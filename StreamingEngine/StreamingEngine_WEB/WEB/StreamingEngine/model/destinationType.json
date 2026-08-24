@@ -1,0 +1,23 @@
+ {
+                "Row": [
+                    {
+                         "CD_TYPE": "DD_TYPE_LocalFolder"
+                    },
+                    {
+                        "CD_TYPE": "DD_TYPE_API"
+                    },
+                    {
+                        "CD_TYPE": "DD_TYPE_SFTP"
+                    },
+                    {
+                        "CD_TYPE": "DD_TYPE_PCO"
+                    },
+	        {
+                        "CD_TYPE": "DD_TYPE_WEBSERVICE"
+                    },
+	        {
+                        "CD_TYPE": "DD_TYPE_SFTPforHistoricalUpload"
+                    }
+
+                ]
+ }

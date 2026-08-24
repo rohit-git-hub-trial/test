@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>contextualFlowHistoricalDataUploadEnableDetails}">
+		<f:SimpleForm id="historical-upload-form" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="{i18n>contextualFlowFromDateTime}" required="true"/>
+				<DateTimePicker id="historical-upload-time-from" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="{i18n>contextualFlowStartDate}"
+					change="fnDateRangeFromDateChanged"></DateTimePicker>
+				<Label text="{i18n>contextualFlowToDateTime}"  required="true"/>
+				<DateTimePicker id="historical-upload-time-to" displayFormat="MM/dd/yyyy HH:mm:ss" valueFormat="dd/MM/yyyy HH:mm:ss" placeholder="{i18n>contextualFlowEndDate}"
+					change="fnDateRangeToDateChanged"/>
+			         <Label text="{i18n>contextualFlowMaxTimeframePerRequest}"  required="true"/>
+			         <Input  id="historical-upload-max-timeframe"  type="Number" value="30"/>
+				<Label text="Do you want email notification on completion of historical upload?" />
+				<RadioButtonGroup id="rbEmailNotification" columns="2" select="onEmailNotificationChange">
+					<buttons>
+						<RadioButton text="Yes" selected="true" />
+						<RadioButton text="No" />
+					</buttons>
+				</RadioButtonGroup>
+
+				<Label text="Email Address" />
+				<Input 
+					id="emailInput"
+					value="user@example.com"
+					visible="true"
+					type="Email"
+				/>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button id="historical-upload-save" type="Accept" icon="sap-icon://save" text="{i18n>commonSave}" press="fnStartHistoricalDataUpload"/>
+			<Button id="historical-upload-clear-date" type="Reject"  icon="sap-icon://reset"  press="fnHistoricalDataUploadClearEntries" text="{i18n>contextualFlowClearEntries}"/>
+			<Button id="historical-upload-close" icon="sap-icon://decline" text="{i18n>commonClose}" press="fnHistoricalDataUploadClosePopOver"/>
+			
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

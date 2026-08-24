@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog id="energySelectFragment" title="" contentWidth="30%" draggable="true" multiSelect="false"  resizable="true" search="handleSearch"
+        confirm="handleValueHelpClose" cancel="handleValueHelpClose" >
+    </SelectDialog>
+</core:FragmentDefinition>

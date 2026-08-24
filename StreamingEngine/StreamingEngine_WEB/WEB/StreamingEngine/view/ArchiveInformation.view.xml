@@ -1,0 +1,119 @@
+<mvc:View id="view-archive-information" controllerName="StreamingEngine.StreamingEngine.controller.ArchiveInformation"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<App>
+		<pages>
+			<Page id="page-archive-information" visible="false" showHeader="false"  floatingFooter="true">
+				<content>
+					<ObjectHeader id="object-header-archive-info" intro="" title="" icon="sap-icon://enter-more" class="ObjHeaderStyle">
+						<statuses>
+							<ObjectStatus id="header-plant-name" title="{i18n>commonLabelPlant}" text="" state="None" icon="sap-icon://factory"/>
+							<ObjectStatus id="header-data-source" text="" title="{i18n>commonLabelDataSource}" state="None" icon="sap-icon://database"/>
+						</statuses>
+						<attributes></attributes>
+					</ObjectHeader>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<f:SimpleForm id="archive-information-form" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+						labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formTagUpload">
+						<f:content>
+							<core:Title/>
+							<Label text="{i18n>flowID}"/>
+							<Input id="input-flow-id" value="" enabled="false"/>
+							<Label text="{i18n>flowDS}" required="true"/>
+							<ComboBox id="combobox-data-source" placeholder="Select a Data Source" items="{/Row}">
+								<items>
+									<core:Item key="{ID_SOURCE}" text="{DS_NAME}"/>
+								</items>
+							</ComboBox>
+							<Label text="{i18n>flowInfoName}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-data-flow-name" value="" app:columnName="DS_NAME">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-flow-name" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowDesc}" required="true"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Input id="input-description" value="" app:columnName="DS_DESCRIPTION">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Input>
+									<Button visible="false" id="button-restore-description" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<core:Title/>
+							
+						<Label text="{i18n>dataDestination}" required="true"/>
+						       <FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+							  	            <ComboBox id="combobox-datadestination" placeholder="{i18n>dataDestinationsSelect}" items="{/Row}" app:columnName="ID_DATA_DESTINATION" width="100%" maxWidth="100%" change="onChangeDestination">
+										<layoutData>
+												<FlexItemData growFactor="1"/>
+										</layoutData>
+										<items>
+												<core:Item key="{ID_DATA_DESTINATION}" text="{DS_NAME}"/>
+										</items>
+									</ComboBox>
+									<Button visible="false" id="button-restore-datadestination" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+						<Label text="" visible="fase"/>
+						    
+						<ObjectStatus id="objectStatus-dd-disabled" icon="sap-icon://message-warning" inverted="false" state="Warning"  text="{i18n>dataDestinationsDisabled}"  visible="fase"/>
+						
+							<Label text="{i18n>flowCompressed}"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-compressed" state="false" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" app:columnName="FL_COMPRESSED">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-compressed" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+							<Label text="{i18n>flowEnabled}"/>
+							<FlexBox alignItems="Center" justifyContent="Start">
+								<items>
+									<Switch id="switch-enabled" state="false" customTextOn="{i18n>commonYes}" customTextOff="{i18n>commonNo}" app:columnName="FL_ENABLED">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+									<Button visible="false" id="button-restore-enabled" icon="sap-icon://past" type="Transparent" press="fnOpenRestorePopup"
+										tooltip="{i18n>commonRestore}"></Button>
+								</items>
+							</FlexBox>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+						        <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+							<ToolbarSpacer width=""/>
+							<Button text="{i18n>commonSave}" type="Accept" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnSaveArchiveFlow"/>
+							<Button id="button-delete" text="{i18n>commonDelete}" type="Reject" icon="sap-icon://delete" iconFirst="true" width="auto" enabled="true" visible="false"
+								iconDensityAware="false" press="fnDeleteArchiveFlow"/>
+							<Button text="{i18n>commonCancel}"  icon="sap-icon://sys-cancel" iconFirst="true" width="auto" enabled="true" visible="true"
+								iconDensityAware="false" press="fnNavigateBack"/>
+						</content>
+					</Toolbar>
+				</footer>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

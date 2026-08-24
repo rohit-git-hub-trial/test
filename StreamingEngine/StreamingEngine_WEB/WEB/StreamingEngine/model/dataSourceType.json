@@ -1,0 +1,22 @@
+ {
+                "Row": [
+                    {
+                         "ID_SOURCE_TYPE": "DS_TYPE_ARCHIVE"
+                    },
+                    {
+                        "ID_SOURCE_TYPE": "DS_TYPE_CONTEXTUAL"
+                    },
+                    {
+                        "ID_SOURCE_TYPE": "DS_TYPE_ENGIE"
+                    },
+	        {
+                        "ID_SOURCE_TYPE": "DS_TYPE_FILE"
+                    },
+	        {
+                        "ID_SOURCE_TYPE": "DS_TYPE_REALTIME"
+                    },
+	       {
+                        "ID_SOURCE_TYPE": "DS_TYPE_IDOC"
+                    }
+                ]
+ }

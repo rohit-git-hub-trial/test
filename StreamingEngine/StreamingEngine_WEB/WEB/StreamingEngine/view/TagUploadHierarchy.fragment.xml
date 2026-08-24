@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+        <Dialog title="Location Hierarchy Auto Creation" >
+
+<f:SimpleForm>
+<Text text="The following Location Hierarchies can be created automatically by the Streaming Engine. Please selected the ones you want to create and click on the 'Create' button." width="550px" maxLines="5"  wrapping="true" textDirection="Inherit" visible="true" class="alertMessage"/>
+</f:SimpleForm>
+
+					<Table id="table-location-hierarchy" width="600px" noDataText="{i18n>commonNoData}" mode="MultiSelect" items="{/Row}" showSeparators="All" growing="true"
+						growingThreshold="500" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<columns>
+							<Column hAlign="Begin" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="Location Hierarchy" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem press="fnRowPress">
+								<cells>
+									<Text text="{DS_PLANT_HIERARCHY}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />	
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>       
+
+
+          <buttons>
+            <Button id="batch-button-delete" type="Reject" icon="sap-icon://decline" text="Ignore All" press="fnIgnoreAll"/>
+            <Button id="batch-button-save" type="Accept" icon="sap-icon://accept" text="Create for Selected Items" press="fnCreateForSelectedItems"/>
+          </buttons>
+        </Dialog>
+      </core:FragmentDefinition>

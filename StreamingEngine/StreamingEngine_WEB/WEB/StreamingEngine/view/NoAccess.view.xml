@@ -1,0 +1,8 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="StreamingEngine.StreamingEngine.controller.NoAccess" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<MessagePage showHeader="false" icon="sap-icon://private" text="{i18n>commonNoAccess}" description="{i18n>commonNoAccessFooter}"></MessagePage>
+		</pages>
+	</App>
+</mvc:View>

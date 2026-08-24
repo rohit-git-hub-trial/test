@@ -1,0 +1,433 @@
+<mvc:View id="view-data-destinationInformation"
+    controllerName="StreamingEngine.StreamingEngine.controller.DataDestinationInformation"
+    xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:ui="sap.ui.unified">
+
+
+    <App>
+        <pages>
+            <Page id="page-data-destinationInformation" visible="false" showHeader="false"
+                floatingFooter="true">
+                <content>
+                    <ObjectHeader id="object-header-data-destinationInformation" intro="" title=""
+                        icon="sap-icon://map-2" class="ObjHeaderStyle">
+
+                    </ObjectHeader>
+                    <core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog"
+                        type="XML"></core:Fragment>
+                    <f:SimpleForm id="data-destination-form" minWidth="1024" maxContainerCols="3"
+                        editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
+                        emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2"
+                        class="editableForm formTagUpload">
+                        <f:content>
+                            <core:Title />
+                            <Label text="{i18n>dataDestinationId}" />
+                            <Input id="input-dd-id" value="{ID_DATA_DESTINATION}" editable="false" />
+                            <Input visible="false">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Input>
+
+                            <Label text="{i18n>commonLabelPlant}" />
+                            <Input id="input-dd-plant" value="{PLANT}" editable="false" visible="{= ${CD_TYPE} === 'DD_TYPE_PCO'}"/>
+                            <Input visible="false">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Input>
+
+                            <Label text="{i18n>dataSourcesEnabled}" />
+                            <Switch id="switch-dd-enabled" state="{DestinationEnabled}"
+                                customTextOn="{i18n>commonYes}" visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}"
+                                customTextOff="{i18n>commonNo}" app:columnName="FL_ENABLED" enabled="{= !${SanofiStandardDest}}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Switch>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}" id="button-restore-enabled"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationName}" required="true" />
+                            <Input id="input-dd-name" value="{DS_NAME}" maxLength="50"
+                                app:columnName="DS_NAME" editable="{= !${SanofiStandardDest} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Input>
+                            <Button visible="{EditMode}" id="button-restore-dd-name" 
+                                icon="sap-icon://past" type="Transparent" enabled="{= !${SanofiStandardDest} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationDescription}" required="true"
+                                labelFor="input-dd-description" visible="{= ${CD_TYPE} === 'DD_TYPE_PCO'}"/>
+                            <Input id="input-dd-description" value="{DS_DESCRIPTION}"
+                                maxLength="50" visible="{= ${CD_TYPE} === 'DD_TYPE_PCO'}"
+                                app:columnName="DS_DESCRIPTION" >
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Input>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} === 'DD_TYPE_PCO' }" id="button-restore-dd-description"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationType}" required="true" />
+                            <ComboBox id="combobox-dd-type" 
+                                app:columnName="CD_TYPE" editable="{= !${SanofiStandardDest} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}"
+                                width="100%"  selectedKey="{CD_TYPE}" value="{path: 'CD_TYPE', formatter: '.getText'}" items="{DestinationTypeModel>/Row}" change="onChangeDestinationType">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <items>
+                                    <core:Item key="{DestinationTypeModel>CD_TYPE}"
+                                        text="{path: 'DestinationTypeModel>CD_TYPE', formatter: '.getText'}" />
+                                </items>
+                            </ComboBox>
+                            <Button visible="{EditMode}" id="button-restore-dd-type"
+                                icon="sap-icon://past" type="Transparent" enabled="{= !${SanofiStandardDest} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+
+                            </Button>
+
+                            <Label text="{i18n>RealtimeDestDefault}" visible="{= ${CD_TYPE} === 'DD_TYPE_PCO'}"/>
+                            <Switch id="switch-dd-default" state="{DefaultDestination}"
+                                customTextOn="{i18n>commonYes}" visible="{= ${CD_TYPE} === 'DD_TYPE_PCO'}"
+                                customTextOff="{i18n>commonNo}" app:columnName="FL_DEFAULT">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Switch>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} === 'DD_TYPE_PCO' }" id="button-restore-default"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationConnectionAlias}" required="true" visible="{= ${CD_TYPE} === 'DD_TYPE_SFTP' || ${CD_TYPE} === 'DD_TYPE_SFTPforHistoricalUpload'}"/>
+                            <ComboBox id="combobox-dd-connection-alias" items="{ConnectionAliasModel>/Row}"
+                                app:columnName="CD_CONNECTION_ALIAS" width="100%"
+                                selectedKey="{CD_CONNECTION_ALIAS}" visible="{= ${CD_TYPE} === 'DD_TYPE_SFTP' || ${CD_TYPE} === 'DD_TYPE_SFTPforHistoricalUpload'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <items>
+                                    <core:Item key="{ConnectionAliasModel>NAME}" text="{ConnectionAliasModel>NAME}" />
+                                </items>
+                            </ComboBox>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} === 'DD_TYPE_SFTP' || ${CD_TYPE} === 'DD_TYPE_SFTPforHistoricalUpload'}" id="button-restore-dd-connection-alias"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationUrl}" required="true" visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}"/>
+                            <Input id="input-dd-url" value="{DS_PATH}" editable="{= !${SanofiStandardDest}}"
+                                maxLength="250" app:columnName="DS_PATH" visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Input>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}" id="button-restore-dd-url"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+							
+<!-- Test Connection Section  -->
+
+							<Label text="{i18n>dataDestinationLastApiConnectionTest}"  visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}"/>
+							<Input id="input-last-known-status"
+														   value="{= ${CD_LAST_KNOWN_STATUS} + ', ' + ${DT_LAST_KNOWN_STATUS}}"
+														   editable="false"
+														   placeholder="—"
+														   visible="{= ${CD_TYPE} === 'DD_TYPE_API'}">
+														<layoutData>
+															<FlexItemData growFactor="1" />
+														</layoutData>
+													</Input>
+
+							<Button id="button-test-connection"
+									icon="sap-icon://synchronize"
+									type="Transparent"
+									tooltip="{i18n>commonTestConnection}"
+									visible="{= ${CD_TYPE} === 'DD_TYPE_API'}"
+									press="fnTestConnection">
+								<layoutData>
+									<l:GridData span="XL1 L1 M1 S1" />
+								</layoutData>
+							</Button>
+
+
+
+                            <Label text="{i18n>dataDestinationAuthenMethod}" required="true" visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}"/>
+                            <ComboBox id="combobox-dd-authMethod" items="{AuthMethodModel>/Row}"
+                                change="onChangeAuthMethod" editable="{= !${SanofiStandardDest}}" visible="{= ${CD_TYPE} !== 'DD_TYPE_PCO'}"
+                                app:columnName="CD_AUTHENTICATION_METHOD" width="100%" selectedKey="{CD_AUTHENTICATION_METHOD}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <items>
+                                    <core:Item key="{AuthMethodModel>CD_AUTHENTICATION_METHOD}"
+                                        text="{path: 'AuthMethodModel>CD_AUTHENTICATION_METHOD', formatter: '.getText' }" />
+                                </items>
+                            </ComboBox>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} !== 'DD_TYPE_PCO'}" id="button-restore-authMethod"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{path: 'CD_AUTHENTICATION_METHOD', formatter: '.getText' } {i18n>dataDestinationHeaderValue}" required="true" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_TOKEN' || ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_API_KEY'}"/>
+                            <Input id="input-dd-token" value="{DS_AUTHENTICATION_VALUE}"
+                                enabled="true" visible="{=(  ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_TOKEN' || ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_API_KEY' ) &amp;&amp; !${SanofiStandardDest}}"
+                                maxLength="250" app:columnName="DS_AUTHENTICATION_VALUE">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Input>
+                            <Button visible="{= ${EditMode} &amp;&amp; ( ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_TOKEN' || ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_API_KEY' )}" id="button-restore-authToken"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationMIICred}" required="true" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_USERNAME'}"/>
+                            <ComboBox id="combobox-dd-miicredential" items="{CredentialsListModel>/Row}"
+                                app:columnName="DS_AUTHENTICATION_VALUE" width="100%" 
+                                selectedKey="{DS_AUTHENTICATION_VALUE}" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_USERNAME'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <items>
+                                    <core:Item key="{CredentialsListModel>Name}" text="{CredentialsListModel>Name}" />
+                                </items>
+                            </ComboBox>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_USERNAME'}" id="button-restore-authCredential"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationUserName}" required="true" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_SSH'}" />
+                            <Input id="input-dd-username" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_SSH'}"
+                                app:columnName="DS_AUTHENTICATION_VALUE" width="100%" value="{DS_AUTHENTICATION_VALUE}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Input>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_SSH'}" id="button-restore-username"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationSshKey}" required="true" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_SSH'}"/>
+                            <ui:FileUploader id="file-uploader-sshkey" width="100%" visible="{= ${CD_AUTHENTICATION_METHOD} === 'DD_AUTH_SSH'}" >
+                                <ui:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </ui:layoutData>
+                            </ui:FileUploader>
+
+                            <Label id="Label-split" text="{i18n>dataDestinationSplit}"
+                                required="false" visible= "{= ${SanofiStandardDest} || ${CD_TYPE} === 'DD_TYPE_API' }"/>
+
+                            <Switch id="switch-dd-split"
+                                state="{SplitMessage}"
+                                customTextOn="{i18n>commonYes}" enabled="{= !${SanofiStandardDest}}"
+                                customTextOff="{i18n>commonNo}" change="fnSwitchSplit"
+                                app:columnName="FL_MESSAGE_SPLIT" visible= "{= ${SanofiStandardDest} || ${CD_TYPE} === 'DD_TYPE_API'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Switch>
+                            <Button visible="{= ${EditMode} &amp;&amp; ( ${SanofiStandardDest} || ${CD_TYPE} === 'DD_TYPE_API' )}" id="button-restore-split"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+
+                            <Label text="{i18n>dataDestinationSplitsizeCompressed}" required="true" visible="{parts:['SplitMessage','CD_TYPE'], formatter:'.isSplitSizeVisible'}"/>
+                           
+                            <MaskInput mask="99999999999999"  placeholderSymbol=" " id="input-dd-splitsizecompressed" visible="{parts:['SplitMessage','CD_TYPE'], formatter:'.isSplitSizeVisible'}"
+                                value="{QT_SPLIT_SIZE_COMPRESSED}"  
+                                app:columnName="QT_SPLIT_SIZE_COMPRESSED"
+                             >
+					<rules>
+						<MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					</rules>
+                    <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+				</MaskInput>
+                            <Button visible="{parts:['EditMode','SplitMessage','CD_TYPE'], formatter:'.isSplitSizeRestoreVisible'}" id="button-restore-dd-sizecompressed"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationSplitsizeNotCompressed}"
+                                required="true" visible="{parts:['SplitMessage','CD_TYPE'], formatter:'.isSplitSizeVisible'}" />
+                                <MaskInput mask="99999999999999"  placeholderSymbol=" " id="input-dd-splitsizeNotCompressed"
+                                value="{QT_SPLIT_SIZE_NOT_COMPRESSED}" 
+                                 app:columnName="QT_SPLIT_SIZE_NOT_COMPRESSED"
+                               visible="{parts:['SplitMessage','CD_TYPE'], formatter:'.isSplitSizeVisible'}"
+                             >
+					<rules>
+						<MaskInputRule regex="^(?!.*[+-])\d+$"/>
+					</rules>
+                    <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+				</MaskInput>
+                            <Button visible="{parts:['EditMode','SplitMessage','CD_TYPE'], formatter:'.isSplitSizeRestoreVisible'}"
+                                id="button-restore-dd-sizenotcompressed"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <core:Title />
+
+                            <Label text="{i18n>dataDestinationHttpMethod}" required="true" visible="{= ${CD_TYPE} === 'DD_TYPE_API'}"/>
+                            <ComboBox id="combobox-dd-httpMethod" items="{HttpMethodeModel>/Row}"
+                                app:columnName="CD_HTTP_METHOD" width="100%" editable="{= !${SanofiStandardDest}}"
+                                selectedKey="{CD_HTTP_METHOD}" visible="{= ${CD_TYPE} === 'DD_TYPE_API'}">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <items>
+                                    <core:Item key="{HttpMethodeModel>CD_HTTP_METHOD}"
+                                        text="{HttpMethodeModel>CD_HTTP_METHOD}" />
+                                </items>
+                            </ComboBox>
+                            <Button visible="{= ${EditMode} &amp;&amp; ${CD_TYPE} === 'DD_TYPE_API'}" id="button-restore-dd-httpMethod"
+                                icon="sap-icon://past" type="Transparent"
+                                press="fnOpenRestorePopup" tooltip="{i18n>commonRestore}">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S1" />
+                                </layoutData>
+                            </Button>
+
+                            <Label text="{i18n>dataDestinationHeaders}" />
+                            <Table id="table-dd-headers" app:columnName="HTTP_PARAMS_TABLE" visible="{= ${CD_TYPE} === 'DD_TYPE_API' || ${CD_TYPE} === 'DD_TYPE_WEBSERVICE' }">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <ToolbarSpacer></ToolbarSpacer>
+                                        <Button id="table-dd-headers-addBtn" enabled="{= !${SanofiStandardDest}}"
+                                            icon="sap-icon://add" type="Transparent"
+                                            press="onAddHeaderParam" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>dataDestinationHeaderKey}"
+                                            width="50%" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>dataDestinationHeaderValue}"
+                                            width="50%" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="" width="10px" />
+                                    </Column>
+                                </columns>
+                            </Table>
+							<Label text="{i18n>historicalUploadLabel}" required="true" visible="{= ${CD_TYPE} !== 'DD_TYPE_SFTPforHistoricalUpload' }"  />
+							<ComboBox id="combobox-dd-historicalUpload"
+									  app:columnName="CD_HISTORICAL_UPLOAD_DEST"
+									  width="100%"
+									  selectedKey="{CD_HISTORICAL_UPLOAD_DEST}"
+									  items="{HistoricalUploadModel>/Row}"
+									  change="onChangeHistoricalUpload"
+									 visible="{= ${CD_TYPE} !== 'DD_TYPE_SFTPforHistoricalUpload' }"
+									>
+								<layoutData>
+									<FlexItemData growFactor="1" />
+								</layoutData>
+								<items>
+								 
+									<core:Item key="{HistoricalUploadModel>ID_DATA_DESTINATION}" 
+											   text="{HistoricalUploadModel>DS_NAME}" />
+
+								</items>
+						</ComboBox>
+					
+					
+						
+                        </f:content>
+                    </f:SimpleForm>
+
+                </content>
+                <footer>
+                    <Toolbar>
+                        <content>
+                            <Button icon="sap-icon://message-popup" text="{= ${message>/}.length }"
+                                visible="{= ${message>/}.length > 0 }" press="onMessagePopoverPress" />
+                            <ToolbarSpacer width="" />
+                            <Button id="button-save" text="{i18n>commonSave}" type="Accept"
+                                icon="sap-icon://save" iconFirst="true" width="auto" enabled="true"
+                                visible="{= ${EditMode} || ${InsertMode}}" iconDensityAware="false" press="fnSaveDDInformation" />
+                            <Button id="button-delete" text="{i18n>commonDelete}" type="Reject"
+                                icon="sap-icon://delete" iconFirst="true" width="auto"
+                                enabled="true" visible="{EditMode}" iconDensityAware="false"
+                                press="fnDeleteDataDestination" />
+                            <Button id="button-cancel" text="{i18n>commonCancel}"
+                                icon="sap-icon://sys-cancel" iconFirst="true" width="auto"
+                                enabled="true" visible="true" iconDensityAware="false"
+                                press="fnNavigateBack" />
+                        </content>
+                    </Toolbar>
+                </footer>
+                <headerContent>
+                    <Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true"
+                        densityAware="false" />
+                </headerContent>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

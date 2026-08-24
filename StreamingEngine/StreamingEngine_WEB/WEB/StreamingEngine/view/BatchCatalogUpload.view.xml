@@ -1,0 +1,123 @@
+<mvc:View id="view-tag-upload" controllerName="StreamingEngine.StreamingEngine.controller.BatchCatalogUpload" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" width="100%">
+	<App>
+		<pages>
+			<Page id="batch-catalog-page-equipment-upload" visible="false" showHeader="false"  showFooter="{= ${message>/}.length > 0 }" floatingFooter="true">
+				<content>
+					<f:SimpleForm id="batch-catalog-SimpleFormChange354" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="{i18n>batchCatalogUploadFileToUpload}"/>
+							<u:FileUploader id="batch-catalog-fileUploader" width="300px" sameFilenameAllowed="false" placeholder="{i18n>batchCatalogUploadFileUploadPlaceholder}" style="Emphasized"/>
+							<Button text="{i18n>batchCatalogUploadFileUploadButton}" press="fnUploadFile" type="Accept" />
+							<Button text="{i18n>batchCatalogUploadAbortButton}" press="fnAbortFile" type="Reject"/>
+							<Label/>
+						</f:content>
+					</f:SimpleForm>
+					<Label text="{i18n>batchCatalogUploadStatus}"/>
+					<ProgressIndicator id="batch-catalog-import-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<Label text="{i18n>batchCatalogUploadProcessStatus}"/>
+					<ProgressIndicator id="batch-catalog-processing-progress-bar" class="sapUiSmallMarginBottom" percentValue="0" showValue="true" visible="false"
+						state="Success"/>
+					<f:SimpleForm id="batch-catalog-upload-info" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="editableForm formBatchCatalogUpload">
+						<f:content>
+							<core:Title id="batch-catalog-title-form-1"/>
+							<Label text="{i18n>batchCatalogUploadUploadedEquipment}"/>
+							<Text id="batch-catalog-text-uploaded-equipment" text=""/>
+							<Label text="{i18n>batchCatalogUploadProcessedEquipment}"/>
+							<Text id="batch-catalog-text-processed-equipment" text=""/>
+							<core:Title id="batch-catalog-title-form-2"/>
+							<Label text="{i18n>batchCatalogUploadPendingEquipment}"/>
+							<Text id="batch-catalog-text-pending-equipment" text=""/>
+							<Label text="{i18n>batchCatalogUploadFailedEquipment}"/>
+							<Text id="batch-catalog-text-failed-equipment" text=""/>
+						</f:content>
+					</f:SimpleForm>
+					<core:Fragment fragmentName="StreamingEngine.StreamingEngine.view.BusyDialog" type="XML"></core:Fragment>
+					<Table id="batch-catalog-table-equipment-uploaded-data" visible="false" width="auto" noDataText="{i18n>commonNoData}" mode="None" items="{/Row}" showSeparators="All"
+						growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin tableStyle">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>batchCatalogUploadTitleSummary}" level="H2"/>
+                                           					<ToolbarSpacer width=""/>
+                                           					<Button text="{i18n>commonDownloadFailedItems}" type="Default" icon="sap-icon://message-error" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="fnDownloadFailedItems" />
+                                           					<Button text="{i18n>commonDownloadMisconfiguredtems}" type="Default" icon="sap-icon://message-information" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="fnDownloadMisconfiguredItems" />
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column  width="7%" hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelPlant}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="13%"  hAlign="Center" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelDataSource}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column  width="25%"  hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelEquipmentPath}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="15%"  hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>commonLabelEquipmentName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column  width="15%"  hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>batchCatalogPlantHierarchy}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="5%"  hAlign="Center" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>batchCatalogConfigStatus}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="20%" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text="{i18n>batchCatalogUploadMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{DS_PLANT}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<Text text="{DS_SOURCE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<Text text="{DS_EQUIPMENT_PATH}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" class="textHighlight" />
+									<Text text="{DS_EQUIPMENT_NAME}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" class="textHighlight"  />
+									<Text text="{DS_PLANT_HIERARCHY}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true" />
+									<core:Icon src="{ path:'DS_STATUS', formatter: '.formatter.statusIconBatchCatalogUpload' }" size="20px"
+										color="{ path:'DS_STATUS', formatter: '.formatter.statusColorBatchCatalogUpload' }" visible="true"/>
+									<Text text="{DS_MESSAGE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<headerContent>
+					<Image src="images/sanofi_logo.png" height="auto" width="100px" visible="true" densityAware="false"/>
+				</headerContent>
+				<footer>
+					<Toolbar visible="{= ${message>/}.length > 0 }">
+						<content>
+								<Button icon="sap-icon://message-popup" text="{= ${message>/}.length }" visible="{= ${message>/}.length > 0 }"  press="onMessagePopoverPress" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

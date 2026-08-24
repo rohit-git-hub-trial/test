@@ -1,0 +1,10 @@
+ {
+                "Row": [
+                    {
+                         "CD_HISTORICAL_UPLOAD_DEST": "None"
+                    },
+                    {
+                        "CD_HISTORICAL_UPLOAD_DEST": "Transaction_V2"
+                    }
+                ]
+ }

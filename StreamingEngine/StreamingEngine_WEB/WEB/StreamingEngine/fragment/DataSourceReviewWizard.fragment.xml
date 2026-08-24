@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+    height="100%"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="wizardReviewPage" showHeader="true" title="Data Source Creation Wizard Review">
+        <content>
+            <form:SimpleForm
+                title="{i18n>commonLabelPlant}"
+                editable="false">
+                <form:content>
+                    <Label text="{i18n>commonLabelPlant}" />
+                    <Text text="{creationModel>/plantText}" />
+                    <Link press="editPlantStep" text="{i18n>commonEdit}" />
+                </form:content>
+            </form:SimpleForm>
+
+            <form:SimpleForm
+                title="{i18n>dsDataSourceType}"
+                editable="false">
+                <form:content>
+                    <Label text="{i18n>dsDataSourceType}" />
+                    <Text text="{creationModel>/sourceText}" />
+	        <Link press="editSourceStep"  text="{i18n>commonEdit}" />
+                </form:content>
+            </form:SimpleForm>
+
+            <form:SimpleForm
+                title="{i18n>dsDataSourceDescr}"
+                editable="false">
+                <form:content>
+                    <Label text="{i18n>dsDataSourceName}" />
+                    <Text text="{creationModel>/sourceName}" />
+                    <Label text="{i18n>dsDataSourceDescr}" />
+                    <Text text="{creationModel>/sourceDescription}" />
+                    <Link press="editDescriptionStep" text="{i18n>commonEdit}" />
+                </form:content>
+            </form:SimpleForm>
+
+            <form:SimpleForm
+                title="{i18n>dsServerConfig}"
+                editable="false"
+                visible="{= (${creationModel>/sourceType} !== 'DS_TYPE_ENGIE') &amp;&amp; (${creationModel>/sourceType} !== 'DS_TYPE_IDOC')}">
+                <form:content>
+                    <Label text="{i18n>dsServerConfig}" />
+                    <Text text="{creationModel>/dataServer} - {creationModel>/dataServerType}" />
+	       <Label text="{i18n>dataSourcesKepwareChannels}" visible="{creationModel>/dataServerKepware}" />
+ 	        <Text text="{creationModel>/kepChannels}" />
+                    <Label text="{i18n>dsInfoPcoUrl}" />
+                    <Text text="{creationModel>/pcoUrl}" />
+                    <Label text="{i18n>dsInfoPcoCredential}" />
+                    <Text text="{creationModel>/pcoCredential}" />
+                    <Label text="{i18n>dsInfoPcoPrefix}"  visible="{= ${creationModel>/sourceType} === 'DS_TYPE_REALTIME'  || ${creationModel>/sourceType} === 'DS_TYPE_FILE'}"  />
+                    <Text text="{creationModel>/pcoPoolPrefix}" visible="{= ${creationModel>/sourceType} === 'DS_TYPE_REALTIME'  || ${creationModel>/sourceType} === 'DS_TYPE_FILE'}" />
+                    <Link press="editDataServerStep" text="{i18n>commonEdit}" />
+                </form:content>
+            </form:SimpleForm>
+           <!-- <form:SimpleForm
+                title="{i18n>dsTaglist}"
+                editable="false"
+                visible="{= ${creationModel>/sourceType} !== 'DS_TYPE_ENGIE' }">
+                <form:content>
+                    <Label text="{i18n>dataDestination}" />
+                    <Text text="{creationModel>/destinationText}" />
+                    <Link press="editTagListStep" text="{i18n>commonEdit}" />
+                </form:content>
+            </form:SimpleForm> -->
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button text="Save" type="Accept" icon="sap-icon://save" width="auto"
+                        iconDensityAware="false" press="onSaveDataSource" />
+                    <Button text="Cancel" icon="sap-icon://sys-cancel" width="auto"
+                        iconDensityAware="false" press="onCloseWizard" />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</core:FragmentDefinition>
