@@ -69,6 +69,42 @@ sap.ui.define([], function () {
                     return "#5e696e";
             }
         },
+        statusIconUploadRequest: function (sStatus) {
+            switch (sStatus) {
+                case "PE":
+                    return "sap-icon://pending";
+                case "AP":
+                    return "sap-icon://accept";
+                case "RJ":
+                    return "sap-icon://decline";
+                case "OH":
+                    return "sap-icon://pause";
+                case "CA":
+                    return "sap-icon://sys-cancel";
+                case "EX":
+                    return "sap-icon://alert";
+                default:
+                    return "sap-icon://circle-task-2";
+            }
+        },
+        statusColorUploadRequest: function (sStatus) {
+            switch (sStatus) {
+                case "PE":
+                    return "orange";
+                case "AP":
+                    return "green";
+                case "RJ":
+                    return "red";
+                case "OH":
+                    return "orange";
+                case "CA":
+                    return "#5e696e";
+                case "EX":
+                    return "red";
+                default:
+                    return "#5e696e";
+            }
+        },
         statusJobsMonitoring: function (sColor) {
             switch (sColor) {
                 case "R":
