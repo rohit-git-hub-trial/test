@@ -1,0 +1,24 @@
+{ "Rowsets" : {
+
+                "DateCreated" : "2018-05-14T19:57:47", "Version" : "15.2 SP0 Patch 0 (Mar 8, 2018)", "StartDate" : "2018-05-14T18:57:47+0200", "EndDate" : "2018-05-14T19:57:47+0200", "CachedTime" : "",
+
+                "Rowset" : [
+
+                { "Columns" : {
+
+                               "Column" : [
+                              
+                               { "Name" : "TASK", "SourceColumn" : "TASK", "Description" : "TASK", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+                               { "Name" : "RUN", "SourceColumn" : "RUN", "Description" : "RUN", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 }					   
+							   ] },
+
+                "Row" : [
+
+                               { "TASK" : "Plant Hierarchy Configuration", "RUN" : "SANOFI_CORE/SelfServiceConfiguration/Query/IdocListenerConfXQuery" }
+				 ]
+			}
+                                ]
+
+                }
+
+}

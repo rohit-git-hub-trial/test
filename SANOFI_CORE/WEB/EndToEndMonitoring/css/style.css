@@ -1,0 +1,174 @@
+/* Enter your custom styles here */
+/* Enter your custom styles here rgba(66,124,172,0.4) */
+
+.SanofisapMBar {
+    display: block;
+    background-color: #ffffff!important;
+    box-shadow: inset 0 -0.0625rem #ffffff!important;
+}
+
+.xSanofiGreyButtonStyle{
+   background-color: rgb(209, 209, 209) !important;
+}
+
+.SanofiGreyButtonStyle .sapMBtnInner{
+   background-color: rgb(209, 209, 209) !important;
+}
+
+.SanofiRedButtonStyle:hover {
+   background-color: red !important;
+}
+.xSanofiRedButtonStyle{
+   background-color: red !important;
+   opacity: 0.7;
+}
+
+
+.sapUiVltBgdCol {
+    background-color: rgba(255,255,255,0.4)!important;
+}
+.sapUiVltBgdCol2 {
+    background-color: rgba(255,255,255,0.8)!important;
+}
+.sapTileWidth {
+    width: 20.5rem!important;
+}
+
+.sapSuiteIBCBar {
+    background-color: #427cac !important;
+}
+
+.sapSuiteIBCBarSelected {
+    background-color: rgba(66,124,172,0.2);
+}
+html.sap-desktop .sapSuiteIBC:not(.sapSuiteIBCNonInteractive) .sapSuiteIBCBarSelected:hover {
+    background-color: rgba(66,124,172,0.4);
+}
+
+html.sap-desktop .sapSuiteIBC:not(.sapSuiteIBCNonInteractive) .sapSuiteIBCBarInteractionArea:hover {
+    background-color: rgba(66,124,172,0.2);
+}
+.sapSuiteIBCDivider {
+    background-color: #333333;
+}
+
+.sapSuiteIBCDivider {
+    position: relative;
+    width: 1px;
+    height: 3.25rem;
+    float: left;
+    z-index: 0;
+}
+
+.sapSuiteIDCLegendMarker {
+    border-color: rgba(66,124,172,0.8);
+}
+
+.sapSuiteIDCLegendMarker {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 0.5rem;
+    margin-right: 0.25rem;
+    float: left;
+    border: 1px solid transparent;
+}
+.sapSuiteIDCSemanticMarker.sapSuiteICSemanticColorError {
+    background-color: #bb0000;
+}
+
+.sapSuiteIDCSemanticMarker {
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    width: 0.1875rem;
+    left: -1px;
+}
+svg.sapSuiteIDCChartSVG {
+    float: right;
+}
+.sapSuiteIDCChartSegmentSelected {
+    stroke-opacity: 0.7;
+}
+.sapSuiteIDCChartSegment {
+    stroke: rgba(66,124,172,0.8)!important;
+    stroke-width: 1px;
+}
+
+
+
+
+
+
+
+
+
+.TitleH{
+     font-size:2rem !important;
+}
+    
+.sapMListTbl {
+     table-layout: auto;
+}
+
+
+.sapUiTableTr:nth-child(even) td {
+    padding: 0;
+    vertical-align: middle;
+    background-color: white;
+}
+
+.sapUiTableTr:nth-child(odd) td {
+    padding: 0;
+    vertical-align: middle;
+    background-color: #daebf3;
+}
+
+.sapUiTableTr:hover td {
+	background: #daebf3!important;
+}
+
+
+
+.customButton .sapMBtnInner {
+       height: 120%;
+       width: 150%;
+       text-align: center;
+	   vertical-align:middle;
+}
+
+.customButtonMedium .sapMBtnInner {
+       height: 200%;
+       width: 150%;
+       border-radius: 0.5rem;
+
+       text-align: center;
+	   vertical-align:middle;
+}
+
+.HBoxStyle {
+  margin-top:5%;
+  margin-left: 5%;
+  margin-bottom:5%;
+}
+
+.tableStyle .sapMListTblHeader {
+  cursor: pointer;
+}
+
+.columnLabelStyle {
+  cursor: pointer !important;
+}
+
+#__xmlview0--oPage-intHeader {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(#fff, rgba(240, 240, 240, 0.9));
+  border-bottom: 1px solid #d4d4d4;
+  z-index: 1010;
+  transition: top .4s;
+}
+
+
+
+
+
+

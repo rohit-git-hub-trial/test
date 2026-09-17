@@ -1,0 +1,220 @@
+<mvc:View
+		height="100%"
+		controllerName="SelfServiceConfiguration.controller.WizardV2"
+		xmlns:form="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns:u="sap.ui.unified"
+		xmlns:t="sap.ui.table" 
+		xmlns:mvc="sap.ui.core.mvc" 
+		xmlns="sap.m">
+		<NavContainer id="wizardNavContainer">
+			<pages>
+				<Page
+				id="wizardContentPage"
+				showHeader="false">
+					<content>
+						<Wizard id="CreateProductWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+								complete="wizardCompletedHandler">
+							<WizardStep id="PlantChooseStep"
+										validated="false"
+										title="Choose Plant"
+										activate="goToBasedStep">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Please select the Plant."
+										showIcon="true"/>
+								<Text class="sapUiSmallMarginBottom"
+										text=""/>
+								<Title id="title" text="Plant"/>
+								<ComboBox id="plantId" width="15rem" selectionChange="onChangePlant" showSecondaryValues= "true"
+									items="{ path: 'PlantList>/Rowsets/Rowset/0/Row', sorter: { path: 'PLANT' }}">
+									<core:ListItem key="{PlantList>CLIENT}" text="{PlantList>PLANT}" additionalText= "{PlantList>CLIENT}" />
+								</ComboBox>
+							  	<CheckBox id="platform"  text="Platform" selected="true" />
+								  	<CheckBox id="SE"  text="Streaming Engine" selected="true" />
+							  		<CheckBox id="OEE"  text="EOEE" selected="true" />
+
+							</WizardStep>									
+								
+							<WizardStep id="BasedStep"
+										validated="false"
+										title="Check Based data"
+										activate="goToActivitiesConfig">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Check Based data."
+										showIcon="true"/>
+								<Text class="sapUiSmallMarginBottom"
+										text=""/>
+				<t:Table	id="tableBasedTasks" width="100%" 
+						selectionMode="Single"
+						rows="{path:'basedTaskList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+					<t:Column>
+						<Label text="Domain"/>
+						<t:template>
+							<Text text="{basedTaskList>ID_DOMAIN}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Task"/>
+						<t:template>
+							<Text text="{basedTaskList>ID_TASK}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Execute"/>
+						<t:template>
+							<Button text="Run" press="onExecuteBasedTask" />
+						</t:template>
+					</t:Column>
+
+					<t:Column>
+						<Label text="Result"/>
+						<t:template>
+							<Text id ="ResultBasTaskId"   text="{basedTaskList>RESULT}"  class="taskStatusClass"  wrapping="false"/>
+																    
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="ByPass"/>
+						<t:template>
+							<Button text="ByPass" visible ="{path : 'basedTaskList>BYPASS', formatter : '.formatter.displayByPass'}" press="onExecuteByPass" />
+						</t:template>
+					</t:Column>
+
+				</t:columns>
+
+			</t:Table>
+							</WizardStep>
+							<WizardStep id="ActivitiesStep"
+										validated="false"
+										title="Activities/Dashboard Configuration"
+										activate="goToJobConfig">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Dashboard Configuration "
+										showIcon="true"/>
+								<MessageStrip class="sapUiSmallMarginBottom"
+									type="Warning"
+										text="In case of fermentation process: Extensions should be configured manually by line activity"
+										showIcon="true"/>
+								<Text text=""/>
+				<t:Table	id="tableActivitiesTasks" width="100%" 
+						selectionMode="Single"
+						rows="{path:'activitiesTaskList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+					<t:Column>
+						<Label text="Task"/>
+						<t:template>
+							<Text text="{activitiesTaskList>TASK}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Execute"/>
+						<t:template>
+							<Button text="Run"  press="onExecuteActivityTask" />
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Result"/>
+						<t:template>
+							<Text id ="ResultActTaskId" text="{activitiesTaskList>RESULT}" class="taskStatusClass"  wrapping="false"/>
+						</t:template>
+					</t:Column>
+
+				</t:columns>
+
+			</t:Table>
+							</WizardStep>
+							<WizardStep id="JobsStep"
+										validated="true"
+										activate="goToPlantHierarchyConfig"
+										title="Job Configuration">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Job Configuration."
+										showIcon="true"/>
+								<Text text=""/>
+				<t:Table	id="tableJobsTasks" width="100%" 
+						selectionMode="Single"
+						rows="{path:'jobsTaskList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+					<t:Column>
+						<Label text="Task"/>
+						<t:template>
+							<Text text="{jobsTaskList>TASK}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Execute"/>
+						<t:template>
+							<Button text="Run"  press="onExecuteJobTask" />
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Result"/>
+						<t:template>
+							<Text id ="ResulJobsTaskId" text="{jobsTaskList>RESULT}" class="taskStatusClass"  wrapping="false"/>
+						</t:template>
+					</t:Column>
+
+				</t:columns>
+
+			</t:Table>
+
+
+
+							</WizardStep>
+							<WizardStep id="PlantHierarchyStep"
+										activate="validateConfig"
+										complete="configComplete"
+										validated="true"
+										title="Plant hierarchy Configuration">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Plant hierarchy Configuration."
+										showIcon="true"/>
+					<t:Table	id="tablePlantHieTasks" width="100%" 
+						selectionMode="Single"
+						rows="{path:'plantHieTaskList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+					<t:Column>
+						<Label text="Task"/>
+						<t:template>
+							<Text text="{plantHieTaskList>TASK}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Execute"/>
+						<t:template>
+							<Button text="Run"  press="onExecutePlantHieTask" />
+						</t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="Result"/>
+						<t:template>
+							<Text id ="ResultPlantHieTaskId" text="{plantHieTaskList>RESULT}" class="taskStatusClass"  wrapping="false"/>
+						</t:template>
+					</t:Column>
+
+				</t:columns>
+
+			</t:Table>
+
+							</WizardStep>
+						</Wizard>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="Cancel" press="handleWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+</mvc:View>

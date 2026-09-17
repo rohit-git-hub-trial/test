@@ -1,0 +1,12 @@
+<mvc:View
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    controllerName="SANOFI_CORE.PlantManagement.controller.Root">
+
+    <App id="rootApp">
+        <f:FlexibleColumnLayout id="fcl" />
+    </App>
+
+</mvc:View>

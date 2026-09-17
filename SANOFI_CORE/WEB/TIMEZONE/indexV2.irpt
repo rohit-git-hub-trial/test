@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>SelfServiceConfiguration</title>
+		<script id="sap-ui-bootstrap"
+			src="/sapui5-1.71/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-resourceroots='{"SelfServiceConfiguration": "./"}'
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-preload="async"
+			data-sap-ui-libs="sap.m">
+		</script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.App ({
+					pages : [
+						new sap.m.Page({
+							 showHeader : false,
+							enableScrolling : true,
+							id: "PageId" ,
+							content : [
+					 new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "SelfServiceConfiguration"
+					})
+							]
+						})
+					]
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+	<body class="sapUiBody" id="content">
+		<input type="hidden" value="{IllumLoginName}" id="LoginName" name="LoginName" />
+		<input type="hidden" value="{IllumLoginRoles}" id="LoginRoles" name="LoginRoles" />
+	</body>
+</html>

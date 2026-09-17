@@ -1,0 +1,97 @@
+.plantMgmtLayout {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    padding: 0.5rem;
+}
+
+.darkHeader {
+    background: linear-gradient(90deg, #1c1c1c, #2f2f2f) !important;
+    padding: 0.5rem 1.2rem !important;
+}
+.darkHeaderTitle {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+.darkToolbar {
+    background: linear-gradient(90deg, #1f2933, #111827) !important;
+    border-radius: 10px;
+    padding: 0.6rem;
+}
+
+.darkToolbarTitle {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.masterCard {
+    margin: 1rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+.detailCardWrapper {
+    width: 100%;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+}
+
+.modernTable {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.colHeader {
+    font-weight: 800 !important;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.rowHover:hover {
+    background: #e0f2fe !important;
+}
+
+.sapMLabel {
+    font-weight: 700 !important;
+    color: #1f2937;
+}
+
+.sapMInputBase {
+    margin-bottom: 0.7rem;
+}
+.darkPrimaryBtn {
+    background: linear-gradient(90deg, #2563eb, #1d4ed8) !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+}
+
+.darkActionBtn {
+    background: linear-gradient(90deg, #374151, #111827) !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+}
+
+.darkIconBtn {
+    color: #ffffff !important;
+}
+
+.darkDangerBtn {
+    background: linear-gradient(90deg, #dc2626, #991b1b) !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+}
+
+.darkSearch {
+    border-radius: 6px;
+}
+.boldTitle {
+    font-weight: 700 !important;
+}
+.bigBoldTitle {
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;   
+    letter-spacing: 0.4px;
+}

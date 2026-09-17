@@ -1,0 +1,10 @@
+<mvc:View  xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:unified="sap.ui.unified" xmlns:f="sap.f" xmlns="sap.m">
+	<Page id="Page2"
+		title="{i18n>OEE_LCM_APP_TITLE}"
+		class="sapUiContentPadding"
+		showNavButton="false" >
+
+	
+	</Page>
+</mvc:View>

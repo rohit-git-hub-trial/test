@@ -1,0 +1,206 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:ux="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout"
+    controllerName="PlantManagement.controller.PlantManagement"
+    height="100%">
+
+    <f:FlexibleColumnLayout id="fcl" class="plantMgmtLayout">
+        <f:beginColumnPages>
+            <f:DynamicPage id="masterPage" toggleHeaderOnTitleClick="false">
+<f:title>
+<f:DynamicPageTitle>
+ 
+        <f:expandedContent>
+<HBox width="100%" alignItems="Center">
+ <HBox width="180px" alignItems="Center">
+<Image
+                        src="images/sanofi_logo_22.png"
+                        height="30.5px"
+                        visible="true"
+                        densityAware="false"/>
+</HBox>
+ <HBox width="100%" justifyContent="Center" alignItems="Center">
+<Title
+    text="Plant Management"
+    level="H1"
+    class="bigBoldTitle"
+    textAlign="Center"/>
+</HBox>
+<HBox width="180px"/>
+ 
+            </HBox>
+</f:expandedContent>
+ 
+    </f:DynamicPageTitle>
+</f:title>
+                <f:content>
+                    <VBox class="masterCard">
+                        <OverflowToolbar class="toolbarCard">
+		<Title text="Plant List" level="H4" class="boldTitle"/>
+                            <ToolbarSpacer/>
+
+                            <SearchField
+                                width="18rem"
+                                liveChange="onSearch"
+                                placeholder="Search Plant..."/>
+
+                            <Button
+                                icon="sap-icon://refresh"
+                                press="onRefresh"/>
+
+                            <Button
+                                icon="sap-icon://add"
+                                text="Add"
+                                type="Emphasized"
+                                press="onAdd"/>
+                        </OverflowToolbar>
+                        <Table
+                            id="masterTable"
+                            items="{/Rowsets/Rowset/0/Row}"
+                            sticky="HeaderToolbar,ColumnHeaders"
+                            class="modernTable"
+                            width="100%">
+                            <columns>
+                                <Column><Text text="Plant ID" class="colHeader"/></Column>
+                                <Column><Text text="Description" class="colHeader"/></Column>
+                                <Column><Text text="OEE Plant" class="colHeader"/></Column>
+                                <Column><Text text="Time Zone" class="colHeader"/></Column>
+                                <Column><Text text="Hierarchy" class="colHeader"/></Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem
+                                    type="Navigation"
+                                    press="onRowPress"
+                                    class="rowHover">
+
+                                    <cells>
+                                        <Text text="{ID_PLANT}"/>
+                                        <Text text="{DS_PLANT}"/>
+                                        <Text text="{OEE_PLANT}"/>
+                                        <Text text="{OEE_SERVER_TZ}"/>
+                                        <Text text="{ID_HIERARCHY}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+
+                        </Table>
+                    </VBox>
+                </f:content>
+
+            </f:DynamicPage>
+        </f:beginColumnPages>
+        <f:midColumnPages>
+            <ux:ObjectPageLayout id="detailPage" showTitleInHeaderContent="true">
+
+                <ux:headerTitle>
+                    <ux:ObjectPageDynamicHeaderTitle>
+
+                        <ux:heading>
+                            <Title text="Plant Details" level="H3"/>
+                        </ux:heading>
+
+                        <ux:actions>
+                            <Button
+                                text="Edit"
+                                icon="sap-icon://edit"
+                                enabled="{= !${settings>/editingActive} }"
+                                press="onEdit"/>
+                            <Button
+                                text="Save"
+                                icon="sap-icon://save"
+                                type="Emphasized"
+                                visible="{settings>/editingActive}"
+                                press="onSave"/>
+                            <Button
+                                text="Cancel"
+                                visible="{settings>/editingActive}"
+                                press="onCancel"/>
+                            <Button
+                                text="Delete"
+                                icon="sap-icon://delete"
+                                type="Reject"
+                                visible="{= !${settings>/isCreate} }"
+                                press="onDelete"/>
+                            <Button
+                                icon="sap-icon://decline"
+                                press="onClose"/>
+
+                        </ux:actions>
+
+                    </ux:ObjectPageDynamicHeaderTitle>
+                </ux:headerTitle>
+
+                <ux:sections>
+                    <ux:ObjectPageSection showTitle="false">
+                        <ux:subSections>
+                            <ux:ObjectPageSubSection>
+                                <ux:blocks>
+
+                                    <layout:VerticalLayout
+                                        class="detailFormCard"
+                                        width="100%">
+                                        <form:SimpleForm
+                                            editable="false"
+                                            visible="{= !${settings>/editingActive} }"
+                                            layout="ResponsiveGridLayout">
+
+                                            <Label text="Plant ID"/>
+                                            <Text text="{ID_PLANT}"/>
+
+                                            <Label text="Description"/>
+                                            <Text text="{DS_PLANT}"/>
+
+                                            <Label text="OEE Plant"/>
+                                            <Text text="{OEE_PLANT}"/>
+
+                                            <Label text="Time Zone"/>
+                                            <Text text="{OEE_SERVER_TZ}"/>
+
+                                            <Label text="Hierarchy"/>
+                                            <Text text="{ID_HIERARCHY}"/>
+
+                                        </form:SimpleForm>
+                                        <form:SimpleForm
+                                            editable="true"
+                                            visible="{settings>/editingActive}"
+                                            layout="ResponsiveGridLayout">
+
+                                            <Label text="Plant ID"/>
+				<Input
+    					value="{ID_PLANT}"
+    					required="true"
+    					editable="{settings>/isCreate}"/>
+
+
+                                            <Label text="Description"/>
+                                            <Input value="{DS_PLANT}" required="true"/>
+
+                                            <Label text="OEE Plant"/>
+                                            <Input value="{OEE_PLANT}" required="true"/>
+
+                                            <Label text="Time Zone"/>
+                                            <Input value="{OEE_SERVER_TZ}" required="true"/>
+
+                                            <Label text="Hierarchy"/>
+                                            <Input value="{ID_HIERARCHY}" required="true"/>
+
+                                        </form:SimpleForm>
+
+                                    </layout:VerticalLayout>
+
+                                </ux:blocks>
+                            </ux:ObjectPageSubSection>
+                        </ux:subSections>
+                    </ux:ObjectPageSection>
+                </ux:sections>
+
+            </ux:ObjectPageLayout>
+        </f:midColumnPages>
+
+    </f:FlexibleColumnLayout>
+</mvc:View>

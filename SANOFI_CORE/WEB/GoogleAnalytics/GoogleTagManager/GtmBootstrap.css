@@ -1,0 +1,4 @@
+/* This CSS file is just a hook. It does not style anything. */
+body::after {
+    content: "gtm-bootstrap";
+}

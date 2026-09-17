@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<title>SAP MII</title>
+<link type="text/css" rel="stylesheet" href="Includes/Styles.css" />
+<{##SCRIPT} language="javascript" src="Includes/Functions.js"></{##SCRIPT}>
+<{##SCRIPT} language="JavaScript" type="text/JavaScript">
+<!--
+
+var XMLContent = "";
+
+function start(){
+	traverse(XMLFromString(document.getElementById("DS_XML_Content").value));
+	document.getElementById("DS_XML_Formatted").innerHTML = XMLContent;
+	openTab(1);
+}
+
+function XMLFromString(sXML) {
+	if (window.ActiveXObject) {
+ 		var oXML = new ActiveXObject("Microsoft.XMLDOM");
+		oXML.loadXML(sXML);
+		return oXML;
+	} else {
+    		return (new DOMParser()).parseFromString(sXML, "text/xml");
+	}
+}
+
+function traverse(tree) {
+	if(tree.hasChildNodes()) {
+		if(tree.tagName != undefined) XMLContent += '<ul><li>';
+		if(tree.tagName != undefined) XMLContent += '<b>'+tree.tagName+': </b>';
+                	var nodes=tree.childNodes.length;
+		for(var i=0; i<tree.childNodes.length; i++){
+			traverse(tree.childNodes[i]);
+		}
+		if(tree.tagName != undefined) XMLContent += '</li></ul>';
+        }
+        else
+		XMLContent += tree.nodeValue;
+}
+
+//-->
+</{##SCRIPT}>
+</head>
+
+<body scroll="no" onload="start();">
+
+<div class="pageTitle">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>{##XML_VIEWER}</td>
+      <td align="right"><table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td nowrap="nowrap">&nbsp;</td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="containerBody" style="padding-top:3px;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="tab_menu" style="margin:0px; padding:0px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table border="0" cellpadding="0" cellspacing="0" onmouseover="style.cursor='pointer';">
+              <tr>
+                <td width="10"></td>
+                <td onclick="openTab(1);" width="20" background="Images/tab_ini_off.gif"  id="tab_img_1">&nbsp;</td>
+                <td onclick="openTab(1);" nowrap="nowrap" background="Images/tab_fun_off.gif" class="tab_cel" id="tab_cel_1" style="width:180px;">{##FORMATTED_VIEW}</td>
+                <td onclick="openTab(2);"  width="20" background="Images/tab_int_off.gif"  id="tab_img_2">&nbsp;</td>
+                <td onclick="openTab(2);" nowrap="nowrap" background="Images/tab_fun_off.gif" class="tab_cel" id="tab_cel_2"  style="width:180px;">{##XML_CONTENT}</td>
+                <td onclick="openTab(2);" width="3"  background="Images/tab_fim_off.gif"  id="tab_img_3">&nbsp;</td>
+              </tr>
+              </table></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td valign="top" class="tab_content" id="containerTab" style="height:468px;">
+	<table width="100%" class="objectForm" id="tab_1" style="display:none;" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td><div class="containerBody containerScroll" style="width:970px;height:455px;border-top:1px solid"  id="DS_XML_Formatted">
+&nbsp;</div></td>
+	</tr></table>
+	<table width="100%" class="objectForm" id="tab_2" style="display:none;" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td><textarea style="width:970px;height:455px;" id="DS_XML_Content" readonly="readyonly"><SERVLET NAME="Illuminator">
+	<PARAM NAME= "QueryTemplate" VALUE="SANOFI_CORE/ApplicationLog/Query/ApplicationLogXMLSelectQuery">
+	<PARAM NAME= "Stylesheet" VALUE="/XMII/CM/SANOFI_CORE/ApplicationLog/Transformations/ApplicationLogXML.xsl">
+	<PARAM NAME= "Content-Type" VALUE="text/html">
+	<PARAM NAME = "Param.1" VALUE="{ID_MESSA}">
+	<PARAM NAME = "Param.2" VALUE="{XML_COLUMN}">
+	</SERVLET></textarea></td>
+	</tr></table>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="containerButtonsPopUp">
+<input name="BtClose" type="button" id="BtClose" onclick="self.close();" value="      {##CLOSE}      "  class="objectButton" />
+</div>
+<div id="messageBar" class="containerMessages"></div>
+
+</body>
+</html>

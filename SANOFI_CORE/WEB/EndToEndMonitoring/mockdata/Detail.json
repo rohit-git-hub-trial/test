@@ -1,0 +1,37 @@
+{ "Rowsets" : {
+
+                "DateCreated" : "2018-05-14T19:57:47", "Version" : "15.2 SP0 Patch 0 (Mar 8, 2018)", "StartDate" : "2018-05-14T18:57:47+0200", "EndDate" : "2018-05-14T19:57:47+0200", "CachedTime" : "",
+
+                "Rowset" : [
+
+                { "Columns" : {
+
+                               "Column" : [
+                              { "Name" : "PLANT", "SourceColumn" : "PLANT", "Description" : "PLANT", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "SENSOR_ID", "SourceColumn" : "SENSOR_ID", "Description" : "SENSOR_ID", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "PCO_STATUS", "SourceColumn" : "PCO_STATUS", "Description" : "PCO_STATUS", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "KEPWARE_STATUS", "SourceColumn" : "KEPWARE_STATUS", "Description" : "KEPWARE_STATUS", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "START_DATE", "SourceColumn" : "START_DATE", "Description" : "START_DATE", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "END_DATE", "SourceColumn" : "END_DATE", "Description" : "END_DATE", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "DURATION", "SourceColumn" : "DURATION", "Description" : "DURATION", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 } ] },
+
+                "Row" : [
+
+                               { "PLANT" : "F5UL","SENSOR_ID": "C65-1", "PCO_STATUS" : "1", "KEPWARE_STATUS" : "1", "START_DATE" : "29/04/2020 14:02", "END_DATE" : "","DURATION" : "" },
+
+                               { "PLANT" : "F5UL","SENSOR_ID": "C65-1", "PCO_STATUS" : "0", "KEPWARE_STATUS" : "-1", "START_DATE" : "29/04/2020 14:00", "END_DATE" : "29/04/2020 14:02","DURATION" : "02:02" },
+                               {"PLANT" : "F5UL","SENSOR_ID": "C65-1",  "PCO_STATUS" : "1", "KEPWARE_STATUS" : "1", "START_DATE" : "29/04/2020 13:32", "END_DATE" : "30/03/2020 14:00","DURATION" : "28:58" },
+                               {"PLANT" : "F5UL","SENSOR_ID": "C65-1",  "PCO_STATUS" : "1", "KEPWARE_STATUS" : "0", "START_DATE" : "29/04/2020 13:28", "END_DATE" : "30/03/2020 13:32","DURATION" : "04:00" },
+       			 {"PLANT" : "F5UL","SENSOR_ID": "C65-1",  "PCO_STATUS" : "1", "KEPWARE_STATUS" : "1", "START_DATE" : "29/04/2020 09:00", "END_DATE" : "30/03/2020 13:32","DURATION" : "04:32:00" }]
+			}
+                                ]
+
+                }
+
+}

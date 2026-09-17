@@ -1,0 +1,39 @@
+{
+	"sap.app": {
+		"id": "IQR_REPORT",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "IQR_REPORT.view.Wizard",
+			"type": "XML",
+			"async": true
+		},
+		"dependencies": {
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"config": {
+			"sample": {
+				"stretch": true,
+				"files": [
+					"view/Wizard.view.xml",
+					"controller/Wizard.controller.js",
+					"view/ReviewPage.fragment.xml",
+					"manifest.json"
+				]
+			}
+		}
+	}
+}

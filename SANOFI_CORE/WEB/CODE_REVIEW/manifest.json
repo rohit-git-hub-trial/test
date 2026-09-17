@@ -1,0 +1,38 @@
+{
+	"sap.app": {
+		"id": "CODE_REVIEW",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "CODE_REVIEW.view.codeReview",
+			"type": "XML",
+			"async": true
+		},
+		"dependencies": {
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"config": {
+			"sample": {
+				"stretch": true,
+				"files": [
+					"view/codeReview.view.xml",
+					"controller/codeReview.controller.js",
+					"manifest.json"
+				]
+			}
+		}
+	}
+}

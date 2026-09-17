@@ -1,0 +1,79 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns="sap.m" 
+	xmlns:t="sap.ui.table" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:u="sap.ui.unified" 
+	id="SanofiOMView" 
+	viewName="SanofiOM"
+	controllerName="Sanofi.EndToEndMonitoring.controller.EndToEndMonitoringDetail" displayBlock="true">
+	<App id="idAppControl">
+		<pages>
+			<Page title="{i18n>ETEMHistory}"  showNavButton="true" navButtonPress="onNavBack" >
+				<content>
+					<Bar id="__bar1">
+						<contentLeft>
+
+						<Title  text="{i18n>ETEMPlant}"/>	
+						<Label id="plantId"  text="F5UL"/>
+						</contentLeft>
+
+						<contentMiddle>
+
+						<Title  text="{i18n>ETEMSensor}"/>	
+						<Label id="sensorId" text=""/>
+						</contentMiddle>
+						<contentRight>
+	
+							<SearchField id="SearchFId" placeholder="Filter" value="{ui>/globalFilter}" search="filterGlobally" width="10rem"/>
+						</contentRight>
+					</Bar>
+				<t:Table	id="tableMonitor"   width="100%" 
+						selectionMode="Single"
+						rows="{path:'MonitorList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+					<t:Column  sortProperty="PCO_STATUS" filterProperty="PCO_STATUS" >
+						<Label text="{i18n>ETEMPCoStatus}"/>
+						<t:template>
+							<core:Icon src="sap-icon://circle-task-2"    color="{path : 'MonitorList>PCO_STATUS', formatter : '.formatter.formatIcon'}"  >
+							</core:Icon>
+						</t:template>
+					</t:Column>
+					<t:Column sortProperty="KEPWARE_STATUS" filterProperty="KEPWARE_STATUS">
+						<Label text="{i18n>ETEMKepwareStatus}"/>
+						<t:template>
+							<core:Icon src="sap-icon://circle-task-2"   class="size1"  color="{path : 'MonitorList>KEPWARE_STATUS', formatter : '.formatter.formatIcon'}"  >
+							</core:Icon>
+						</t:template>
+					</t:Column>
+					<t:Column sortProperty="START_DATE" filterProperty="START_DATE">
+						<Label text="{i18n>ETEMStartDate}"/>
+						<t:template>
+							<Text text="{MonitorList>START_DATE}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column sortProperty="END_DATE" filterProperty="END_DATE">
+						<Label text="{i18n>ETEMEndDate}"/>
+						<t:template>
+							<Text text="{MonitorList>END_DATE}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+
+					<t:Column  sortProperty="DURATION" filterProperty="DURATION">
+						<Label text="{i18n>ETEMDuration}" />
+						<t:template>
+							<Text text="{MonitorList>DURATION}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+
+				</t:columns>
+
+			</t:Table>
+		</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

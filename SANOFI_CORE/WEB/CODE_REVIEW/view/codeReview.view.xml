@@ -1,0 +1,153 @@
+<mvc:View
+		height="100%"
+		controllerName="CODE_REVIEW.controller.codeReview"
+		xmlns:form="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns:u="sap.ui.unified"
+		xmlns:table="sap.ui.table" 
+		xmlns:mvc="sap.ui.core.mvc" 
+		 xmlns:f="sap.ui.layout.form"   
+		 xmlns:ly="sap.ui.layout"
+		 xmlns:com="sap.ui.commons"   
+		xmlns="sap.m">
+		<NavContainer id="wizardNavContainer">
+			<pages>
+				<Page
+				id="wizardContentPage"
+				showHeader="false">
+
+					<content>	
+						<FlexBox class="sapUiMediumMargin"
+							alignItems="Center"
+							justifyContent="Center">
+							<items>
+							<VBox>
+
+						
+
+								      <ComboBox width= "40rem" id="selectionList" items = "{projectsList>/Rowset/0/Row/}" selectionChange = "onSelectItem" >
+									
+									<core:Item key = "{projectsList>NAME}"  text = "{projectsList>NAME}"  />
+								  
+								</ComboBox>
+								<HBox>
+								<CheckBox id="FL_QUERY" text="Query" selected="true" />
+								<CheckBox id="FL_TRANSACTION"  text="Transaction" selected="false" />
+								<CheckBox id="FL_WEB"  text="Web" selected="false" />
+								</HBox>
+
+								<HBox>
+								<Button class= "sapUiMediumMarginBegin"  text="PROJECT STATISTIC" 
+										type="Emphasized" width="14rem" align="Center" press="handleStatisticPress"/>
+								<Button class= "sapUiMediumMarginBegin" text="CODE REVIEW" 
+										type="Emphasized" width="14rem" align="Center" press="handleCodeReviewPress"/>
+								</HBox>
+	
+								</VBox>			
+									</items>
+								</FlexBox>
+					
+	<Panel headerText="Project Statistic"  id="listStatsModel" visible="false">
+	<table:Table  rows="{listStatsModel>/Rowset/0/Row}" visibleRowCount="5"   selectionMode = "None" enableColumnReordering=" true" enableCellFilter="true" >
+
+		<table:columns>
+				<table:Column width="15rem"   
+					filterProperty= "TYPE"
+					filterOperator="EQ" 
+                   				 sortProperty= "TYPE"
+					sortOrder="Ascending" 
+					hAlign= "Center">
+					<com:TextView text="Object Type" />
+					<table:template>
+						<com:TextView textAlign= "Center" text="{listStatsModel>TYPE}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="15rem"   
+					filterProperty= "NB"
+					filterOperator="EQ" 
+                   				 sortProperty= "NB"
+					sortOrder="Ascending" 
+					hAlign= "Center">
+					<com:TextView text="Number" />
+					<table:template>
+						<com:TextView textAlign= "Center" text="{listStatsModel>NB}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+
+				<table:Column 
+					filterProperty= "WEIGHT"
+					filterOperator="StartsWith" 
+                    				sortProperty= "WEIGHT"
+					sortOrder="Ascending">
+					<com:TextView text="Size" />
+					<table:template>
+						<com:TextView  text="{listStatsModel>WEIGHT}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+			
+
+		</table:columns>
+		</table:Table>
+ </Panel>
+
+<!-- Begin of Report Errors-->	
+	
+						<Panel headerText="ERROR LIST"  id="reportPanel" visible="false">
+		<table:Table id="errorsTable" rows="{listErrorsModel>/Rowset/0/Row}" visibleRowCount="100"   selectionMode = "None" enableColumnReordering=" true" enableCellFilter="true" >
+
+		<table:columns>
+				<table:Column width="15rem"   
+					filterProperty= "TYPE"
+					filterOperator="EQ" 
+                   				 sortProperty= "TYPE"
+					sortOrder="Ascending" 
+					hAlign= "Center">
+					<com:TextView text="TYPE" />
+					<table:template>
+						<com:TextView textAlign= "Center" text="{listErrorsModel>TYPE}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="15rem"   
+					filterProperty= "NAME"
+					filterOperator="EQ" 
+                   				 sortProperty= "NAME"
+					sortOrder="Ascending" 
+					hAlign= "Center">
+					<com:TextView text="NAME" />
+					<table:template>
+						<com:TextView textAlign= "Center" text="{listErrorsModel>NAME}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+
+				<table:Column 
+					filterProperty= "ERROR"
+					filterOperator="StartsWith" 
+                    				sortProperty= "ERROR"
+					sortOrder="Ascending">
+					<com:TextView text="ERROR" />
+					<table:template>
+						<com:TextView  text="{listErrorsModel>ERROR}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="40rem"
+					filterProperty= "PATH"
+					filterOperator="StartsWith" 
+                   				 sortProperty= "PATH"
+					sortOrder="Ascending">
+					<com:TextView text="FULL PATH]" />
+					<table:template>
+						<com:TextView  text="{listErrorsModel>PATH}" templateShareable="true"/>
+					</table:template>
+				</table:Column>
+
+		</table:columns>
+		</table:Table>
+					       </Panel>
+
+
+					</content>
+				
+				</Page>
+			</pages>
+		</NavContainer>
+</mvc:View>

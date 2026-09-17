@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Audit Trail</title>
+		<link rel="icon" type="image/png" href="image/sanofi_logo_small.png" />
+		<script id="sap-ui-bootstrap"
+			src="/sapui5-1.71/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-resourceroots='{"AuditTrail": "./"}'
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-xx-componentPreload="off"
+			data-sap-ui-libs="sap.m" 
+			data-sap-ui-preload="async">
+		</script>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				var proxied = window.XMLHttpRequest.prototype.open;
+                        		    window.XMLHttpRequest.prototype.open = function() {
+                        		     	 var url = arguments[1];
+                    			    if(url.indexOf("?") == -1){ url = url + "?"; }
+                      			     arguments[1] = url + "&_TheAppVersion_=" + new Date().getTime()
+                     			   return proxied.apply(this, [].slice.call(arguments));
+                        };
+
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "AuditTrail"
+					}),
+					appWidthLimited:false
+				}).placeAt("content");
+			});
+		</script>
+
+	</head>
+	<body class="sapUiBody" id="content">
+		<input type="hidden" id="firstName" name="custId" value="{FirstName}">
+		<input type="hidden" id="lastName" name="custId" value="{LastName}">
+		<input type="hidden" id="EVF_Plant" name="custId" value="{EVF_Plant}">
+		<input type="hidden" id="input-username" name="custId" value="{IllumLoginName}">
+		<input type="hidden" id="input-roles" name="custId" value="{IllumLoginRoles}">
+	</body>
+</html>

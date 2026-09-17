@@ -1,0 +1,140 @@
+<mvc:View controllerName="AuditTrail.controller.AuditTrail"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form">
+		<Page id="page-audit-trail" showHeader="false">
+			<content>
+				<fb:FilterBar id="filterbar-plant-parameters" search="fnLoadAuditTrailList" showClearButton="true"
+						showFilterConfiguration="false" useToolbar="false" class="filterBar">
+					<fb:filterGroupItems>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-1" name="A" label="{i18n>commonLabelPlant}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-plant-id" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-2" name="A" label="{i18n>auditTrailAction}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-action" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-3" name="A" label="{i18n>auditTrailDBTable}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-db-table" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-4" name="A" label="{i18n>auditTrailValueOld}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-value-old" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-5" name="A" label="{i18n>auditTrailValueNew}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-value-new" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-6" name="A" label="{i18n>auditTrailMessage}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-message" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-12" name="A" label="{i18n>auditTrailUserID}" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="input-userID" type="Text" width="100px" />
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-10" name="A" label="{i18n>auditTrailStartTime}" visibleInFilterBar="true">
+							<fb:control>
+								<DateTimePicker id="datetime-from"  displayFormat="dd/MM/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" change="fnFromDateChanged" width="12rem">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</DateTimePicker>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem groupName="GroupPlantFilter-11" name="A" label="{i18n>auditTrailEndTime}" visibleInFilterBar="true">
+							<fb:control>
+								<DateTimePicker id="datetime-to"  displayFormat="dd/MM/yyyy HH:mm:ss" valueFormat="MM/dd/yyyy HH:mm:ss" change="fnToDateChanged" width="12rem">
+									<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+									</layoutData>
+								</DateTimePicker>
+							</fb:control>
+						</fb:FilterGroupItem>
+					</fb:filterGroupItems>
+				</fb:FilterBar>
+				<core:Fragment fragmentName="AuditTrail.view.BusyDialog" type="XML"></core:Fragment>
+				<Table id="table-audit-trail" width="auto" noDataText="{i18n>commonNoData}" items="{/Rowsets/Rowset/0/Row}" 
+						showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true">
+					<headerToolbar></headerToolbar>
+					<columns>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailTimestamp}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Desktop" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false" width="5rem">
+							<header>
+								<Text text="{i18n>auditTrailIdPlant}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false" width="5rem">
+							<header>
+								<Text text="{i18n>auditTrailAction}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailDBTable}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailValueOld}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailValueNew}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailMessage}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+						<Column hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<header>
+								<Text text="{i18n>auditTrailComment}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</header>
+							<footer/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem >
+							<cells>
+								<Text text="{DT_TIMESTAMP}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{ID_PLANT}" width="auto" class="textHighlight" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_ACTION}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_DB_TABLE}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_VALUE_OLD}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_VALUE_NEW}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_MESSAGE}" width="auto" class="textHighlight" textAlign="Begin" textDirection="Inherit" visible="true"/>
+								<Text text="{DS_COMMENT}" width="auto" textAlign="Begin" textDirection="Inherit" visible="true"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</content>
+		</Page>
+</mvc:View>

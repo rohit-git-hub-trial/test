@@ -1,0 +1,14 @@
+{
+  "timestamp": 1764329715,
+  "files": {
+    "index.html": "index.html?v=3d69d44a",
+    "Component.js": "Component.js?v=efbafc86",
+    "manifest.json": "manifest.json?v=89f43b64",
+    "xs-app.json": "xs-app.json?v=2d18db8c",
+    "controller/PlantManagement.controller.js": "controller/PlantManagement.controller.js?v=12f539aa",
+    "view/PlantManagement.view.xml": "view/PlantManagement.view.xml?v=ef6db2d3",
+    "model/models.js": "model/models.js?v=45bdd755",
+    "util/formatter.js": "util/formatter.js?v=853ed280",
+    "i18n/i18n.properties": "i18n/i18n.properties?v=557c7221"
+  }
+}

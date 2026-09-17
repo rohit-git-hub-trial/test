@@ -1,0 +1,33 @@
+sap.ui.define([
+	"sap/ui/core/UIComponent",
+	"sap/ui/Device",
+	"AuditTrail/model/models"
+], function (UIComponent, Device, models) {
+	"use strict";
+
+	return UIComponent.extend("AuditTrail.Component", {
+
+		metadata: {
+			manifest: "json"
+		},
+
+		/**
+		 * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
+		 * @public
+		 * @override
+		 */
+		init: function () {
+			// To update the limit size of some models
+
+			// call the base component's init function
+			(function() { jQuery.sap.registerModulePath("i2d.pp.mrpcockpit.reuse", "i2d/pp/mrpcockpit/reuse/"); }());
+			UIComponent.prototype.init.apply(this, arguments);
+
+			// enable routing
+			this.getRouter().initialize();
+
+			// set the device model
+			this.setModel(models.createDeviceModel(), "device");
+		}
+	});
+});

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="UTF-8">
+		<title>Application Log</title>
+
+		<script type="text/javascript" src="/XMII/JavaScript/bootstrap.js" data-libs="i5Chart,i5Grid,RuntimeUtilities,UIElements,swipeLibrary"></script>
+
+		<!--@@****************************************************************  Your file(s) starts here  ****************************************************************@@-->
+				<link rel="stylesheet" type="text/css" href="/XMII/CM/SANOFI_CORE/ApplicationLog/ApplicationLog.css">
+
+		<!--@@****************************************************************  Your file(s) ends here  ******************************************************************@@-->
+		<script type="text/javascript">
+			window["Settings"]= {"General":{"Header":{"URL":"","Height":""},"Footer":{"URL":"","Height":""},"ShowAlert":"N","TagRefreshRate":"","PageStyle":{"CSSFile":"/XMII/JavaScript/resources/lightBlue.css","CellStyleClass":"","CellTitleStyleClass":""},"MobilePageView":0,"JsSeparation":false,"Parameters":[],"Events":[],"ParametersSettings":{"SkipUserInput":false,"AllowUserInput":false}}};
+			generateGlobalParameters();
+				$(document).ready(function (){onPageReady();});
+		</script>
+		<script type="text/javascript">
+				$(document).ready(function (){
+					onDocumentReady();
+					bindEvent(Settings.General.Events);
+				});
+		</script>
+		<script type="text/javascript" src="/XMII/CompositionEnvironment/js/customControls/tag-color-picker.js"></script>
+		<link rel="stylesheet" type="text/css" href="/XMII/CompositionEnvironment/StyleSheets/ssce.css"></link>
+	</head>
+	<body style="padding:none;width:99%;height:98vh">
+	<div id="SSCEheader">
+	</div>
+	<div id="parentDiv" style="height:99vh;width:100%;overflow: auto;">
+		<table id="mobileTable" style="table-layout:fixed;position:absolute;height:98vh;width:98%;border-collapse:collapse;">
+			<tr id="mobileTableRow" style="height:100%">
+				<td id="swipeCell" class="borderWhite" style="overflow:hidden;height:100%;width:100%">
+					<div id="uiElementc0c0" class="formStyle" style="width:100%;height:98vh;">
+					<script>
+						try{
+							jQuery.sap.registerModulePath("CECustomControls", "/XMII/CompositionEnvironment/js/customControls");
+							jQuery.sap.require("CECustomControls.UIElementTextField");
+							jQuery.sap.require("CECustomControls.UIElementTextView");
+							jQuery.sap.require("CECustomControls.UIElementDropDown");
+							jQuery.sap.require("CECustomControls.UIElementButton");
+							jQuery.sap.require("CECustomControls.UIElementTextFieldM");
+							jQuery.sap.require("CECustomControls.UIElementTextViewM");
+							jQuery.sap.require("CECustomControls.UIElementLabelM");
+							jQuery.sap.require("CECustomControls.UIElementDropDownM");
+							jQuery.sap.require("CECustomControls.UIElementButtonM");
+							jQuery.sap.require("CECustomControls.UIElementTextAreaM");
+							jQuery.sap.require("CECustomControls.UIElementRadioButtonM");
+							jQuery.sap.require("CECustomControls.UIElementCheckBoxM");
+							jQuery.sap.require("CECustomControls.SSCEValueHelpDialog");
+							jQuery.sap.require("CECustomControls.IconComboBox");
+							jQuery.sap.require("CECustomControls.UIElementList");
+
+							var form_c0c0 = new com.sap.xmii.ssce.Form(({Columns:10,Rows:1}));
+
+							form_c0c0.draw("c0c0");
+
+						}catch(err){
+							sap.ui.core.BusyIndicator.hide();
+							console.log("An error has occured: " + err.name + "-" + err.message);
+						}
+					</script>
+						</div>
+				<div id="c0c3" style="width:100%;height:98vh;border:none;height:98vh"></div>
+				<div id="c0c4" style="width:100%;height:98vh;border:none;height:98vh"></div>
+				<div id="c0c7" style="width:100%;height:98vh;border:none;height:98vh"></div>
+				<div id="c0c8" style="width:100%;height:98vh;border:none;height:98vh"></div>
+				<div id="c0c9" style="width:100%;height:98vh;border:none;height:98vh"></div>
+					<div id="gridc1c0" style="width:100%;height:98vh;">
+					<script>
+						try{
+							var grid_c1c0 = new com.sap.xmii.grid.init.i5Grid("SANOFI_CORE/ApplicationLog/Display/ApplicationLogi5Grid","SANOFI_CORE/ApplicationLog/Query/ApplicationLogXquery",true);
+						grid_c1c0.registerCreationEventHandler(ceController.addObject("c1c0",grid_c1c0));
+							grid_c1c0.draw("gridc1c0");
+
+						}catch(err){
+							sap.ui.core.BusyIndicator.hide();
+							console.log("An error has occured: " + err.name + "-" + err.message);
+						}
+					</script>
+						</div>
+				</td>
+			</tr>
+		</table>
+<div id="bottom" style="position:absolute;bottom:0px;left:0px;width:98%; height:-1vh;">
+	<div id="SSCEfooter" style="position:absolute;left:0;width:100%">
+	</div>
+	<div id="errorMessages" style="position:absolute;top:5px;left:0px;width:98%; height:40%;">
+	</div>
+	<div id="toolBar" style="position:absolute;bottom:0px;left:0px;width:100%; height:50%;text-align:center;">
+		<button tabindex="0" style="left:10px;position:absolute" class="sapUiBtn sapUiBtnFixedWidth sapUiBtnNorm sapUiBtnS sapUiBtnStd" onclick="swipeContent('right')">|<<</button>
+		<button id="desktopVersion" tabindex="0" style="" class="sapUiBtn sapUiBtnFixedWidth sapUiBtnNorm sapUiBtnS sapUiBtnStd" onclick="requestDesktopSite()"></button>
+		<button tabindex="0" style="right:0px;position:absolute" class="sapUiBtn sapUiBtnFixedWidth sapUiBtnNorm sapUiBtnS sapUiBtnStd" onclick="swipeContent('left')">>>|</button>
+	</div>
+</div>
+	<script>
+			//@@*****************************************************************  Your code starts here  *****************************************************************@@
+
+
+
+
+
+
+			
+			
+			
+			
+			
+			//@@**************************************************************  Your code ends here  **************************************************************@@
+	</script>
+	<script>
+		jQuery.sap.byId("desktopVersion").text(oBundle.getText("REQUEST_DSKTP_SITE"));
+		var charts=["c0c0","c0c3","c0c4","c0c7","c0c8","c0c9","c1c0"];
+		var currentChartIndex = 0;
+		var changed = 1;
+	</script>
+	<script>
+		function onPageReady() {
+			for (var k = 1; k < charts.length; k++) {
+				jQuery('div[id$=' + charts[k] + ']').hide();
+			}
+		}
+
+		function swipeContent(direction) {
+			if (direction != "left" && direction != "right")
+				return;
+			var chartModified = false;
+			var oldChartIndex = currentChartIndex;
+			if(direction=="left" && currentChartIndex != charts.length-1){
+				currentChartIndex++;
+				if (changed <= charts.length)
+					changed++;
+				chartModified = true;
+			} else {
+				if (direction=="right" && currentChartIndex != 0){
+					currentChartIndex--;
+					chartModified = true;
+				}
+			}
+			if (chartModified) {
+				if (direction == "left") {
+					jQuery('div[id$=' + charts[oldChartIndex] + ']').animate({
+						'marginRight': '102%'
+						}, 'slow',function(){
+							jQuery('div[id$=' + charts[oldChartIndex] + ']').hide();
+							jQuery('div[id$=' + charts[currentChartIndex] + ']').show();
+							jQuery('div[id$=' + charts[currentChartIndex] + ']').animate({marginLeft: '0%'}, 'slow', function () {
+								var id = jQuery('div[id$=' + charts[currentChartIndex] + ']')[0].id;
+								id = id.match("c[0-9]+c[0-9]+");
+								var object = ceController.miiUI5Objects[id];
+								if (changed <= charts.length)  {
+									if (object !== undefined && object != null) {
+										if(object instanceof com.sap.xmii.chart.hchart.i5Chart || (eval('com.sap.xmii.chart.hchart.i5SPCChart') !== undefined && object instanceof com.sap.xmii.chart.hchart.i5SPCChart) || (eval('com.sap.xmii.grid') !== undefined && eval('com.sap.xmii.grid.init.i5Grid') !== undefined && object instanceof com.sap.xmii.grid.init.i5Grid)){
+											object.refresh();
+										}
+										if(eval('com.sap.xmii.ssce') !== undefined && eval('com.sap.xmii.ssce.KPIView') !== undefined && object instanceof com.sap.xmii.ssce.KPIView) {
+											ceController.miiUI5Objects[charts[currentChartIndex]].kpiTileView.rerender();
+										}
+									}
+								}
+								if (changed == charts.length)
+									changed++;
+							});
+						});
+					} else if (direction == "right") {
+						jQuery('div[id$=' + charts[oldChartIndex] + ']').animate({
+							'marginLeft': '102%'
+							}, 'slow',function(){
+								jQuery('div[id$=' + charts[oldChartIndex] + ']').hide();
+								jQuery('div[id$=' + charts[currentChartIndex] + ']').show();
+								jQuery('div[id$=' + charts[currentChartIndex] + ']').animate({marginRight: '0%'}, 'slow', function () {
+									var id = jQuery('div[id$=' + charts[currentChartIndex] + ']')[0].id;
+									id = id.match("c[0-9]+c[0-9]+");
+									var object = ceController.miiUI5Objects[id];
+									if (changed <= charts.length)  {
+										if (object !== undefined && object != null) {
+										if(object instanceof com.sap.xmii.chart.hchart.i5Chart || (eval('com.sap.xmii.chart.hchart.i5SPCChart') !== undefined && object instanceof com.sap.xmii.chart.hchart.i5SPCChart) || (eval('com.sap.xmii.grid') !== undefined && eval('com.sap.xmii.grid.init.i5Grid') !== undefined && object instanceof com.sap.xmii.grid.init.i5Grid)){
+												object.refresh();
+											}
+										}
+									}
+									if (changed == charts.length)
+										changed++;
+								});
+							});
+						}
+					}
+		}
+		$(function() {
+			$("#swipeCell").swipe( {
+				swipe:function(event, direction, distance, duration, fingerCount) {
+					swipeContent(direction);
+				}
+			});
+		});
+	</script>
+	</body>
+</html>

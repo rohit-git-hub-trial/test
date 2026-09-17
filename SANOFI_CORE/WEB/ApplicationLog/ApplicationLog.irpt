@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="UTF-8">
+		<title>Application Log</title>
+
+		<script type="text/javascript" src="/XMII/JavaScript/bootstrap.js" data-libs="i5Chart,i5Grid,RuntimeUtilities,UIElements"></script>
+
+		<!--@@****************************************************************  Your file(s) starts here  ****************************************************************@@-->
+				<link rel="stylesheet" type="text/css" href="/XMII/CM/SANOFI_CORE/ApplicationLog/ApplicationLog.css">
+
+		<!--@@****************************************************************  Your file(s) ends here  ******************************************************************@@-->
+		<script type="text/javascript">
+			window["Settings"]= {"General":{"Header":{"URL":"","Height":""},"Footer":{"URL":"","Height":""},"ShowAlert":"N","TagRefreshRate":"","PageStyle":{"CSSFile":"/XMII/JavaScript/resources/lightBlue.css","CellStyleClass":"","CellTitleStyleClass":""},"MobilePageView":0,"JsSeparation":false,"Parameters":[],"Events":[],"ParametersSettings":{"SkipUserInput":false,"AllowUserInput":false}}};
+			generateGlobalParameters();
+		</script>
+		<script type="text/javascript">
+				$(document).ready(function (){
+					onDocumentReady();
+					bindEvent(Settings.General.Events);
+				});
+		</script>
+		<script type="text/javascript" src="/XMII/CompositionEnvironment/js/customControls/tag-color-picker.js"></script>
+		<link rel="stylesheet" type="text/css" href="/XMII/CompositionEnvironment/StyleSheets/ssce.css"></link>
+	</head>
+	<body style="padding:none;width:99%;height:98vh">
+	<div id="SSCEheader">
+	</div>
+	<div id="parentDiv" style="height:99vh;width:100%;overflow: auto;">
+		<table id="matrix1" style="table-layout:fixed;position:absolute;width:99%;border-collapse:collapse;">
+			<tr id="r0" style="height:9.7vh">
+				<td id="c0c0" class="borderWhite" style="overflow:hidden;height:8.7vh;width:30%" colspan=3 >
+					<div id="uiElementc0c0" class="formStyle" style="width:100%;height:8.7vh;">
+					<script>
+						try{
+							jQuery.sap.registerModulePath("CECustomControls", "/XMII/CompositionEnvironment/js/customControls");
+							jQuery.sap.require("CECustomControls.UIElementTextField");
+							jQuery.sap.require("CECustomControls.UIElementTextView");
+							jQuery.sap.require("CECustomControls.UIElementDropDown");
+							jQuery.sap.require("CECustomControls.UIElementButton");
+							jQuery.sap.require("CECustomControls.UIElementTextFieldM");
+							jQuery.sap.require("CECustomControls.UIElementTextViewM");
+							jQuery.sap.require("CECustomControls.UIElementLabelM");
+							jQuery.sap.require("CECustomControls.UIElementDropDownM");
+							jQuery.sap.require("CECustomControls.UIElementButtonM");
+							jQuery.sap.require("CECustomControls.UIElementTextAreaM");
+							jQuery.sap.require("CECustomControls.UIElementRadioButtonM");
+							jQuery.sap.require("CECustomControls.UIElementCheckBoxM");
+							jQuery.sap.require("CECustomControls.SSCEValueHelpDialog");
+							jQuery.sap.require("CECustomControls.IconComboBox");
+							jQuery.sap.require("CECustomControls.UIElementList");
+
+							var form_c0c0 = new com.sap.xmii.ssce.Form(({Columns:10,Rows:1}));
+
+							form_c0c0.draw("c0c0");
+
+						}catch(err){
+							sap.ui.core.BusyIndicator.hide();
+							console.log("An error has occured: " + err.name + "-" + err.message);
+						}
+					</script>
+						</div>
+				</td>
+				<td id="c0c3" class="borderWhite" style="overflow:hidden;height:8.7vh;width:10%" colspan=1 >
+				</td>
+				<td id="c0c4" class="borderWhite" style="overflow:hidden;height:8.7vh;width:30%" colspan=3 >
+				</td>
+				<td id="c0c7" class="borderWhite" style="overflow:hidden;height:8.7vh;width:10%" colspan=1 >
+				</td>
+				<td id="c0c8" class="borderWhite" style="overflow:hidden;height:8.7vh;width:10%" colspan=1 >
+				</td>
+				<td id="c0c9" class="borderWhite" style="overflow:hidden;height:8.7vh;width:10%" colspan=1 >
+				</td>
+			</tr>
+			<tr id="r1" style="height:9.7vh">
+				<td id="c1c0" class="borderWhite" style="overflow:hidden;height:86.3vh;width:100%" rowspan=9 colspan=10 >
+					<div id="gridc1c0" style="height:86.3vh;width:100%;">
+					<script>
+						try{
+							var grid_c1c0 = new com.sap.xmii.grid.init.i5Grid("SANOFI_CORE/ApplicationLog/Display/ApplicationLogi5Grid","SANOFI_CORE/ApplicationLog/Query/ApplicationLogXquery",true);
+						grid_c1c0.registerCreationEventHandler(ceController.addObject("c1c0",grid_c1c0));
+							grid_c1c0.draw("gridc1c0");
+
+						}catch(err){
+							sap.ui.core.BusyIndicator.hide();
+							console.log("An error has occured: " + err.name + "-" + err.message);
+						}
+					</script>
+						</div>
+				</td>
+			</tr>
+			<tr id="r2" style="height:9.7vh">
+			</tr>
+			<tr id="r3" style="height:9.7vh">
+			</tr>
+			<tr id="r4" style="height:9.7vh">
+			</tr>
+			<tr id="r5" style="height:9.7vh">
+			</tr>
+			<tr id="r6" style="height:9.7vh">
+			</tr>
+			<tr id="r7" style="height:9.7vh">
+			</tr>
+			<tr id="r8" style="height:9.7vh">
+			</tr>
+			<tr id="r9" style="height:9.7vh">
+			</tr>
+		</table>
+	</div>
+	<script>
+		try {
+			//@@*****************************************************************  Your code starts here  *****************************************************************@@
+
+
+
+
+
+
+			
+			
+			
+			
+			
+			//@@*****************************************************************  Your code ends here  *******************************************************************@@
+	} catch(e) {
+		showNotificationBarMsg(3, e.message);
+	}
+	</script>
+	<div id="SSCEfooter" style="position:absolute;bottom:0;width:99%">
+	</div>
+	</body>
+</html>

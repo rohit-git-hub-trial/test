@@ -1,0 +1,31 @@
+{ "Rowsets" : {
+
+                "DateCreated" : "2018-05-14T19:57:47", "Version" : "15.2 SP0 Patch 0 (Mar 8, 2018)", "StartDate" : "2018-05-14T18:57:47+0200", "EndDate" : "2018-05-14T19:57:47+0200", "CachedTime" : "",
+
+                "Rowset" : [
+
+                { "Columns" : {
+
+                               "Column" : [
+
+                               { "Name" : "PLANT", "SourceColumn" : "PLANT", "Description" : "PLANT", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "SENSOR_ID", "SourceColumn" : "SENSOR_ID", "Description" : "SENSOR_ID", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "PCO_STATUS", "SourceColumn" : "PCO_STATUS", "Description" : "PCO_STATUS", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "KEPWARE_STATUS", "SourceColumn" : "KEPWARE_STATUS", "Description" : "KEPWARE_STATUS", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 },
+
+                               { "Name" : "LAST_CHANGE", "SourceColumn" : "LAST_CHANGE", "Description" : "LAST_CHANGE", "SQLDataType" : -9, "MinRange" : 1.0, "MaxRange" : 1.0 } ] },
+
+                "Row" : [
+
+                               { "PLANT" : "F5UL", "SENSOR_ID" : "C65-1", "PCO_STATUS" : "1", "KEPWARE_STATUS" : "1","LAST_CHANGE" : "29/04/2020 14:02" },
+
+                               { "PLANT" : "F5UL", "SENSOR_ID" : "C65-2", "PCO_STATUS" : "1", "KEPWARE_STATUS" : "1","LAST_CHANGE" : "30/03/2020 08:00" }
+			]
+                               } ]
+
+                }
+
+}

@@ -1,0 +1,167 @@
+<core:FragmentDefinition
+		height="100%"
+		xmlns:form="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table" 
+		xmlns="sap.m">
+		<Page id="wizardReviewPage" showHeader="false"> 
+			<content>
+				<form:SimpleForm
+						title="1. Plant"
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout">
+					<form:content>
+						<Label text="Plant"/>
+						<Text  id  ="plantRevId" text=""/>
+					</form:content>
+				</form:SimpleForm>
+				<form:SimpleForm
+						title="2. Check Based data"
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout">
+					<form:content>
+		<Table id="tableBasedTasks"		inset="false"
+		items="{path:'basedTaskList>/Rowsets/Rowset/0/Row'}">
+		<columns>
+			<Column
+				width="20em">
+				<Text text="Task" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Result" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text
+						text="{basedTaskList>TASK}" />
+					<Text
+						text="{basedTaskList>RESULT}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+					</form:content>
+				</form:SimpleForm>
+				<form:SimpleForm
+						title="3. Activities / Dashboard Configuration"
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout">
+					<form:content>
+					
+		<Table id="tableActivitiesTasks"
+		inset="false"
+		items="{path:'activitiesTaskList>/Rowsets/Rowset/0/Row'}">
+
+		<columns>
+			<Column
+				width="20em">
+				<Text text="Task" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Result" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text
+						text="{activitiesTaskList>TASK}" />
+					<Text
+						text="{activitiesTaskList>RESULT}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+					</form:content>
+				</form:SimpleForm>
+
+				<form:SimpleForm
+						title="4. Job Configuration"
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout">
+					<form:content>
+		<Table id="tableJobsTasks"
+		inset="false"
+		items="{path:'jobsTaskList>/Rowsets/Rowset/0/Row'}">
+
+		<columns>
+			<Column
+				width="20em">
+				<Text text="Task" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Result" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text
+						text="{jobsTaskList>TASK}" />
+					<Text
+						text="{jobsTaskList>RESULT}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+					</form:content>
+				</form:SimpleForm>
+
+				<form:SimpleForm
+						title="5. Plant hierarchy Configuration"
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout">
+					<form:content>
+	
+		<Table id="tablePlantHieTasks"
+		inset="false"
+		items="{path:'plantHieTaskList>/Rowsets/Rowset/0/Row'}">
+
+		<columns>
+			<Column
+				width="20em">
+				<Text text="Task" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Result" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text
+						text="{plantHieTaskList>TASK}" />
+					<Text
+						text="{plantHieTaskList>RESULT}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+					</form:content>
+				</form:SimpleForm>
+			</content>
+			<footer>
+				<Bar>
+					<contentRight>
+						<Button text="Submit" press="handleWizardSubmit"/>
+						<Button text="Cancel" press="handleWizardCancel"/>
+					</contentRight>
+				</Bar>
+			</footer>
+		</Page>
+</core:FragmentDefinition>

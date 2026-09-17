@@ -1,0 +1,116 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" id="SanofiOeeLaunchpadView" viewName="SanofiOM"
+	controllerName="Sanofi.ApplicationLaunchpad.controller.ApplicationLaunchpad" displayBlock="true">
+	<App id="idAppControl" class="customCSS">
+		<pages id="pages">
+			<Page title="Server Launchpad" id="ServerLaunchpad">
+				<content id="content">
+					<FlexBox
+								justifyItem="Center"
+								justifyContent="Center">
+				
+					</FlexBox>
+					<FlexBox
+								justifyItem="Center"
+								justifyContent="Center">
+						<items>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout " header="Wizard" id="WIZARD" press="onPressTile">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://key-user-settings"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout " header=" Server status" id="SERVER_STATUS" press="onPressTile">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://alert"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="PCO monitoring" id="pcoMonitoring" press="onPressTile" >
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://measurement-document" class="sapUiIcon2"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Audit trail" id="auditTrail" press="onPressTile" >
+										<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://measurement-document" class="sapUiIcon2"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Application Log" id="LogApp" press="onPressTile" >
+										<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://measurement-document" class="sapUiIcon2"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout " header="Plant Configuration" id="PLANT_CONFIG" press="onPressTile">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://key-user-settings"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="SANOFI CORE Api" id="UOM_MANAGEMENT" press="onPressTile" >
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://measurement-document" class="sapUiIcon2"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Code Review" id="CodeReview" press="onPressTile" >
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://measurement-document" class="sapUiIcon2"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						</items>
+					</FlexBox>
+					<FlexBox
+								justifyItem="Center"
+								justifyContent="Center">
+						<items>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout " header="Expensive Statement" id="EXPENSIVE" press="onPressTile">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://key-user-settings"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						
+						</items>
+					</FlexBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

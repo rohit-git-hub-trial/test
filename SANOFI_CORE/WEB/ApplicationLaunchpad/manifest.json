@@ -1,0 +1,38 @@
+{
+	"sap.app": {
+		"id": "Sanofi.ApplicationLaunchpad",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "Sanofi.ApplicationLaunchpad.view.ApplicationLaunchpad",
+			"type": "XML",
+			"async": true
+		},
+		"dependencies": {
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"config": {
+			"sample": {
+				"stretch": true,
+				"files": [
+					"view/ApplicationLaunchpad.view.xml",
+					"controller/ApplicationLaunchpad.controller.js",
+					"manifest.json"
+				]
+			}
+		}
+	}
+}

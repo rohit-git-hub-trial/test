@@ -1,0 +1,87 @@
+{
+    "_version": "1.12.0",
+
+    "sap.app": {
+        "id": "PlantManagement",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "Plant Management",
+        "description": "Single-screen Plant management UI with FlexibleColumnLayout"
+    },
+
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_belize",
+            "sap_fiori_3"
+        ]
+    },
+
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "PlantManagement.view.PlantManagement",
+            "type": "XML",
+            "async": true
+        },
+
+        "dependencies": {
+            "minUI5Version": "1.60",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {},
+                "sap.f": {},
+                "sap.uxap": {}
+            }
+        },
+
+        "models": {
+            "device": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "settings": {
+                "type": "sap.ui.model.json.JSONModel"
+            }
+        },
+
+        "resources": {
+            "css": [
+                { "uri": "css/style.css" }
+            ]
+        },
+
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "PlantManagement.view",
+
+                "controlId": "fcl",
+                "controlAggregation": "beginColumnPages"
+            },
+
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "PlantManagement",
+                    "target": "PlantManagement"
+                }
+            ],
+
+            "targets": {
+                "PlantManagement": {
+                    "viewName": "PlantManagement"
+                }
+            }
+        }
+    }
+}

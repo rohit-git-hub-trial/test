@@ -1,0 +1,129 @@
+<mvc:View
+		height="100%"
+		controllerName="TIMEZONE.controller.TestTimeZone"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns:u="sap.ui.unified"
+		xmlns:mvc="sap.ui.core.mvc" 
+		xmlns="sap.m">
+		<NavContainer id="wizardNavContainer">
+			<pages>
+				<Page
+				id="TimezonePage"
+				showHeader="false">
+					<content>
+						<VBox>	<f:Form id="FormDisplay354"
+			editable="false">
+			<f:title>
+				<core:Title text="TimeZone Test" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="3"
+					labelSpanL="3"
+					labelSpanM="3"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="4"
+					emptySpanL="4"
+					emptySpanM="4"
+					emptySpanS="0"
+					columnsXL="1"
+					columnsL="1"
+					columnsM="1"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Server Time zone">
+							<f:fields>
+								<Text  id="serverTimeZoneText"  />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Database Time zone">
+							<f:fields>
+								<Text  id="dbTimeZoneText"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Plant">
+							<f:fields>
+								<ComboBox id="plantIdSelect" width="15rem" selectionChange="onChangePlant" showSecondaryValues= "true"
+									items="{ path: 'PlantList>/Rowsets/Rowset/0/Row', sorter: { path: 'PLANT' }}">
+									<core:ListItem key="{PlantList>ID_PLANT}" text="{PlantList>ID_PLANT}" additionalText= "{PlantList>OEE_PLANT}" />
+								</ComboBox>
+							
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Plant TimeZone">
+							<f:fields>
+								<Text text="{Country}" id="plantTimeZone" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Get Current Date">
+							<f:fields>
+							<CheckBox text="current date" id="dateNow"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Specific Date">
+							<f:fields>
+	
+
+
+										<DateTimePicker
+			id="DTP1"
+			valueFormat="yyyy-MM-ddTHH:mm:ss"
+			displayFormat="short"
+			change="handleChange"
+			class="sapUiSmallMarginBottom"/>
+	<CheckBox text="UTC date" id="fl_utcDate"/>
+	<CheckBox text="Server date" id="fl_serverDate"/>
+	<CheckBox text="Plant date" id="fl_plantDate"/>
+							</f:fields>
+						</f:FormElement>
+
+						<f:FormElement label="Execute test">
+							<f:fields>
+								<Button text="Execute" press="onPress" />
+							</f:fields>
+						</f:FormElement>	
+						<f:FormElement label="Result">
+							<f:fields>	
+							<VBox width="70%">
+								<VBox>	
+								<Text  id="UTCDate" width="100%" />
+	</VBox>
+								<Text  id="PLANTDate" />
+								<Text  id="SERVERDate" />
+							</VBox>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Transaction call parameter">
+							<f:fields>	
+							<VBox width="70%">
+								<VBox>
+								<Text  id="plantId" />
+							</VBox>
+								<Text  id="DateNow" />
+								<Text  id="InputDate" />
+								<Text  id="flag_UTCDate" />
+								<Text  id="flag_PlantDate" />
+								<Text  id="flag_ServerDate" />
+							</VBox>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form></VBox>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="Cancel" press="handleWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+</mvc:View>

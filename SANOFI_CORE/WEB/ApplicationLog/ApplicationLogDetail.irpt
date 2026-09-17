@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<title>SAP MII</title>
+<link type="text/css" rel="stylesheet" href="Includes/Styles.css" />
+<{##SCRIPT} language="javascript" src="Includes/Functions.js"></{##SCRIPT}>
+<{##SCRIPT} language="JavaScript" type="text/JavaScript">
+<!--
+
+function start(){
+}
+
+//-->
+</{##SCRIPT}>
+</head>
+
+<body scroll="no">
+
+<div class="pageTitle">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>{##MESSAGE_DETAILS}</td>
+      <td align="right"><table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td nowrap="nowrap">&nbsp;</td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+</div>
+<SERVLET NAME="Illuminator">
+<PARAM NAME= "QueryTemplate" VALUE="SANOFI_CORE/ApplicationLog/Query/ApplicationLogDetailSelectQuery">
+<PARAM NAME= "Stylesheet" VALUE="/XMII/CM/SANOFI_CORE/ApplicationLog/Transformations/ApplicationLogDetail.xsl">
+<PARAM NAME= "Content-Type" VALUE="text/html">
+<PARAM NAME = "Param.1" VALUE="{ID_MESSA}">
+<PARAM NAME = "NumberFormat" VALUE="#,##0.00">
+<PARAM NAME = "DateFormat" VALUE="dd/MM/yyyy HH:mm:ss">
+<PARAM NAME = "Language" VALUE="{Language}">
+</SERVLET>
+<div class="containerButtonsPopUp">
+<input name="BtClose" type="button" id="BtClose" onclick="self.close();" value="      {##CLOSE}      "  class="objectButton" />
+</div>
+<div id="messageBar" class="containerMessages"></div>
+
+</body>
+</html>

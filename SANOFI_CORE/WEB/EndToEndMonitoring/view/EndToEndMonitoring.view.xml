@@ -1,0 +1,71 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns="sap.m" 
+	xmlns:t="sap.ui.table" 
+	xmlns:core="sap.ui.core" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:u="sap.ui.unified" 
+	id="SanofiOMView" 
+	viewName="SanofiOM"
+	controllerName="Sanofi.EndToEndMonitoring.controller.EndToEndMonitoring" displayBlock="true">
+	<App id="idAppControl">
+		<pages>
+			<Page title="{i18n>ETEMTitle}">
+				<content>
+					<Bar id="__bar1">
+					
+						<contentRight>
+							<SearchField id="SearchMonitor" placeholder="Filter" value="{ui>/globalFilter}" search="filterGlobally" width="10rem"/>
+							<Button id="RefreshMonitor" press="onRefreshMonitor" icon="sap-icon://synchronize" />	
+						</contentRight>
+					</Bar>
+				<t:Table	id="tableMonitor" width="100%" 
+						selectionMode="Single"
+						rows="{path:'MonitorList>/Rowsets/Rowset/0/Row'}" 
+						enableCellFilter="{ui>/cellFilterOn}" 
+						ariaLabelledBy="title">
+				<t:columns>
+				
+					<t:Column  sortProperty="ID_PCO_AGENT" filterProperty="ID_PCO_AGENT">
+						<Label text="{i18n>AGENT_NAME}"/>
+						<t:template>
+							<Text text="{MonitorList>ID_PCO_AGENT}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column  sortProperty="DS_MODE" filterProperty="DS_MODE" >
+						<Label text="{i18n>MODE}"/>
+						<t:template>
+							<Text text="{MonitorList>DS_MODE}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+						<t:Column  sortProperty="DS_STATUS" filterProperty="DS_STATUS" >
+						<Label text="{i18n>STATUS}"/>
+						<t:template>
+							<core:Icon src="sap-icon://circle-task-2"     color="{path : 'MonitorList>DS_STATUS', formatter : '.formatter.formatIcon'}"  >
+							</core:Icon>
+
+						</t:template>
+					</t:Column>
+					<t:Column  >
+						<Label text="{i18n>LAST_UPDATE}"/>
+						<t:template>
+							<Text text="{MonitorList>DT_LAST_UPDATE}" wrapping="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column  >
+						<Label text="{i18n>ACTION}"/>
+						<t:template>
+							<Button icon="sap-icon://begin" press="handleWizardCancel" visible="{parts :['MonitorList>DS_MODE', 'MonitorList>DS_STATUS' ], formatter : '.formatter.displayButtonRun'}"/>
+
+						</t:template>
+					</t:Column>
+				
+				
+				</t:columns>
+
+			</t:Table>
+		</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
